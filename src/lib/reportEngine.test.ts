@@ -82,6 +82,15 @@ const b02SpecificReports = generateReports([
   row("interest-expense-c", "635413", 12, 0),
   row("other-finance-expense", "635999", 99, 0),
 ]);
+const draftRevenue = row("draft-revenue", "511", 0, 500);
+draftRevenue.status = "Draft";
+const missingStatusRevenue = row("missing-status-revenue", "511", 0, 700);
+missingStatusRevenue.status = "";
+const postedOnlyReports = generateReports([
+  draftRevenue,
+  missingStatusRevenue,
+  row("posted-revenue", "511", 0, 100),
+]);
 
 assertEqual(value("01", reports.B03), 203, "B03.01 includes cash in from 131/511/33311 and cash out reducing 131");
 assertEqual(value("02", reports.B03), -80, "B03.02 supplier and service/admin expense payment");
@@ -100,5 +109,6 @@ assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "126"
 assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "266")?.current ?? 0, -5, "B01.266 uses only 2292");
 assertEqual(b02SpecificReports.B02.find((reportRow) => reportRow.code === "21")?.current ?? 0, 30, "B02.21 nets 5117 credit less 6327 debit");
 assertEqual(b02SpecificReports.B02.find((reportRow) => reportRow.code === "24")?.current ?? 0, 33, "B02.24 uses only 635411/635412/635413");
+assertEqual(postedOnlyReports.B02.find((reportRow) => reportRow.code === "01")?.current ?? 0, 100, "Only status Posted is included");
 
 console.log("report engine tests passed");

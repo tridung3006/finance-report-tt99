@@ -340,7 +340,7 @@ function notes(B01: ReportRow[], B02: ReportRow[], B03: ReportRow[]): NoteSectio
 }
 
 export function generateReports(rows: LedgerRow[]): GeneratedReports {
-  const posted = rows.filter((row) => !isVirtualAccount(row) && (!row.status || row.status.toLowerCase() === "posted"));
+  const posted = rows.filter((row) => !isVirtualAccount(row) && String(row.status || "").trim() === "Posted");
   const current = posted.filter((row) => row.periodRole === "current" || (!row.periodRole && row.bucket === "current"));
   const prior = posted.filter((row) => row.periodRole === "prior" || (!row.periodRole && row.bucket === "prior"));
   const opening = posted.filter((row) => row.periodRole === "opening" || (!row.periodRole && row.bucket === "opening"));
