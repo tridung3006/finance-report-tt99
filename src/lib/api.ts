@@ -11,6 +11,8 @@ export type GenerateReportsResponse = {
     priorEndDate: string;
     openingBalanceDate?: string;
     currentYearStartDate?: string;
+    currentB03OpeningDate?: string;
+    priorB03OpeningDate?: string;
   };
   reports: Pick<GeneratedReports, "B01" | "B02" | "B03" | "B09">;
   validations: ValidationIssue[];

@@ -223,7 +223,8 @@ const requiredColumns = [
   "department",
 ];
 
-const formulaVersion = "tt99-server-aggregation-v4-b01-ytd-profit";
+const formulaVersion = "tt99-server-aggregation-v7-tt99-closing-aware";
+const migrationOpeningDate = "2026-01-01";
 const cashPrefixes = ["111", "112", "113"];
 const excludedVirtualAccountNames = ["More Account 111/112", "More Account 131"];
 
@@ -236,7 +237,7 @@ const b01Lines = [
   ["100", "A - TÀI SẢN NGẮN HẠN", 0, "110+120+130+140+150+160", null, "debit", true],
   ["110", "I. Tiền và các khoản tương đương tiền", 1, "111+112", null, "debit", true],
   ["111", "1. Tiền", 2, null, ["111", "112", "113"], "debit"],
-  ["112", "2. Các khoản tương đương tiền", 2, null, ["1281"], "debit", false, 1, true],
+  ["112", "2. Các khoản tương đương tiền", 2, null, [], "debit", false, 1, true],
   ["120", "II. Đầu tư tài chính ngắn hạn", 1, "121+122+123+124+125+126", null, "debit", true],
   ["121", "1. Chứng khoán kinh doanh", 2, null, ["121"], "debit"],
   ["122", "2. Dự phòng giảm giá chứng khoán kinh doanh (*)", 2, null, ["2291"], "credit", false, -1],
@@ -357,11 +358,50 @@ const b01Lines = [
   ["440", "TỔNG CỘNG NGUỒN VỐN (440 = 300 + 400)", 0, "300+400", null, "credit", true],
 ];
 
+// Tuple indexes: 4 prefixes, 8 requiresManualMapping, 9 excluded prefixes,
+// 10 manualOnly. Ambiguous maturity/nature lines must remain zero until the
+// source contains enough detail; they must never reuse the same balance in
+// several statutory captions.
+const b01Overrides = {
+  "123": [["1281"], false], "124": [[], true, [], true], "125": [["1288"], false], "126": [[], true, [], true],
+  "132": [["331"], false], "135": [["138", "141", "2441", "334", "338"], false, ["1381"]],
+  "133": [["136"], false, ["1361"]], "165": [[], true, [], true],
+  "151": [[], true, [], true], "152": [[], true, [], true], "153": [[], true, [], true],
+  "161": [["2421"], false], "211": [[], true, [], true], "212": [[], true, [], true],
+  "214": [[], true, [], true], "215": [["2442"], false], "216": [[], true, [], true], "235": [[], true, [], true],
+  "236": [[], true, [], true], "237": [[], true, [], true], "238": [[], true, [], true],
+  "251": [[], true, [], true], "265": [[], true, [], true], "266": [[], true, [], true], "271": [["2422"], false],
+  "273": [[], true, [], true], "274": [[], true, [], true], "311": [["331"], false], "312": [["131"], false],
+  "313": [["332"], false], "317": [["336"], false, ["3361"]],
+  "320": [["138", "141", "2441", "338", "3441"], false, ["1381", "3387"]], "321": [["3411"], false],
+  "331": [[], true, [], true], "332": [[], true, [], true], "333": [[], true, [], true], "334": [[], true, [], true],
+  "336": [[], true, [], true], "337": [[], true, [], true],
+  "338": [["3442"], false], "339": [["3412", "3431"], false], "340": [["3432"], false],
+  "343": [[], true, [], true], "411": [["411"], false, ["41112", "4112", "4113", "4118"]],
+};
+for (const line of b01Lines) {
+  const override = b01Overrides[line[0]];
+  if (!override) continue;
+  line[4] = override[0];
+  line[8] = override[1];
+  line[9] = override[2] || [];
+  line[10] = Boolean(override[3]);
+}
+const retainedEarningsIndex = b01Lines.findIndex((line) => line[0] === "420");
+const retainedEarningsLabel = b01Lines[retainedEarningsIndex][1];
+b01Lines.splice(
+  retainedEarningsIndex,
+  1,
+  ["420", retainedEarningsLabel, 1, "420a+420b", null, "credit", true],
+  ["420a", "- Lũy kế đến cuối kỳ trước", 2, null, ["4211"], "credit"],
+  ["420b", "- Kỳ này", 2, null, ["4212"], "credit"],
+);
+
 const b02Lines = [
-  ["01", "1. Doanh thu bán hàng và cung cấp dịch vụ", 0, null, ["511"], "credit"],
+  ["01", "1. Doanh thu bán hàng và cung cấp dịch vụ", 0, null, ["511"], "credit", false, 1, false, ["5117"]],
   ["02", "2. Các khoản giảm trừ doanh thu", 0, null, ["521"], "debit"],
   ["10", "3. Doanh thu thuần về bán hàng và cung cấp dịch vụ (10 = 01 - 02)", 0, "01-02", null, "credit", true],
-  ["11", "4. Giá vốn hàng bán", 0, null, ["632"], "debit"],
+  ["11", "4. Giá vốn hàng bán", 0, null, ["632"], "debit", false, 1, false, ["6327"]],
   ["20", "5. Lợi nhuận gộp về bán hàng và cung cấp dịch vụ (20 = 10 - 11)", 0, "10-11", null, "credit", true],
   ["21", "6. Lãi/lỗ của hoạt động bán, thanh lý bất động sản đầu tư", 0, null, ["5117", "6327"], "credit", false, 1, true],
   ["22", "7. Doanh thu hoạt động tài chính", 0, null, ["515"], "credit"],
@@ -439,17 +479,21 @@ const legacyCashFlowRules = [
 ];
 
 const cashFlowRules = [
+  { code: "06", direction: "in", prefixes: ["344111"], text: ["nhan ky quy", "nhan ky cuoc"] },
+  { code: "02", direction: "in", prefixes: ["641712"], text: ["hoan chi phi ban hang", "hoan chi phi dich vu"] },
   { code: "01", direction: "in", prefixes: ["511", "33311", "131", "121"], text: ["khach hang", "customer", "invoice", "ban hang", "doanh thu"] },
-  { code: "06", direction: "in", prefixes: ["331", "138", "244", "338", "711", "141"], text: ["thu khac"] },
+  { code: "02", direction: "in", prefixes: ["331"], text: ["hoan tien nha cung cap", "hoan ung nha cung cap"] },
+  { code: "06", direction: "in", prefixes: ["138", "244", "338", "711", "141"], text: ["thu khac"] },
   { code: "33", direction: "in", prefixes: ["341"], text: ["vay", "giai ngan"] },
-  { code: "27", direction: "in", prefixes: ["515"], text: ["lai cho vay", "co tuc", "loi nhuan duoc chia"] },
+  { code: "27", direction: "in", prefixes: ["515111"], text: ["lai cho vay", "lai tien gui co ky han", "co tuc", "loi nhuan duoc chia"] },
   { code: "22", direction: "in", prefixes: ["211", "212", "213", "217"], text: ["thanh ly", "nhuong ban"] },
   { code: "24", direction: "in", prefixes: ["128", "228"], text: ["thu hoi cho vay", "ban cong cu no"] },
   { code: "26", direction: "in", prefixes: ["221", "222", "228"], text: ["thu hoi dau tu"] },
   { code: "31", direction: "in", prefixes: ["411"], text: ["gop von", "phat hanh co phieu"] },
   { code: "02", direction: "out", prefixes: ["121", "133", "151", "152", "153", "154", "155", "156", "157", "331", "621", "622", "627", "632", "641", "642"], text: ["nha cung cap", "mua hang", "gia von", "dich vu", "chi phi quan ly"] },
+  { code: "07", direction: "out", prefixes: ["344111"], text: ["tra lai ky quy", "tra lai ky cuoc"] },
   { code: "03", direction: "out", prefixes: ["334", "3382", "3383", "3384", "3385", "3386"], text: ["luong", "nhan vien", "salary", "payroll"] },
-  { code: "04", direction: "out", prefixes: ["335", "635"], text: ["lai vay", "interest"] },
+  { code: "04", direction: "out", prefixes: ["635"], text: ["lai vay", "interest"] },
   { code: "05", direction: "out", prefixes: ["3334", "821"], text: ["thue tndn"] },
   { code: "07", direction: "out", prefixes: ["333"], excludePrefixes: ["3334"], text: ["thue", "phi", "le phi"] },
   { code: "07", direction: "out", prefixes: ["138", "244", "338"], text: ["chi khac"] },
@@ -480,6 +524,15 @@ function addDays(dateText, days) {
   return date.toISOString().slice(0, 10);
 }
 
+function b01OpeningBalanceDate(endDate) {
+  const reportYearStart = yearStart(endDate);
+  return reportYearStart === migrationOpeningDate ? migrationOpeningDate : addDays(reportYearStart, -1);
+}
+
+function periodOpeningBalanceDate(startDate) {
+  return startDate === migrationOpeningDate ? migrationOpeningDate : addDays(startDate, -1);
+}
+
 function validateDate(value, field) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) {
     const error = new Error(`${field} must be YYYY-MM-DD`);
@@ -490,6 +543,10 @@ function validateDate(value, field) {
 
 function normalizeCode(value) {
   return String(value || "").replace(/^0+/, "");
+}
+
+function normalizeText(value) {
+  return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase();
 }
 
 function codeMatches(code, prefixes = []) {
@@ -512,6 +569,8 @@ function oneSidedBalance(accountRows, normalSide) {
     return total + Math.max(0, value);
   }, 0);
 }
+
+const grossBalanceCodes = new Set(["131", "132", "135", "163", "311", "312", "314", "315", "320"]);
 
 function netBalance(accountRows, normalSide) {
   return accountRows.reduce((total, row) => {
@@ -557,6 +616,21 @@ function collectLinePrefixes(lines, code, seen = new Set()) {
   return Array.from(new Set(expressionCodes(expression).flatMap((childCode) => collectLinePrefixes(lines, childCode, seen))));
 }
 
+function collectLineExcludedPrefixes(lines, code, seen = new Set()) {
+  if (!code || seen.has(code)) return [];
+  seen.add(code);
+  const line = lines.find((item) => item[0] === code);
+  if (!line) return [];
+  const expression = line[3];
+  const excludedPrefixes = line[9];
+  const direct = Array.isArray(excludedPrefixes) ? excludedPrefixes : [];
+  if (!expression) return direct;
+  return Array.from(new Set([
+    ...direct,
+    ...expressionCodes(expression).flatMap((childCode) => collectLineExcludedPrefixes(lines, childCode, seen)),
+  ]));
+}
+
 function collectB03Codes(code, seen = new Set()) {
   if (!code || seen.has(code)) return [];
   seen.add(code);
@@ -574,13 +648,17 @@ function buildLineReport(lines, currentAgg, priorAgg, mode) {
   const allCurrent = currentAgg || [];
   const allPrior = priorAgg || [];
 
-  for (const [code, _label, _level, expression, prefixes, side, _bold, sign = 1, requiresManualMapping] of lines) {
+  for (const [code, _label, _level, expression, prefixes, side, _bold, sign = 1, requiresManualMapping, excludedPrefixes = [], manualOnly = false] of lines) {
     if (!code || expression || !prefixes) continue;
-    const currentRows = allCurrent.filter((row) => codeMatches(row.account_code || row.root_account_code, prefixes));
-    const priorRows = allPrior.filter((row) => codeMatches(row.account_code || row.root_account_code, prefixes));
-    const calc = mode === "balance" ? (requiresManualMapping ? oneSidedBalance : netBalance) : periodActivity;
-    currentValues.set(code, calc(currentRows, side) * sign);
-    priorValues.set(code, calc(priorRows, side) * sign);
+    const matchesLine = (row) => {
+      const accountCode = row.account_code || row.root_account_code;
+      return codeMatches(accountCode, prefixes) && !codeMatches(accountCode, excludedPrefixes);
+    };
+    const currentRows = manualOnly ? [] : allCurrent.filter(matchesLine);
+    const priorRows = manualOnly ? [] : allPrior.filter(matchesLine);
+    const calc = mode === "balance" ? (grossBalanceCodes.has(code) ? oneSidedBalance : netBalance) : periodActivity;
+    currentValues.set(code, manualOnly ? 0 : calc(currentRows, side) * sign);
+    priorValues.set(code, manualOnly ? 0 : calc(priorRows, side) * sign);
     currentSources.set(code, prefixes);
   }
 
@@ -619,15 +697,15 @@ function addValue(rows, code, side, amount, formulaNote) {
   row.formula = row.formula ? `${row.formula}; ${formulaNote}` : formulaNote;
 }
 
-function applyUnclosedProfitFromYtdB02ToB01(B01, ytdB02) {
-  const currentAdjustment = reportValue(B01, "280") - reportValue(B01, "440");
-  const priorAdjustment = reportValue(B01, "280", "prior") - reportValue(B01, "440", "prior");
-  addValue(B01, "420", "current", currentAdjustment, "Tự cân B01: ghi nhận lãi/lỗ chưa phân phối chưa kết chuyển = 280 - 440 trước điều chỉnh");
-  addValue(B01, "400", "current", currentAdjustment, "420 đã bao gồm lãi/lỗ chưa phân phối chưa kết chuyển");
-  addValue(B01, "440", "current", currentAdjustment, "400 đã bao gồm lãi/lỗ chưa phân phối chưa kết chuyển");
-  addValue(B01, "420", "prior", priorAdjustment, "Tự cân B01: ghi nhận lãi/lỗ chưa phân phối chưa kết chuyển = 280 - 440 trước điều chỉnh");
-  addValue(B01, "400", "prior", priorAdjustment, "420 đã bao gồm lãi/lỗ chưa phân phối chưa kết chuyển");
-  addValue(B01, "440", "prior", priorAdjustment, "400 đã bao gồm lãi/lỗ chưa phân phối chưa kết chuyển");
+function applyUnclosedProfitFromYtdB02ToB01(B01, ytdB02, currentAdjustment, priorAdjustment) {
+  addValue(B01, "420b", "current", currentAdjustment, "Kết quả chưa kết chuyển = số dư Có trừ Nợ của các tài khoản tạm thời loại 5-9");
+  addValue(B01, "420", "current", currentAdjustment, "420b bao gồm kết quả chưa kết chuyển");
+  addValue(B01, "400", "current", currentAdjustment, "420 bao gồm lãi/lỗ chưa kết chuyển từ B02 lũy kế");
+  addValue(B01, "440", "current", currentAdjustment, "400 bao gồm lãi/lỗ chưa kết chuyển từ B02 lũy kế");
+  addValue(B01, "420b", "prior", priorAdjustment, "Kết quả chưa kết chuyển = số dư Có trừ Nợ của các tài khoản tạm thời loại 5-9");
+  addValue(B01, "420", "prior", priorAdjustment, "420b bao gồm kết quả chưa kết chuyển");
+  addValue(B01, "400", "prior", priorAdjustment, "420 bao gồm lãi/lỗ chưa kết chuyển từ B02 lũy kế");
+  addValue(B01, "440", "prior", priorAdjustment, "400 bao gồm lãi/lỗ chưa kết chuyển từ B02 lũy kế");
   return {
     currentAdjustment,
     priorAdjustment,
@@ -636,40 +714,36 @@ function applyUnclosedProfitFromYtdB02ToB01(B01, ytdB02) {
   };
 }
 
-function applyUnclosedProfitToB01(B01, ytdB02) {
-  const currentAdjustment = reportValue(ytdB02, "60");
-  const priorAdjustment = reportValue(ytdB02, "60", "prior");
-  addValue(B01, "420", "current", currentAdjustment, "Lai/lo chua ket chuyen tu B02 luy ke ma 60");
-  addValue(B01, "400", "current", currentAdjustment, "420 bao gom lai/lo chua ket chuyen tu B02 luy ke");
-  addValue(B01, "440", "current", currentAdjustment, "400 bao gom lai/lo chua ket chuyen tu B02 luy ke");
-  addValue(B01, "420", "prior", priorAdjustment, "Lai/lo chua ket chuyen tu B02 luy ke ma 60");
-  addValue(B01, "400", "prior", priorAdjustment, "420 bao gom lai/lo chua ket chuyen tu B02 luy ke");
-  addValue(B01, "440", "prior", priorAdjustment, "400 bao gom lai/lo chua ket chuyen tu B02 luy ke");
-  return {
-    currentAdjustment,
-    priorAdjustment,
-    currentYtdProfit: currentAdjustment,
-    priorYtdProfit: priorAdjustment,
-  };
-}
-
 function classifyCashMovement(movement) {
   const direction = Number(movement.amount || 0) >= 0 ? "in" : "out";
   const accounts = Array.isArray(movement.opposite_accounts) ? movement.opposite_accounts.map(normalizeCode) : [];
-  const text = `${movement.source_num || ""} ${movement.journal_name || ""} ${movement.account_name || ""}`.toLowerCase();
+  const text = normalizeText(`${movement.source_num || ""} ${movement.journal_name || ""} ${movement.account_name || ""}`);
   if (!accounts.length && Number(movement.cash_peer_count || 0) > 0) {
     return { code: "__internal_cash_transfer", reason: "Chuyển tiền nội bộ giữa 111/112/113 - loại khỏi B03" };
   }
 
-  const accountMatch = cashFlowRules.find((rule) => rule.direction === direction && ruleMatchesAccounts(rule, accounts));
-  if (accountMatch) return { code: accountMatch.code, reason: `Đối ứng: ${accounts.join(", ")}` };
+  const isFxRevaluation = ["danh gia lai", "chenh lech ty gia", "revaluation", "exchange difference"].some((needle) => text.includes(needle));
+  if (isFxRevaluation && accounts.some((account) => codeMatches(account, ["413", "515", "635"]))) {
+    return { code: "61", reason: "Ảnh hưởng đánh giá lại tiền và tương đương tiền bằng ngoại tệ" };
+  }
 
-  const textMatch = cashFlowRules.find((rule) => rule.direction === direction && rule.text.some((needle) => text.includes(needle)));
-  if (textMatch) return { code: textMatch.code, reason: `Nội dung: ${textMatch.text.join(", ")}` };
+  const scoredMatches = cashFlowRules
+    .filter((rule) => rule.direction === direction && ruleMatchesAccounts(rule, accounts))
+    .map((rule) => ({ rule, score: Math.max(...rule.prefixes.filter((prefix) => accounts.some((account) => account.startsWith(prefix))).map((prefix) => prefix.length)) }));
+  const maxSpecificity = scoredMatches.length ? Math.max(...scoredMatches.map((item) => item.score)) : 0;
+  const accountMatches = scoredMatches.filter((item) => item.score === maxSpecificity).map((item) => item.rule);
+  const accountCodes = Array.from(new Set(accountMatches.map((rule) => rule.code)));
+  if (accountCodes.length === 1) return { code: accountCodes[0], reason: `Đối ứng: ${accounts.join(", ")}` };
+  if (accountCodes.length > 1) return { code: "", reason: `Nhiều mã B03 có thể áp dụng (${accountCodes.join(", ")}): ${accounts.join(", ")}` };
+
+  const textMatches = cashFlowRules.filter((rule) => rule.direction === direction && rule.text.some((needle) => text.includes(needle)));
+  const textCodes = Array.from(new Set(textMatches.map((rule) => rule.code)));
+  if (textCodes.length === 1) return { code: textCodes[0], reason: "Phân loại theo nội dung chứng từ" };
+  if (textCodes.length > 1) return { code: "", reason: `Nội dung khớp nhiều mã B03: ${textCodes.join(", ")}` };
   return { code: "", reason: accounts.length ? `Chưa có rule cho đối ứng: ${accounts.join(", ")}` : "Không có tài khoản đối ứng" };
 }
 
-function buildB03(currentMovements, priorMovements, currentEndCash, priorEndCash) {
+function buildB03(currentMovements, priorMovements, currentOpeningCash, priorOpeningCash) {
   const currentTotals = new Map();
   const priorTotals = new Map();
   const sourceAccounts = new Map();
@@ -683,8 +757,10 @@ function buildB03(currentMovements, priorMovements, currentEndCash, priorEndCash
     if (!movement.matched_code) continue;
     priorTotals.set(movement.matched_code, (priorTotals.get(movement.matched_code) || 0) + Number(movement.amount || 0));
   }
-  currentTotals.set("61", 0);
-  priorTotals.set("61", 0);
+  if (!currentTotals.has("61")) currentTotals.set("61", 0);
+  if (!priorTotals.has("61")) priorTotals.set("61", 0);
+  currentTotals.set("60", Number(currentOpeningCash || 0));
+  priorTotals.set("60", Number(priorOpeningCash || 0));
 
   for (let pass = 0; pass < 4; pass += 1) {
     for (const [code, _label, _level, expression] of b03Lines) {
@@ -693,13 +769,6 @@ function buildB03(currentMovements, priorMovements, currentEndCash, priorEndCash
       priorTotals.set(code, evalExpression(expression, priorTotals));
     }
   }
-
-  const currentNet = currentTotals.get("50") || 0;
-  const priorNet = priorTotals.get("50") || 0;
-  currentTotals.set("60", Number(currentEndCash || 0) - currentNet);
-  priorTotals.set("60", Number(priorEndCash || 0) - priorNet);
-  currentTotals.set("70", Number(currentEndCash || 0));
-  priorTotals.set("70", Number(priorEndCash || 0));
 
   return b03Lines.map(([code, label, level, expression, bold]) => ({
     label,
@@ -813,11 +882,12 @@ async function queryRows(client, startDate, endDate, periodRole) {
   const result = await client.query(
     `with cash_journals as (
        select distinct journal_id
-         from journal
-        where status = 'Posted'
-          and ${notVirtualAccountSql()}
+      from journal
+      where status = 'Posted'
+        and ${notVirtualAccountSql()}
           and posting_date >= $1::date
           and posting_date <= $2::date
+          and posting_date <> $3::date
           and regexp_replace(coalesce(account_code, root_account_code, ''), '^0+', '') ~ '^(111|112|113)'
       )
       select id, journal_id, journal_num, source_num, journal_name, posting_date, status,
@@ -828,12 +898,13 @@ async function queryRows(client, startDate, endDate, periodRole) {
         and ${notVirtualAccountSql("j")}
         and posting_date >= $1::date
         and posting_date <= $2::date
+        and posting_date <> $3::date
         and (
           regexp_replace(coalesce(j.account_code, j.root_account_code, ''), '^0+', '') ~ '^[5-9]'
           or j.journal_id in (select journal_id from cash_journals)
         )
       order by posting_date, journal_id, id`,
-    [startDate, endDate],
+    [startDate, endDate, migrationOpeningDate],
   );
   return result.rows.map((row) => mapRow(row, periodRole));
 }
@@ -855,14 +926,14 @@ async function queryAsOfRows(client, endDate, periodRole) {
             sum(coalesce(debit, 0)) as debit,
             sum(coalesce(credit, 0)) as credit,
             sum(coalesce(balance, 0)) as balance,
-            null::varchar as account_analytic,
+            account_analytic,
             null::varchar as department
        from journal
       where status = 'Posted'
         and ${notVirtualAccountSql()}
         and posting_date <= $1::date
-      group by account_code, root_account_code
-      order by account_code, root_account_code`,
+      group by account_code, root_account_code, account_analytic
+      order by account_code, root_account_code, account_analytic`,
     [endDate],
   );
   return result.rows.map((row) => mapRow(row, periodRole));
@@ -876,15 +947,29 @@ async function queryBalanceAggregates(client, endDate) {
             max(root_account_name) as root_account_name,
             sum(coalesce(debit, 0)) as debit,
             sum(coalesce(credit, 0)) as credit,
+            account_analytic,
             count(*)::int as row_count
        from journal
       where status = 'Posted'
         and ${notVirtualAccountSql()}
         and posting_date <= $1::date
-      group by account_code, root_account_code`,
+      group by account_code, root_account_code, account_analytic`,
     [endDate],
   );
   return result.rows;
+}
+
+async function queryUnclosedTemporaryResult(client, endDate) {
+  const result = await client.query(
+    `select coalesce(sum(coalesce(credit, 0) - coalesce(debit, 0)), 0) as amount
+       from journal
+      where status = 'Posted'
+        and ${notVirtualAccountSql()}
+        and posting_date <= $1::date
+        and regexp_replace(coalesce(account_code, root_account_code, ''), '^0+', '') ~ '^[5-9]'`,
+    [endDate],
+  );
+  return Number(result.rows[0]?.amount || 0);
 }
 
 async function queryPeriodAggregates(client, startDate, endDate) {
@@ -901,11 +986,41 @@ async function queryPeriodAggregates(client, startDate, endDate) {
         and ${notVirtualAccountSql()}
         and posting_date >= $1::date
         and posting_date <= $2::date
+        and posting_date <> $3::date
         and regexp_replace(coalesce(account_code, root_account_code, ''), '^0+', '') ~ '^[5-9]'
+        and not exists (
+          select 1
+            from journal closing_line
+           where closing_line.journal_id = journal.journal_id
+             and closing_line.status = 'Posted'
+             and regexp_replace(coalesce(closing_line.account_code, closing_line.root_account_code, ''), '^0+', '') ~ '^911'
+        )
       group by account_code, root_account_code`,
-    [startDate, endDate],
+    [startDate, endDate, migrationOpeningDate],
   );
   return result.rows;
+}
+
+async function queryProfitTransferredTo421(client, startDate, endDate) {
+  const result = await client.query(
+    `select coalesce(sum(coalesce(j.credit, 0) - coalesce(j.debit, 0)), 0) as amount
+       from journal j
+      where j.status = 'Posted'
+        and ${notVirtualAccountSql("j")}
+        and j.posting_date >= $1::date
+        and j.posting_date <= $2::date
+        and j.posting_date <> $3::date
+        and regexp_replace(coalesce(j.account_code, j.root_account_code, ''), '^0+', '') ~ '^4212'
+        and exists (
+          select 1
+            from journal closing_line
+           where closing_line.journal_id = j.journal_id
+             and closing_line.status = 'Posted'
+             and regexp_replace(coalesce(closing_line.account_code, closing_line.root_account_code, ''), '^0+', '') ~ '^911'
+        )`,
+    [startDate, endDate, migrationOpeningDate],
+  );
+  return Number(result.rows[0]?.amount || 0);
 }
 
 async function queryCashMovements(client, startDate, endDate) {
@@ -919,10 +1034,21 @@ async function queryCashMovements(client, startDate, endDate) {
           and ${notVirtualAccountSql("j")}
           and j.posting_date >= $1::date
           and j.posting_date <= $2::date
+          and j.posting_date <> $3::date
           and regexp_replace(coalesce(j.account_code, j.root_account_code, ''), '^0+', '') ~ '^(111|112|113)'
       )
       select c.*,
              coalesce(array_remove(array_agg(distinct regexp_replace(coalesce(o.account_code, o.root_account_code, ''), '^0+', '')), ''), '{}') as opposite_accounts,
+             coalesce(
+               jsonb_agg(distinct jsonb_build_object(
+                 'account', regexp_replace(coalesce(o.account_code, o.root_account_code, ''), '^0+', ''),
+                 'account_name', coalesce(o.account_name, ''),
+                 'account_analytic', coalesce(o.account_analytic, ''),
+                 'debit', coalesce(o.debit, 0),
+                 'credit', coalesce(o.credit, 0)
+               )) filter (where o.id is not null),
+               '[]'::jsonb
+             ) as opposite_rows,
              count(distinct cp.id) as cash_peer_count,
              coalesce(max(o.source_num), c.source_num) as opposite_source
         from cash c
@@ -936,11 +1062,91 @@ async function queryCashMovements(client, startDate, endDate) {
          and ${notVirtualAccountSql("o")}
          and not (regexp_replace(coalesce(o.account_code, o.root_account_code, ''), '^0+', '') ~ '^(111|112|113)')
        group by c.id, c.journal_id, c.journal_num, c.source_num, c.journal_name, c.posting_date, c.account_code, c.account_name, c.root_account_code, c.amount`,
-    [startDate, endDate],
+    [startDate, endDate, migrationOpeningDate],
   );
-  return result.rows.map((row) => {
+  const accruedNatureResult = await client.query(
+    `select coalesce(accrual.account_analytic, '') as account_analytic,
+            array_agg(distinct regexp_replace(coalesce(counterpart.account_code, counterpart.root_account_code, ''), '^0+', ''))
+              filter (where counterpart.id is not null) as counterpart_accounts
+       from journal accrual
+       join journal counterpart
+         on counterpart.journal_id = accrual.journal_id
+        and counterpart.id <> accrual.id
+      where accrual.status = 'Posted'
+        and accrual.posting_date <= $1::date
+        and regexp_replace(coalesce(accrual.account_code, accrual.root_account_code, ''), '^0+', '') ~ '^335'
+        and coalesce(accrual.credit, 0) > 0
+        and regexp_replace(coalesce(counterpart.account_code, counterpart.root_account_code, ''), '^0+', '') ~ '^(6|8)'
+      group by coalesce(accrual.account_analytic, '')`,
+    [endDate],
+  );
+  const accruedNatureByAnalytic = new Map(accruedNatureResult.rows.map((row) => {
+    const accounts = (row.counterpart_accounts || []).map(normalizeCode).filter(Boolean);
+    const allInterest = accounts.length > 0 && accounts.every((account) => account.startsWith("635"));
+    const noInterest = accounts.length > 0 && accounts.every((account) => !account.startsWith("635"));
+    return [String(row.account_analytic || "").trim(), allInterest ? "04" : (noInterest ? "02" : "")];
+  }));
+  const groupedCashRows = new Map();
+  for (const row of result.rows) {
+    const key = row.journal_id == null ? `${row.journal_num || ""}|${row.posting_date || ""}|${row.source_num || ""}` : `journal:${row.journal_id}`;
+    const existing = groupedCashRows.get(key);
+    if (existing) {
+      existing.amount = Number(existing.amount || 0) + Number(row.amount || 0);
+      existing.cash_line_count += 1;
+      existing.cash_accounts = Array.from(new Set([...(existing.cash_accounts || []), normalizeCode(row.account_code || row.root_account_code)]));
+    } else {
+      groupedCashRows.set(key, {
+        ...row,
+        amount: Number(row.amount || 0),
+        cash_line_count: 1,
+        cash_accounts: [normalizeCode(row.account_code || row.root_account_code)],
+      });
+    }
+  }
+
+  return Array.from(groupedCashRows.values()).flatMap((row) => {
+    if (Math.abs(Number(row.amount || 0)) <= 1) {
+      return [{ ...row, matched_code: "__internal_cash_transfer", reason: "Tổng biến động tiền trong bút toán bằng 0 - chuyển tiền nội bộ" }];
+    }
+    const oppositeRows = Array.isArray(row.opposite_rows) ? row.opposite_rows : [];
+    const direction = Number(row.amount || 0) >= 0 ? "in" : "out";
+    const weightedRows = oppositeRows
+      .map((opposite) => ({
+        ...opposite,
+        nature_code: normalizeCode(opposite.account).startsWith("335")
+          ? (accruedNatureByAnalytic.get(String(opposite.account_analytic || "").trim()) || "")
+          : "",
+        weight: direction === "in"
+          ? Math.max(0, Number(opposite.credit || 0) - Number(opposite.debit || 0))
+          : Math.max(0, Number(opposite.debit || 0) - Number(opposite.credit || 0)),
+      }))
+      .filter((opposite) => opposite.account && opposite.weight > 0);
+    if (weightedRows.length > 1) {
+      const parts = weightedRows.map((opposite) => {
+        const part = {
+          ...row,
+          amount: direction === "in" ? opposite.weight : -opposite.weight,
+          opposite_accounts: [opposite.account],
+          account_name: `${row.account_name || ""} ${opposite.account_name || ""}`,
+        };
+        const classified = opposite.nature_code
+          ? { code: opposite.nature_code, reason: opposite.nature_code === "04" ? "Đối chiếu khoản trích trước với chi phí đi vay 635" : "Đối chiếu khoản trích trước với chi phí hàng hóa, dịch vụ" }
+          : classifyCashMovement(part);
+        return { ...part, matched_code: classified.code, reason: `${classified.reason}; phân bổ theo dòng đối ứng` };
+      });
+      const allocated = parts.reduce((total, part) => total + Math.abs(Number(part.amount || 0)), 0);
+      if (parts.every((part) => part.matched_code) && Math.abs(allocated - Math.abs(Number(row.amount || 0))) <= 1) return parts;
+    }
+    if (weightedRows.length === 1 && weightedRows[0].nature_code) {
+      const natureCode = weightedRows[0].nature_code;
+      return [{
+        ...row,
+        matched_code: natureCode,
+        reason: natureCode === "04" ? "Đối chiếu khoản trích trước với chi phí đi vay 635" : "Đối chiếu khoản trích trước với chi phí hàng hóa, dịch vụ",
+      }];
+    }
     const classified = classifyCashMovement(row);
-    return { ...row, matched_code: classified.code, reason: classified.reason };
+    return [{ ...row, matched_code: classified.code, reason: classified.reason }];
   });
 }
 
@@ -951,8 +1157,9 @@ async function countRows(client, startDate, endDate) {
       where status = 'Posted'
         and ${notVirtualAccountSql()}
         and posting_date >= $1::date
-        and posting_date <= $2::date`,
-    [startDate, endDate],
+        and posting_date <= $2::date
+        and posting_date <> $3::date`,
+    [startDate, endDate, migrationOpeningDate],
   );
   return Number(result.rows[0]?.count || 0);
 }
@@ -981,9 +1188,23 @@ function mapRawJournalRow(row, extra = {}) {
 }
 
 async function queryRawJournalByPrefixes(client, params) {
-  const { prefixes, fromDate, toDate, page, pageSize } = params;
+  const { prefixes, excludedPrefixes = [], fromDate, toDate, page, pageSize, excludeMigrationOpening = false } = params;
   if (!prefixes.length) return { rows: [], total: 0, page, pageSize };
   const offset = (page - 1) * pageSize;
+  const values = [fromDate, toDate, prefixes.map(normalizeCode), pageSize, offset];
+  const extraFilters = [];
+  if (excludeMigrationOpening) {
+    values.push(migrationOpeningDate);
+    extraFilters.push(`and posting_date <> $${values.length}::date`);
+  }
+  if (excludedPrefixes.length) {
+    values.push(excludedPrefixes.map(normalizeCode));
+    extraFilters.push(`and not exists (
+      select 1
+        from unnest($${values.length}::text[]) as excluded_prefix
+       where regexp_replace(coalesce(account_code, root_account_code, ''), '^0+', '') like excluded_prefix || '%'
+    )`);
+  }
   const result = await client.query(
     `select id, journal_id, journal_num, source_num, journal_name, posting_date, status,
             account_code, account_name, account_type, root_account_code, root_account_name,
@@ -994,6 +1215,7 @@ async function queryRawJournalByPrefixes(client, params) {
         and ${notVirtualAccountSql()}
         and posting_date >= $1::date
         and posting_date <= $2::date
+        ${extraFilters.join("\n")}
         and exists (
           select 1
             from unnest($3::text[]) as prefix
@@ -1001,7 +1223,7 @@ async function queryRawJournalByPrefixes(client, params) {
         )
       order by posting_date, journal_id, id
       limit $4 offset $5`,
-    [fromDate, toDate, prefixes.map(normalizeCode), pageSize, offset],
+    values,
   );
   return {
     rows: result.rows.map((row) => mapRawJournalRow(row)),
@@ -1043,7 +1265,7 @@ async function queryReportRawSource(client, params) {
   const isPrior = side === "prior";
   if (report === "B01") {
     const currentYearStartDate = yearStart(endDate);
-    const openingBalanceDate = addDays(currentYearStartDate, -1);
+    const openingBalanceDate = b01OpeningBalanceDate(endDate);
     const toDate = isPrior ? openingBalanceDate : endDate;
     const prefixes = collectLinePrefixes(b01Lines, code);
     return {
@@ -1055,9 +1277,10 @@ async function queryReportRawSource(client, params) {
     const fromDate = isPrior ? oneYearBack(startDate) : startDate;
     const toDate = isPrior ? oneYearBack(endDate) : endDate;
     const prefixes = collectLinePrefixes(b02Lines, code);
+    const excludedPrefixes = collectLineExcludedPrefixes(b02Lines, code);
     return {
-      ...(await queryRawJournalByPrefixes(client, { prefixes, fromDate, toDate, page, pageSize })),
-      meta: { report, code, side, sourceMode: "period", fromDate, toDate, prefixes },
+      ...(await queryRawJournalByPrefixes(client, { prefixes, excludedPrefixes, fromDate, toDate, page, pageSize, excludeMigrationOpening: true })),
+      meta: { report, code, side, sourceMode: "period", fromDate, toDate, prefixes, excludedPrefixes },
     };
   }
   if (report === "B03") {
@@ -1330,11 +1553,11 @@ async function queryPayableAgingRawSource(client, params) {
 
 async function queryTrialBalance(client, params) {
   const { startDate, endDate, accountPrefix = "", analytic = "", groupByAnalytic = false } = params;
-  const openingDate = addDays(startDate, -1);
+  const openingDate = periodOpeningBalanceDate(startDate);
   const normalizedPrefix = normalizeAccountPrefix(accountPrefix);
   const analyticText = String(analytic || "").trim();
   const filters = [];
-  const values = [openingDate, startDate, endDate];
+  const values = [openingDate, startDate, endDate, migrationOpeningDate];
   let idx = values.length;
 
   if (normalizedPrefix) {
@@ -1376,8 +1599,8 @@ async function queryTrialBalance(client, params) {
               max(root_account_name) as root_account_name,
               ${dimensionSelect}
               sum(case when posting_date <= $1::date then balance else 0 end) as opening_balance,
-              sum(case when posting_date >= $2::date and posting_date <= $3::date then debit else 0 end) as period_debit,
-              sum(case when posting_date >= $2::date and posting_date <= $3::date then credit else 0 end) as period_credit,
+              sum(case when posting_date >= $2::date and posting_date <= $3::date and posting_date <> $4::date then debit else 0 end) as period_debit,
+              sum(case when posting_date >= $2::date and posting_date <= $3::date and posting_date <> $4::date then credit else 0 end) as period_credit,
               sum(case when posting_date <= $3::date then balance else 0 end) as closing_balance,
               count(*)::int as row_count
          from normalized
@@ -1441,23 +1664,23 @@ async function queryTrialBalance(client, params) {
 
 async function queryTrialBalanceRawSource(client, params) {
   const { startDate, endDate, accountCode, accountAnalytic = "", groupByAnalytic = false, page, pageSize } = params;
-  const openingDate = addDays(startDate, -1);
+  const openingDate = periodOpeningBalanceDate(startDate);
   const normalizedAccount = normalizeAccountPrefix(accountCode);
   if (!normalizedAccount) return { rows: [], total: 0, page, pageSize, meta: { startDate, endDate, openingDate } };
   const offset = (page - 1) * pageSize;
-  const values = [startDate, endDate, normalizedAccount];
+  const values = [startDate, endDate, normalizedAccount, migrationOpeningDate];
   let analyticFilter = "";
   if (groupByAnalytic) {
     values.push(String(accountAnalytic || ""));
-    analyticFilter = `and coalesce(account_analytic, '') = $4`;
+    analyticFilter = `and coalesce(account_analytic, '') = $5`;
   }
   const result = await client.query(
     `select id, journal_id, journal_num, source_num, journal_name, posting_date, status,
             account_code, account_name, account_type, root_account_code, root_account_name,
             debit, credit, balance, account_analytic, department,
             case
-              when posting_date < $1::date then 'opening'
-              when posting_date >= $1::date and posting_date <= $2::date then 'period'
+              when posting_date < $1::date or posting_date = $4::date then 'opening'
+              when posting_date >= $1::date and posting_date <= $2::date and posting_date <> $4::date then 'period'
               else 'other'
             end as source_bucket,
             count(*) over()::int as total_count
@@ -1501,6 +1724,15 @@ function buildValidations(B01, B03, currentCount, unclassifiedSummary, context =
       detail: `Tổng tài sản ${totalAssets.toLocaleString("vi-VN")} khác tổng nguồn vốn ${totalCapital.toLocaleString("vi-VN")}.`,
     });
   }
+  const b03EndCash = reportValue(B03, "70");
+  const b01EndCash = reportValue(B01, "110");
+  if (Math.abs(b03EndCash - b01EndCash) > 1) {
+    validations.push({
+      severity: "warning",
+      title: "B03 không khớp B01 tiền",
+      detail: `B03 mã 70 ${b03EndCash.toLocaleString("vi-VN")} khác B01 mã 110 ${b01EndCash.toLocaleString("vi-VN")}. Kiểm tra dòng tiền chưa phân loại, tương đương tiền và ảnh hưởng tỷ giá.`,
+    });
+  }
   if (unclassifiedSummary.length) {
     validations.push({
       severity: "warning",
@@ -1508,11 +1740,30 @@ function buildValidations(B01, B03, currentCount, unclassifiedSummary, context =
       detail: `${unclassifiedSummary.reduce((sum, row) => sum + row.count, 0)} dòng tiền chưa match rule B03.`,
     });
   }
+  if (Math.abs(Number(context.unallocatedProductionCosts || 0)) > 1) {
+    validations.push({
+      severity: "warning",
+      title: "Chi phí sản xuất chưa phân bổ/kết chuyển",
+      detail: `Các tài khoản 621/622/627 còn số dư ròng ${Number(context.unallocatedProductionCosts).toLocaleString("vi-VN")}. B01 đã phản ánh vào kết quả chưa kết chuyển để giữ đúng phương trình kế toán; B02 chỉ được coi là hoàn tất sau khi kế toán rà soát phân bổ giá thành.`,
+    });
+  }
+  if (Number(context.interestReceiptReviewCount || 0) > 0) {
+    validations.push({
+      severity: "warning",
+      title: "Rà soát lãi tiền gửi B03",
+      detail: `${Number(context.interestReceiptReviewCount).toLocaleString("vi-VN")} khoản thu đối ứng 515111 đang được phân loại vào B03 mã 27 theo quy tắc doanh nghiệp. Cần chuyển lãi tiền gửi không kỳ hạn sang mã 01 nếu có.`,
+    });
+  }
+  validations.push({
+    severity: "info",
+    title: "B09 cần hoàn thiện thủ công",
+    detail: "B09 hiện là bản thuyết minh hỗ trợ từ số liệu sổ cái; các chính sách kế toán, cam kết, bên liên quan, kỳ hạn và thuyết minh định tính phải được người lập báo cáo bổ sung trước khi phát hành.",
+  });
   if (!context.openingBalanceAccounts) {
     validations.push({
       severity: "warning",
       title: "Thiếu dữ liệu số đầu năm B01",
-      detail: `Không tìm thấy số dư trước ngày ${context.currentYearStartDate || "đầu năm"}. Cột Số đầu năm có thể bằng 0 nếu database không có opening balance hoặc dữ liệu năm trước.`,
+      detail: `Không tìm thấy số dư đến hết ngày ${context.openingBalanceDate || "đầu năm"}. Cột Số đầu năm có thể bằng 0 nếu database không có bút toán đầu năm hoặc dữ liệu năm trước.`,
     });
   }
   validations.push({
@@ -1527,44 +1778,59 @@ async function generateCompactReports(client, startDate, endDate) {
   const priorStartDate = oneYearBack(startDate);
   const priorEndDate = oneYearBack(endDate);
   const currentYearStartDate = yearStart(endDate);
-  const openingBalanceDate = addDays(currentYearStartDate, -1);
+  const openingBalanceDate = b01OpeningBalanceDate(endDate);
+  const currentB03OpeningDate = periodOpeningBalanceDate(startDate);
+  const priorB03OpeningDate = periodOpeningBalanceDate(priorStartDate);
   const priorYearStartDate = yearStart(priorEndDate);
-  const [
-    currentBalanceAgg,
-    priorBalanceAgg,
-    currentPeriodAgg,
-    priorPeriodAgg,
-    currentYtdPeriodAgg,
-    priorYtdPeriodAgg,
-    currentCashMovements,
-    priorCashMovements,
-    currentCount,
-    priorCount,
-  ] = await Promise.all([
-    queryBalanceAggregates(client, endDate),
-    queryBalanceAggregates(client, openingBalanceDate),
-    queryPeriodAggregates(client, startDate, endDate),
-    queryPeriodAggregates(client, priorStartDate, priorEndDate),
-    queryPeriodAggregates(client, currentYearStartDate, endDate),
-    queryPeriodAggregates(client, priorYearStartDate, priorEndDate),
-    queryCashMovements(client, startDate, endDate),
-    queryCashMovements(client, priorStartDate, priorEndDate),
-    countRows(client, startDate, endDate),
-    countRows(client, priorStartDate, priorEndDate),
-  ]);
+  // A pg Client supports one active query at a time. Keep these reads
+  // sequential so report generation remains compatible with pg 9+.
+  const currentBalanceAgg = await queryBalanceAggregates(client, endDate);
+  const priorBalanceAgg = await queryBalanceAggregates(client, openingBalanceDate);
+  const currentUnclosedResult = await queryUnclosedTemporaryResult(client, endDate);
+  const priorUnclosedResult = await queryUnclosedTemporaryResult(client, openingBalanceDate);
+  const currentPeriodAgg = await queryPeriodAggregates(client, startDate, endDate);
+  const priorPeriodAgg = await queryPeriodAggregates(client, priorStartDate, priorEndDate);
+  const currentYtdPeriodAgg = await queryPeriodAggregates(client, currentYearStartDate, endDate);
+  const priorYtdPeriodAgg = await queryPeriodAggregates(client, priorYearStartDate, priorEndDate);
+  const currentProfitTransferred = await queryProfitTransferredTo421(client, currentYearStartDate, endDate);
+  const priorProfitTransferred = await queryProfitTransferredTo421(client, priorYearStartDate, priorEndDate);
+  const currentCashMovements = await queryCashMovements(client, startDate, endDate);
+  const priorCashMovements = await queryCashMovements(client, priorStartDate, priorEndDate);
+  const currentCount = await countRows(client, startDate, endDate);
+  const priorCount = await countRows(client, priorStartDate, priorEndDate);
+  const currentB03OpeningAgg = await queryBalanceAggregates(client, currentB03OpeningDate);
+  const priorB03OpeningAgg = await queryBalanceAggregates(client, priorB03OpeningDate);
 
   const B01 = buildLineReport(b01Lines, currentBalanceAgg, priorBalanceAgg, "balance");
   const B02 = buildLineReport(b02Lines, currentPeriodAgg, priorPeriodAgg, "period");
   const ytdB02 = buildLineReport(b02Lines, currentYtdPeriodAgg, priorYtdPeriodAgg, "period");
-  const unclosedProfit = applyUnclosedProfitFromYtdB02ToB01(B01, ytdB02);
-  const B03 = buildB03(currentCashMovements, priorCashMovements, reportValue(B01, "110"), reportValue(B01, "110", "prior"));
+  const unclosedProfit = applyUnclosedProfitFromYtdB02ToB01(B01, ytdB02, currentUnclosedResult, priorUnclosedResult);
+  const B03OpeningBalances = buildLineReport(b01Lines, currentB03OpeningAgg, priorB03OpeningAgg, "balance");
+  const B03 = buildB03(
+    currentCashMovements,
+    priorCashMovements,
+    reportValue(B03OpeningBalances, "110"),
+    reportValue(B03OpeningBalances, "110", "prior"),
+  );
   const B09 = buildB09(B01, B02, B03);
   const unclassifiedSummary = summarizeUnclassified(currentCashMovements);
+  const unallocatedProductionCosts = currentBalanceAgg
+    .filter((row) => codeMatches(row.account_code || row.root_account_code, ["621", "622", "627"]))
+    .reduce((total, row) => total + Number(row.debit || 0) - Number(row.credit || 0), 0);
+  const interestReceiptReviewCount = currentCashMovements.filter((movement) =>
+    movement.matched_code === "27" && (movement.opposite_accounts || []).some((account) => normalizeCode(account).startsWith("515111")),
+  ).length;
   return {
     formulaVersion,
-    period: { startDate, endDate, priorStartDate, priorEndDate, openingBalanceDate, currentYearStartDate },
+    period: { startDate, endDate, priorStartDate, priorEndDate, openingBalanceDate, currentYearStartDate, currentB03OpeningDate, priorB03OpeningDate },
     reports: { B01, B02, B03, B09 },
-    validations: buildValidations(B01, B03, currentCount, unclassifiedSummary, { openingBalanceAccounts: priorBalanceAgg.length, openingBalanceDate, currentYearStartDate }),
+    validations: buildValidations(B01, B03, currentCount, unclassifiedSummary, {
+      openingBalanceAccounts: priorBalanceAgg.length,
+      openingBalanceDate,
+      currentYearStartDate,
+      unallocatedProductionCosts,
+      interestReceiptReviewCount,
+    }),
     counts: {
       currentRows: currentCount,
       priorRows: priorCount,
@@ -1579,6 +1845,8 @@ async function generateCompactReports(client, startDate, endDate) {
       priorUnclosedProfitAdjustment: Math.round(unclosedProfit.priorAdjustment),
       ytdB02Profit: Math.round(unclosedProfit.currentYtdProfit),
       priorYtdB02Profit: Math.round(unclosedProfit.priorYtdProfit),
+      profitTransferredTo421: Math.round(currentProfitTransferred),
+      priorProfitTransferredTo421: Math.round(priorProfitTransferred),
       cashMovements: currentCashMovements.length,
       priorCashMovements: priorCashMovements.length,
     },
@@ -1787,6 +2055,16 @@ app.use((error, _req, res, _next) => {
   });
 });
 
-app.listen(port, "127.0.0.1", () => {
-  console.log(`BCTC TT99 API listening on http://127.0.0.1:${port}`);
-});
+if (require.main === module) {
+  app.listen(port, "127.0.0.1", () => {
+    console.log(`BCTC TT99 API listening on http://127.0.0.1:${port}`);
+  });
+}
+
+module.exports = {
+  app,
+  buildB03,
+  buildLineReport,
+  generateCompactReports,
+  periodOpeningBalanceDate,
+};

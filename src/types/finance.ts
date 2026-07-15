@@ -125,10 +125,15 @@ export type LineRule = {
   bold?: boolean;
   negative?: boolean;
   accountPrefixes?: string[];
+  excludeAccountPrefixes?: string[];
   expression?: string;
   side?: "debit" | "credit" | "balance";
   normalSide?: "debit" | "credit";
   sign?: 1 | -1;
   sourceRef?: string;
   requiresManualMapping?: boolean;
+  /** Do not derive a statutory amount when the journal lacks the required maturity/nature detail. */
+  manualOnly?: boolean;
+  /** Present debit/credit balances gross by account and counterparty instead of offsetting them. */
+  grossByCounterparty?: boolean;
 };

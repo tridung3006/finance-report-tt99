@@ -63,7 +63,12 @@ const fixtureRows: LedgerRow[] = [
   row("loan-principal-payment", "341", 11, 0),
   row("loan-principal-payment", "112", 0, 11),
   row("balance-cash", "112", 197, 0, "currentBalance"),
-  row("balance-capital", "411", 0, 151, "currentBalance"),
+  row("balance-capital", "411", 0, 167, "currentBalance"),
+  row("balance-revenue", "511", 0, 100, "currentBalance"),
+  row("balance-cogs", "632", 40, 0, "currentBalance"),
+  row("balance-admin", "642", 30, 0, "currentBalance"),
+  row("opening-cash", "112", 100, 0, "priorBalance"),
+  row("opening-capital", "411", 0, 100, "priorBalance"),
   row("cogs-period", "632", 40, 0),
 ];
 
@@ -91,6 +96,49 @@ const postedOnlyReports = generateReports([
   missingStatusRevenue,
   row("posted-revenue", "511", 0, 100),
 ]);
+const newB03CounterpartyReports = generateReports([
+  row("deposit-received", "112", 20, 0),
+  row("deposit-received", "344111", 0, 20),
+  row("deposit-returned", "344111", 5, 0),
+  row("deposit-returned", "112", 0, 5),
+  row("selling-service-payment", "641712", 30, 0),
+  row("selling-service-payment", "112", 0, 30),
+  row("selling-service-refund", "112", 7, 0),
+  row("selling-service-refund", "641712", 0, 7),
+  { ...row("deposit-interest-received", "112", 11, 0), sourceNum: "lai tien gui co ky han" },
+  { ...row("deposit-interest-received", "515111", 0, 11), sourceNum: "lai tien gui co ky han" },
+]);
+const closedPeriodReports = generateReports([
+  row("sale", "131", 100, 0),
+  row("sale", "511", 0, 100),
+  row("cost", "632", 60, 0),
+  row("cost", "155", 0, 60),
+  row("close-revenue", "511", 100, 0),
+  row("close-revenue", "911", 0, 100),
+  row("close-cost", "911", 60, 0),
+  row("close-cost", "632", 0, 60),
+  row("transfer-profit", "911", 40, 0),
+  row("transfer-profit", "4212", 0, 40),
+  row("balance-ar", "131", 100, 0, "currentBalance"),
+  row("balance-inventory", "155", 0, 60, "currentBalance"),
+  row("balance-profit", "4212", 0, 40, "currentBalance"),
+]);
+const unbalancedB01Reports = generateReports([
+  row("cash", "112", 100, 0, "currentBalance"),
+  row("capital", "411", 0, 80, "currentBalance"),
+]);
+const b03ReconciliationReports = generateReports([
+  row("opening-cash", "112", 50, 0, "priorBalance"),
+  row("opening-capital", "411", 0, 50, "priorBalance"),
+  row("unclassified-cash-in", "112", 20, 0),
+  row("unclassified-cash-in", "999", 0, 20),
+  row("ending-cash", "112", 70, 0, "currentBalance"),
+  row("ending-capital", "411", 0, 70, "currentBalance"),
+]);
+const cashEquivalentReviewReports = generateReports([
+  row("deposit", "1281", 10, 0, "currentBalance"),
+  row("capital", "411", 0, 10, "currentBalance"),
+]);
 
 assertEqual(value("01", reports.B03), 203, "B03.01 includes cash in from 131/511/33311 and cash out reducing 131");
 assertEqual(value("02", reports.B03), -80, "B03.02 supplier and service/admin expense payment");
@@ -100,15 +148,30 @@ assertEqual(value("07", reports.B03), -12, "B03.07 other operating payment to 33
 assertEqual(value("34", reports.B03), -11, "B03.34 loan principal payment from 341");
 assertEqual(value("20", reports.B03), 108, "B03.20 operating cash flow");
 assertEqual(value("70", reports.B03), 197, "B03.70 ending cash matches B01 cash");
+assertEqual(value("60", reports.B03), 100, "B03.60 uses the actual opening cash balance");
 assertEqual(reports.B01.find((reportRow) => reportRow.code === "280")?.current ?? 0, 197, "B01 total assets");
-assertEqual(reports.B01.find((reportRow) => reportRow.code === "420")?.current ?? 0, 46, "B01 retained earnings includes unclosed profit");
+assertEqual(reports.B01.find((reportRow) => reportRow.code === "420")?.current ?? 0, 30, "B01 retained earnings includes YTD B02 profit");
 assertEqual(reports.B01.find((reportRow) => reportRow.code === "440")?.current ?? 0, 197, "B01 total liabilities and equity includes unclosed profit");
 assertEqual(reports.B02.find((reportRow) => reportRow.code === "20")?.current ?? 0, 60, "B02 gross profit");
-assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "124")?.current ?? 0, -3, "B01.124 uses only 2291");
-assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "126")?.current ?? 0, -5, "B01.126 uses only 2292");
-assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "266")?.current ?? 0, -5, "B01.266 uses only 2292");
+assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "122")?.current ?? 0, -3, "B01.122 uses 2291 when no statutory detail exists for another caption");
+assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "124")?.current ?? 0, 0, "B01.124 stays manual instead of duplicating 2291");
+assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "126")?.current ?? 0, 0, "B01.126 stays manual instead of duplicating 2292");
+assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "264")?.current ?? 0, -5, "B01.264 is the single automatic destination for 2292");
+assertEqual(b01ProvisionReports.B01.find((reportRow) => reportRow.code === "266")?.current ?? 0, 0, "B01.266 stays manual instead of duplicating 2292");
 assertEqual(b02SpecificReports.B02.find((reportRow) => reportRow.code === "21")?.current ?? 0, 30, "B02.21 nets 5117 credit less 6327 debit");
+assertEqual(b02SpecificReports.B02.find((reportRow) => reportRow.code === "01")?.current ?? 0, 0, "B02.01 excludes 5117 reported separately in code 21");
+assertEqual(b02SpecificReports.B02.find((reportRow) => reportRow.code === "11")?.current ?? 0, 0, "B02.11 excludes 6327 reported separately in code 21");
 assertEqual(b02SpecificReports.B02.find((reportRow) => reportRow.code === "24")?.current ?? 0, 33, "B02.24 uses only 635411/635412/635413");
 assertEqual(postedOnlyReports.B02.find((reportRow) => reportRow.code === "01")?.current ?? 0, 100, "Only status Posted is included");
+assertEqual(value("06", newB03CounterpartyReports.B03), 20, "B03.06 includes cash received against 344111");
+assertEqual(value("07", newB03CounterpartyReports.B03), -5, "B03.07 includes cash returned against 344111");
+assertEqual(value("02", newB03CounterpartyReports.B03), -23, "B03.02 nets 641712 service payment and expense refund");
+assertEqual(value("27", newB03CounterpartyReports.B03), 11, "B03.27 includes interest received against 515111");
+assertEqual(closedPeriodReports.B02.find((reportRow) => reportRow.code === "01")?.current ?? 0, 100, "B02 excludes closing entries instead of netting them against operating revenue");
+assertEqual(closedPeriodReports.B02.find((reportRow) => reportRow.code === "11")?.current ?? 0, 60, "B02 excludes closing entries instead of netting them against operating cost");
+assertEqual(closedPeriodReports.B01.find((reportRow) => reportRow.code === "420b")?.current ?? 0, 40, "B01.420b does not add B02 profit again after transfer to 4212");
+assertEqual(unbalancedB01Reports.B01.find((reportRow) => reportRow.code === "440")?.current ?? 0, 80, "B01 does not plug retained earnings to force a balance");
+assertEqual(value("70", b03ReconciliationReports.B03), 50, "B03.70 is calculated from opening cash and classified flows, not forced to B01 ending cash");
+assertEqual(cashEquivalentReviewReports.B01.find((reportRow) => reportRow.code === "112")?.current ?? 0, 0, "B01.112 does not automatically treat every 1281 balance as a cash equivalent");
 
 console.log("report engine tests passed");
