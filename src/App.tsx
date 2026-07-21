@@ -1,28 +1,26 @@
-import { AlertCircle, CheckCircle2, Database, Download, FileSpreadsheet, FileText, LayoutDashboard, Map as MapIcon, Upload, WalletCards } from "lucide-react";
+import { AlertCircle, CheckCircle2, Database, Download, FileSpreadsheet, FileText, LayoutDashboard, Map as MapIcon, RefreshCw, Users, WalletCards } from "lucide-react";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { fetchDrilldown, fetchPayableAging, fetchPayableAgingRawSource, fetchRawSource, fetchTrialBalance, fetchTrialBalanceRawSource, generateServerReports, getCurrentUser, login, logout, type AuthUser, type DrilldownRow, type GenerateReportsResponse, type PayableAgingBucket, type PayableAgingResponse, type PayableAgingRow, type RawSourceRow, type TrialBalanceResponse, type TrialBalanceRow } from "./lib/api";
-import { fileToLedgerRows } from "./lib/csv";
-import { exportDocx, exportExcel, exportPayableAgingWorkbook, exportPdf, exportProblemWorkbook, exportRawSourceWorkbook, exportTrialBalanceWorkbook } from "./lib/exporters";
+import { createManagedUser, createMissingSnapshots, fetchDrilldown, fetchManagedUsers, fetchPayableAging, fetchPayableAgingRawSource, fetchRawSource, fetchSnapshotStatus, fetchTrialBalance, fetchTrialBalanceRawSource, generateServerReports, getCurrentUser, login, logout, rebuildSnapshots, resetManagedUserPassword, updateManagedUser, type AuthUser, type DrilldownReconciliation, type DrilldownRow, type GenerateReportsResponse, type ManagedUser, type PayableAgingBucket, type PayableAgingResponse, type PayableAgingRow, type RawSourceRow, type SnapshotAdminStatus, type TrialBalanceResponse, type TrialBalanceRow } from "./lib/api";
+import { exportDocx, exportOfficialExcel, exportPayableAgingWorkbook, exportPdf, exportProblemWorkbook, exportQaExcel, exportRawSourceWorkbook, exportTrialBalanceWorkbook } from "./lib/exporters";
 import { formatMoney } from "./lib/format";
 import { generateReports } from "./lib/reports";
-import type { LedgerRow, PeriodMeta, ReportId, ReportRow, UploadBucket } from "./types/finance";
+import type { LedgerRow, NoteBlock, NoteSection, PeriodMeta, ReportId, ReportRow } from "./types/finance";
 
 const nav = [
-  { id: "data", label: "Data", icon: Database },
-  { id: "upload", label: "CSV fallback", icon: Upload },
-  { id: "mapping", label: "Mapping", icon: MapIcon },
-  { id: "validation", label: "Validation", icon: CheckCircle2 },
-  { id: "reports", label: "Reports", icon: LayoutDashboard },
-  { id: "trial", label: "CĐ phát sinh", icon: FileSpreadsheet },
-  { id: "payableAging", label: "Tuổi nợ NCC", icon: FileSpreadsheet },
-  { id: "export", label: "Export", icon: Download },
+  { id: "data", label: "Data", icon: Database, adminOnly: false },
+  { id: "mapping", label: "Mapping", icon: MapIcon, adminOnly: true },
+  { id: "validation", label: "Validation", icon: CheckCircle2, adminOnly: true },
+  { id: "reports", label: "Reports", icon: LayoutDashboard, adminOnly: false },
+  { id: "trial", label: "CĐ phát sinh", icon: FileSpreadsheet, adminOnly: false },
+  { id: "payableAging", label: "Tuổi nợ NCC", icon: FileSpreadsheet, adminOnly: false },
+  { id: "accounts", label: "Tài khoản", icon: Users, adminOnly: true },
+  { id: "snapshots", label: "Snapshot", icon: RefreshCw, adminOnly: true },
+  { id: "export", label: "Export", icon: Download, adminOnly: false },
 ] as const;
 
-const buckets: Array<{ id: UploadBucket; label: string; hint: string }> = [
-  { id: "current", label: "Kỳ hiện tại", hint: "CSV phát sinh trong kỳ báo cáo" },
-  { id: "prior", label: "Kỳ trước", hint: "CSV năm/kỳ trước để so sánh" },
-  { id: "opening", label: "Số dư đầu kỳ", hint: "CSV số dư nếu không dùng PostgreSQL" },
-];
+function isAdminOnlySection(section: string) {
+  return section === "mapping" || section === "validation" || section === "accounts" || section === "snapshots";
+}
 
 const defaultMeta: PeriodMeta = {
   companyName: "",
@@ -49,6 +47,7 @@ export default function App() {
   const [serverResult, setServerResult] = useState<GenerateReportsResponse | null>(null);
   const [drilldownRows, setDrilldownRows] = useState<DrilldownRow[]>([]);
   const [drilldownTotal, setDrilldownTotal] = useState(0);
+  const [drilldownReconciliation, setDrilldownReconciliation] = useState<DrilldownReconciliation | null>(null);
   const [drilldownPage, setDrilldownPage] = useState(1);
   const [drilldownLoading, setDrilldownLoading] = useState("");
   const [issueExporting, setIssueExporting] = useState("");
@@ -59,6 +58,17 @@ export default function App() {
   const [trialGroupByAnalytic, setTrialGroupByAnalytic] = useState(true);
   const [payableAging, setPayableAging] = useState<PayableAgingResponse | null>(null);
   const [payableAnalytic, setPayableAnalytic] = useState("");
+  const [snapshotStatus, setSnapshotStatus] = useState<SnapshotAdminStatus | null>(null);
+  const [snapshotFromMonth, setSnapshotFromMonth] = useState("2025-12");
+  const [snapshotLoading, setSnapshotLoading] = useState("");
+  const [snapshotMessage, setSnapshotMessage] = useState("");
+  const [managedUsers, setManagedUsers] = useState<ManagedUser[]>([]);
+  const [accountLoading, setAccountLoading] = useState("");
+  const [accountMessage, setAccountMessage] = useState("");
+  const [newAccount, setNewAccount] = useState({ username: "", password: "", role: "user" as "admin" | "user" });
+  const [resetAccount, setResetAccount] = useState<ManagedUser | null>(null);
+  const [currentAdminPassword, setCurrentAdminPassword] = useState("");
+  const [newAccountPassword, setNewAccountPassword] = useState("");
   const csvReports = useMemo(() => generateReports(rows), [rows]);
   const reports = serverResult
     ? { ...serverResult.reports, validations: serverResult.validations, unclassifiedCashRows: [], cashMovements: [] }
@@ -81,6 +91,7 @@ export default function App() {
   async function handleLogin(username: string, password: string) {
     const user = await login(username, password);
     setAuthUser(user);
+    if (!user.isAdmin && isAdminOnlySection(active)) setActive("data");
   }
 
   async function handleLogout() {
@@ -89,9 +100,137 @@ export default function App() {
     setServerResult(null);
     setRows([]);
     setSelectedLine(null);
+    setSnapshotStatus(null);
   }
 
-  async function queryPostgres() {
+  async function loadSnapshotStatus() {
+    if (!authUser?.isAdmin) return;
+    setSnapshotLoading("Đang tải trạng thái snapshot...");
+    setSnapshotMessage("");
+    try {
+      const status = await fetchSnapshotStatus();
+      setSnapshotStatus(status);
+      if (status.missingFromMonth) setSnapshotFromMonth(status.missingFromMonth);
+    } catch (err) {
+      setSnapshotMessage(err instanceof Error ? err.message : "Không tải được trạng thái snapshot");
+    } finally {
+      setSnapshotLoading("");
+    }
+  }
+
+  async function handleCreateMissingSnapshots() {
+    setSnapshotLoading("Đang tạo các snapshot tháng còn thiếu...");
+    setSnapshotMessage("");
+    try {
+      const result = await createMissingSnapshots();
+      setSnapshotStatus(await fetchSnapshotStatus());
+      const refreshed = result.created ? await queryPostgres() : true;
+      setSnapshotMessage(result.created
+        ? `Đã tạo đầy đủ snapshot tháng còn thiếu. ${refreshed ? "Báo cáo đã tự làm mới." : "Snapshot đã xong nhưng báo cáo chưa làm mới được."}`
+        : "Không có tháng snapshot nào bị thiếu.");
+    } catch (err) {
+      setSnapshotMessage(err instanceof Error ? err.message : "Không tạo được snapshot");
+    } finally {
+      setSnapshotLoading("");
+    }
+  }
+
+  async function handleRebuildSnapshots() {
+    if (!snapshotFromMonth || !window.confirm(`Tính lại toàn bộ snapshot từ ${snapshotFromMonth} đến tháng đã hoàn tất gần nhất?`)) return;
+    setSnapshotLoading(`Đang tính lại snapshot từ ${snapshotFromMonth}...`);
+    setSnapshotMessage("");
+    try {
+      const result = await rebuildSnapshots(snapshotFromMonth);
+      setSnapshotStatus(await fetchSnapshotStatus());
+      const refreshed = await queryPostgres();
+      setSnapshotMessage(`Đã tạo batch ${result.batchId}, tính lại ${result.months.length} tháng. ${refreshed ? "Báo cáo đã tự làm mới theo snapshot mới nhất." : "Snapshot đã xong nhưng báo cáo chưa làm mới được."}`);
+    } catch (err) {
+      setSnapshotMessage(err instanceof Error ? err.message : "Không tính lại được snapshot");
+    } finally {
+      setSnapshotLoading("");
+    }
+  }
+
+  async function loadManagedUsers() {
+    if (!authUser?.isAdmin) return;
+    setAccountLoading("Đang tải danh sách tài khoản...");
+    setAccountMessage("");
+    try {
+      setManagedUsers(await fetchManagedUsers());
+    } catch (err) {
+      setAccountMessage(err instanceof Error ? err.message : "Không tải được danh sách tài khoản");
+    } finally {
+      setAccountLoading("");
+    }
+  }
+
+  async function handleCreateAccount(event: FormEvent) {
+    event.preventDefault();
+    setAccountLoading("Đang tạo tài khoản...");
+    setAccountMessage("");
+    try {
+      await createManagedUser(newAccount);
+      setNewAccount({ username: "", password: "", role: "user" });
+      setManagedUsers(await fetchManagedUsers());
+      setAccountMessage("Đã tạo tài khoản.");
+    } catch (err) {
+      setAccountMessage(err instanceof Error ? err.message : "Không tạo được tài khoản");
+    } finally {
+      setAccountLoading("");
+    }
+  }
+
+  async function handleUpdateAccount(user: ManagedUser, changes: { role?: "admin" | "user"; isActive?: boolean }) {
+    setAccountLoading(`Đang cập nhật ${user.username}...`);
+    setAccountMessage("");
+    try {
+      await updateManagedUser(user.id, changes);
+      setManagedUsers(await fetchManagedUsers());
+      setAccountMessage(`Đã cập nhật ${user.username}.`);
+    } catch (err) {
+      setAccountMessage(err instanceof Error ? err.message : "Không cập nhật được tài khoản");
+    } finally {
+      setAccountLoading("");
+    }
+  }
+
+  async function handleResetAccountPassword(event: FormEvent) {
+    event.preventDefault();
+    if (!resetAccount) return;
+    setAccountLoading(`Đang đổi mật khẩu ${resetAccount.username}...`);
+    setAccountMessage("");
+    try {
+      const result = await resetManagedUserPassword(resetAccount.id, currentAdminPassword, newAccountPassword);
+      setCurrentAdminPassword("");
+      setNewAccountPassword("");
+      setResetAccount(null);
+      if (result.logoutRequired) {
+        setAuthUser(null);
+        setManagedUsers([]);
+        return;
+      }
+      setManagedUsers(await fetchManagedUsers());
+      setAccountMessage(`Đã đổi mật khẩu ${resetAccount.username} và đăng xuất các phiên cũ của tài khoản này.`);
+    } catch (err) {
+      setAccountMessage(err instanceof Error ? err.message : "Không đổi được mật khẩu");
+    } finally {
+      setAccountLoading("");
+    }
+  }
+
+  useEffect(() => {
+    if (active === "snapshots" && authUser?.isAdmin) void loadSnapshotStatus();
+  }, [active, authUser?.isAdmin]);
+
+  useEffect(() => {
+    if (active === "accounts" && authUser?.isAdmin) void loadManagedUsers();
+  }, [active, authUser?.isAdmin]);
+
+  useEffect(() => {
+    if (authUser && !authUser.isAdmin && isAdminOnlySection(active)) setActive("data");
+  }, [active, authUser]);
+
+  async function queryPostgres(): Promise<boolean> {
     setError("");
     setLoading("Đang query PostgreSQL...");
     try {
@@ -101,8 +240,10 @@ export default function App() {
       setQueryInfo(
         `Backend aggregate ${result.counts.currentRows.toLocaleString("vi-VN")} dòng kỳ hiện tại, ${result.counts.priorRows.toLocaleString("vi-VN")} dòng kỳ trước. Payload compact, formula ${result.formulaVersion}.`,
       );
+      return true;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Không query được PostgreSQL");
+      return false;
     } finally {
       setLoading("");
     }
@@ -112,6 +253,7 @@ export default function App() {
     if (!serverResult || !selectedLine || reportTab === "B09" || !selectedLine.code) {
       setDrilldownRows([]);
       setDrilldownTotal(0);
+      setDrilldownReconciliation(null);
       return;
     }
     let cancelled = false;
@@ -128,6 +270,7 @@ export default function App() {
         if (cancelled) return;
         setDrilldownRows(data.rows);
         setDrilldownTotal(data.total);
+        setDrilldownReconciliation(data.reconciliation);
       })
       .catch((err) => {
         if (!cancelled) setDrilldownLoading(err instanceof Error ? err.message : "Không tải được drilldown");
@@ -139,20 +282,6 @@ export default function App() {
       cancelled = true;
     };
   }, [serverResult, selectedLine, reportTab, drilldownPage, meta.startDate, meta.endDate]);
-
-  async function onUpload(files: FileList | null, bucket: UploadBucket) {
-    if (!files?.length) return;
-    setLoading(`Đang đọc ${files.length} file...`);
-    const parsed = (await Promise.all(Array.from(files).map((file) => fileToLedgerRows(file, bucket)))).flat();
-    setRows((current) => [...current, ...parsed]);
-    setServerResult(null);
-    setLoading("");
-  }
-
-  function clearBucket(bucket: UploadBucket) {
-    setRows((current) => current.filter((row) => row.bucket !== bucket));
-    setServerResult(null);
-  }
 
   async function exportIssueRows() {
     setIssueExporting("Đang export các dòng cần xử lý...");
@@ -289,6 +418,7 @@ export default function App() {
         endDate: meta.endDate,
         accountCode: row.accountCode,
         accountAnalytic: row.accountAnalytic,
+        analyticFilter: trialAnalytic,
         groupByAnalytic: trialGroupByAnalytic,
         page: 1,
         pageSize,
@@ -302,6 +432,7 @@ export default function App() {
           endDate: meta.endDate,
           accountCode: row.accountCode,
           accountAnalytic: row.accountAnalytic,
+          analyticFilter: trialAnalytic,
           groupByAnalytic: trialGroupByAnalytic,
           page,
           pageSize,
@@ -401,7 +532,7 @@ export default function App() {
           <WalletCards size={24} />
           <span>BOO - BCTC TT99</span>
         </div>
-        {nav.map((item) => {
+        {nav.filter((item) => !item.adminOnly || authUser.isAdmin).map((item) => {
           const Icon = item.icon;
           return (
             <button key={item.id} className={active === item.id ? "nav active" : "nav"} onClick={() => setActive(item.id)} title={item.label}>
@@ -451,32 +582,7 @@ export default function App() {
           </section>
         )}
 
-        {active === "upload" && (
-          <section className="grid three">
-            {buckets.map((bucket) => {
-              const count = rows.filter((row) => row.bucket === bucket.id).length;
-              return (
-                <div className="panel upload-panel" key={bucket.id}>
-                  <div>
-                    <h2>{bucket.label}</h2>
-                    <p>{bucket.hint}</p>
-                  </div>
-                  <label className="dropzone">
-                    <Upload size={28} />
-                    <span>Chọn CSV</span>
-                    <input type="file" accept=".csv,text/csv" multiple onChange={(event) => onUpload(event.target.files, bucket.id)} />
-                  </label>
-                  <div className="panel-foot">
-                    <span>{count.toLocaleString("vi-VN")} dòng</span>
-                    <button onClick={() => clearBucket(bucket.id)}>Xóa nhóm</button>
-                  </div>
-                </div>
-              );
-            })}
-          </section>
-        )}
-
-        {active === "mapping" && (
+        {active === "mapping" && authUser.isAdmin && (
           <section className="grid two">
             <div className="panel">
               <h2>Registry công thức TT99</h2>
@@ -486,7 +592,7 @@ export default function App() {
                   ["B02", "Dùng phát sinh kỳ hiện tại/kỳ trước; assert 10, 20, 30, 40, 50, 60"],
                   ["B03", "Group theo journal_id; phân loại 111/112/113 theo tài khoản đối ứng"],
                   ["B03.01", "Inflow tiền đối ứng 511, 33311, 131, 121"],
-                  ["B09", "Tự điền bảng có nguồn từ B01/B02/B03; phần định tính để kế toán rà soát"],
+                  ["B09", "Đúng 53 bảng nội dung theo mẫu B09-DN; dữ liệu không đủ nguồn được để trống/chưa nhập"],
                 ].map(([name, rule]) => (
                   <div className="mapping-row" key={name}>
                     <strong>{name}</strong>
@@ -502,7 +608,7 @@ export default function App() {
           </section>
         )}
 
-        {active === "validation" && (
+        {active === "validation" && authUser.isAdmin && (
           <section className="panel">
             <div className="section-head">
               <h2>Checklist kiểm tra trước khi xuất</h2>
@@ -562,7 +668,7 @@ export default function App() {
                   <p className="muted">{selectedLine.formula || "Không có công thức."}</p>
                   <p className="muted">Tài khoản nguồn: {selectedLine.sourceAccounts?.join(", ") || "N/A"}</p>
                   {serverResult ? (
-                    <ServerDrilldown rows={drilldownRows} total={drilldownTotal} page={drilldownPage} loading={drilldownLoading} onPage={setDrilldownPage} />
+                    <ServerDrilldown rows={drilldownRows} total={drilldownTotal} page={drilldownPage} loading={drilldownLoading} reconciliation={drilldownReconciliation} onPage={setDrilldownPage} />
                   ) : (
                     <LedgerPreview rows={(selectedLine.sources ?? []).slice(0, 20)} compact />
                   )}
@@ -646,6 +752,144 @@ export default function App() {
           </section>
         )}
 
+        {active === "accounts" && authUser.isAdmin && (
+          <section className="grid two account-admin">
+            <div className="panel wide">
+              <div className="section-head">
+                <h2>Quản lý tài khoản</h2>
+                <button onClick={loadManagedUsers} disabled={Boolean(accountLoading)}><RefreshCw size={16} /> Làm mới</button>
+              </div>
+              {accountLoading && <p>{accountLoading}</p>}
+              {accountMessage && <div className="issue info"><CheckCircle2 size={18} /><div><strong>Tài khoản</strong><p>{accountMessage}</p></div></div>}
+              <div className="table-wrap">
+                <table>
+                  <thead><tr><th>Username</th><th>Role</th><th>Trạng thái</th><th>Đăng nhập cuối</th><th>Thao tác</th></tr></thead>
+                  <tbody>
+                    {managedUsers.map((user) => {
+                      const isSelf = user.username === authUser.username;
+                      return (
+                        <tr key={user.id}>
+                          <td><strong>{user.username}</strong>{isSelf && <span className="self-badge">Bạn</span>}</td>
+                          <td>
+                            <select value={user.role} disabled={isSelf || Boolean(accountLoading)} onChange={(event) => handleUpdateAccount(user, { role: event.target.value as "admin" | "user" })}>
+                              <option value="user">User</option>
+                              <option value="admin">Admin</option>
+                            </select>
+                          </td>
+                          <td>{user.isActive ? "Đang hoạt động" : "Đã khóa"}</td>
+                          <td>{formatDateTime(user.lastLoginAt)}</td>
+                          <td>
+                            <div className="row-actions">
+                              <button className="mini-button" onClick={() => setResetAccount(user)}>Đổi mật khẩu</button>
+                              {!isSelf && <button className="mini-button" disabled={Boolean(accountLoading)} onClick={() => handleUpdateAccount(user, { isActive: !user.isActive })}>{user.isActive ? "Khóa" : "Mở khóa"}</button>}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <form className="panel" onSubmit={handleCreateAccount}>
+              <h2>Tạo tài khoản</h2>
+              <div className="form-grid one-column">
+                <label><span>Username</span><input autoComplete="off" required minLength={3} maxLength={64} value={newAccount.username} onChange={(event) => setNewAccount((current) => ({ ...current, username: event.target.value }))} /></label>
+                <label><span>Role</span><select value={newAccount.role} onChange={(event) => setNewAccount((current) => ({ ...current, role: event.target.value as "admin" | "user" }))}><option value="user">User</option><option value="admin">Admin</option></select></label>
+                <label><span>Mật khẩu ban đầu</span><input type="password" autoComplete="new-password" required minLength={12} maxLength={128} value={newAccount.password} onChange={(event) => setNewAccount((current) => ({ ...current, password: event.target.value }))} /></label>
+              </div>
+              <button className="primary-action" type="submit" disabled={Boolean(accountLoading)}>Tạo tài khoản</button>
+            </form>
+
+            <form className="panel" onSubmit={handleResetAccountPassword}>
+              <h2>Đổi mật khẩu</h2>
+              {resetAccount ? (
+                <>
+                  <p>Đang đổi mật khẩu cho <strong>{resetAccount.username}</strong>. Bạn cần xác nhận mật khẩu admin hiện tại.</p>
+                  <div className="form-grid one-column">
+                    <label><span>Mật khẩu admin hiện tại</span><input type="password" autoComplete="current-password" required value={currentAdminPassword} onChange={(event) => setCurrentAdminPassword(event.target.value)} /></label>
+                    <label><span>Mật khẩu mới</span><input type="password" autoComplete="new-password" required minLength={12} maxLength={128} value={newAccountPassword} onChange={(event) => setNewAccountPassword(event.target.value)} /></label>
+                  </div>
+                  <div className="inline-actions account-password-actions">
+                    <button type="button" onClick={() => { setResetAccount(null); setCurrentAdminPassword(""); setNewAccountPassword(""); }}>Hủy</button>
+                    <button className="primary-action" type="submit" disabled={Boolean(accountLoading)}>Lưu mật khẩu mới</button>
+                  </div>
+                  {resetAccount.username === authUser.username && <p className="muted">Sau khi đổi mật khẩu của chính mình, bạn sẽ phải đăng nhập lại.</p>}
+                </>
+              ) : <div className="empty">Chọn “Đổi mật khẩu” tại một tài khoản.</div>}
+            </form>
+          </section>
+        )}
+
+        {active === "snapshots" && authUser.isAdmin && (
+          <section className="grid two snapshot-admin">
+            <div className="panel">
+              <div className="section-head">
+                <div>
+                  <h2>Quản trị snapshot số dư</h2>
+                  <p className="muted">Chỉ tài khoản admin nhìn thấy và gọi được chức năng này.</p>
+                </div>
+                <button onClick={loadSnapshotStatus} disabled={Boolean(snapshotLoading)}>
+                  <RefreshCw size={16} /> Làm mới
+                </button>
+              </div>
+              <div className="snapshot-summary">
+                <div><span>Snapshot mới nhất</span><strong>{snapshotStatus?.latestSnapshot || "Chưa có"}</strong></div>
+                <div><span>Tháng bắt đầu snapshot</span><strong>{snapshotStatus?.migrationMonth || "2025-12"}</strong></div>
+                <div><span>Tháng đã hoàn tất</span><strong>{snapshotStatus?.lastClosedMonth || "—"}</strong></div>
+                <div><span>Tháng đang thiếu</span><strong>{snapshotStatus?.missingFromMonth || "Không thiếu"}</strong></div>
+                <div><span>Job tự động</span><strong>{snapshotStatus?.scheduler.enabled ? `${String(snapshotStatus.scheduler.scheduleHour).padStart(2, "0")}:00 ${snapshotStatus.scheduler.timeZone}` : "Đã tắt"}</strong></div>
+              </div>
+              <div className="inline-actions snapshot-actions">
+                <button className="primary-action" onClick={handleCreateMissingSnapshots} disabled={Boolean(snapshotLoading)}>
+                  <RefreshCw size={17} /> Tạo tháng còn thiếu
+                </button>
+              </div>
+              <hr />
+              <h3>Tính lại do Odoo sửa dữ liệu quá khứ</h3>
+              <p className="muted">Hãy đồng bộ journal từ Odoo trước, sau đó chọn tháng sớm nhất bị ảnh hưởng.</p>
+              <div className="form-grid trial-filters">
+                <label>
+                  <span>Tính lại từ tháng</span>
+                  <input
+                    type="month"
+                    min={snapshotStatus?.migrationMonth || "2025-12"}
+                    max={snapshotStatus?.lastClosedMonth || undefined}
+                    value={snapshotFromMonth}
+                    onChange={(event) => setSnapshotFromMonth(event.target.value)}
+                  />
+                </label>
+                <div className="inline-actions align-end">
+                  <button className="primary-action" onClick={handleRebuildSnapshots} disabled={Boolean(snapshotLoading) || !snapshotFromMonth}>
+                    <RefreshCw size={17} /> Tính lại đến hiện tại
+                  </button>
+                </div>
+              </div>
+              {snapshotLoading && <p>{snapshotLoading}</p>}
+              {snapshotMessage && <div className="issue info"><CheckCircle2 size={18} /><div><strong>Snapshot</strong><p>{snapshotMessage}</p></div></div>}
+            </div>
+            <div className="panel">
+              <h2>Danh sách snapshot hiện hành</h2>
+              <div className="table-wrap compact">
+                <table>
+                  <thead><tr><th>Ngày</th><th className="num">Dòng</th><th className="num">Lũy kế Nợ</th><th className="num">Lũy kế Có</th></tr></thead>
+                  <tbody>
+                    {(snapshotStatus?.months || []).map((month) => (
+                      <tr key={month.snapshotDate}>
+                        <td>{month.snapshotDate}</td>
+                        <td className="num">{month.rowCount.toLocaleString("vi-VN")}</td>
+                        <td className="num">{formatMoney(month.cumulativeDebit)}</td>
+                        <td className="num">{formatMoney(month.cumulativeCredit)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        )}
+
         {active === "export" && (
           <section className="grid two">
             <div className="panel">
@@ -660,11 +904,15 @@ export default function App() {
               </div>
             </div>
             <div className="panel export-actions">
-              <h2>Xuất báo cáo</h2>
-              <button onClick={() => exportExcel(reports, rows, meta)}><FileSpreadsheet size={18} /> Excel workbook</button>
-              <button onClick={() => exportDocx(reports, meta)}><FileText size={18} /> Word DOCX</button>
-              <button onClick={() => exportPdf(reports, meta)}><FileText size={18} /> PDF</button>
-              <p className="muted">Excel có sheet QA cho formula/source rows. PDF nhúng Arial từ backend để render tiếng Việt.</p>
+              <h2>Bản xuất chính thức</h2>
+              <button onClick={() => exportOfficialExcel(reports, meta)}><FileSpreadsheet size={18} /> Excel chính thức</button>
+              <button onClick={() => exportDocx(reports, meta)}><FileText size={18} /> Word chính thức</button>
+              <button onClick={() => exportPdf(reports, meta)}><FileText size={18} /> PDF chính thức</button>
+              <p className="muted">Chỉ chứa biểu mẫu và số liệu báo cáo; không chứa công thức, trạng thái mapping hoặc dữ liệu kiểm tra nội bộ.</p>
+              <hr />
+              <h2>Bản QA nội bộ</h2>
+              <button onClick={() => exportQaExcel(reports, rows, meta)}><FileSpreadsheet size={18} /> Excel QA</button>
+              <p className="muted">Chứa công thức, trạng thái mapping, validation, cash QA và tối đa 5.000 dòng nguồn để rà soát nội bộ.</p>
             </div>
           </section>
         )}
@@ -684,6 +932,12 @@ function metaLabel(key: string) {
     currency: "Đơn vị tính",
     preparedDate: "Ngày phê duyệt",
   } as Record<string, string>)[key] ?? key;
+}
+
+function formatDateTime(value: string | null) {
+  if (!value) return "Chưa đăng nhập";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("vi-VN");
 }
 
 function LoginScreen({ onLogin }: { onLogin: (username: string, password: string) => Promise<void> }) {
@@ -1002,19 +1256,25 @@ function TrialBalanceTable({
   );
 }
 
-function ServerDrilldown({ rows, total, page, loading, onPage }: { rows: DrilldownRow[]; total: number; page: number; loading: string; onPage: (page: number) => void }) {
+function ServerDrilldown({ rows, total, page, loading, reconciliation, onPage }: { rows: DrilldownRow[]; total: number; page: number; loading: string; reconciliation: DrilldownReconciliation | null; onPage: (page: number) => void }) {
   if (loading) return <p className="muted">{loading}</p>;
-  if (!rows.length) return <div className="empty">Không có drilldown hoặc report này chưa hỗ trợ drilldown.</div>;
+  if (!rows.length) return <div className="empty">Không có phát sinh theo đúng predicate của dòng báo cáo.</div>;
   return (
     <>
+      {reconciliation && (
+        <p className={reconciliation.reconciled ? "reconciliation-ok" : "reconciliation-error"}>
+          Tổng drilldown {formatMoney(reconciliation.drilldownAmount)} / số báo cáo {reconciliation.reportedAmount === null ? "Chưa nhập" : formatMoney(reconciliation.reportedAmount)}
+          {reconciliation.difference !== null && ` — chênh lệch ${formatMoney(reconciliation.difference)}`}
+        </p>
+      )}
       <div className="table-wrap">
         <table className="compact">
           <thead>
             <tr>
-              <th>Journal</th>
+              <th>Nguồn/predicate</th>
               <th>Ngày</th>
-              <th>TK tiền</th>
-              <th>Đối ứng</th>
+              <th>Tài khoản</th>
+              <th>Đối tượng/đối ứng</th>
               <th>Số tiền</th>
               <th>Lý do</th>
             </tr>
@@ -1100,21 +1360,34 @@ function NotesPreview({ reports }: { reports: ReturnType<typeof generateReports>
       {reports.B09.map((section) => (
         <article key={section.title}>
           <h2>{section.title}</h2>
-          {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          {section.table && (
-            <div className="table-wrap">
+          {noteBlocksForPreview(section).map((block, blockIndex) => block.type === "paragraph" ? (
+            <p key={`${section.title}-p-${blockIndex}`}>{block.text}</p>
+          ) : (
+            <div className="table-wrap" key={`${section.title}-${block.table.templateIndex ?? blockIndex}`}>
+              {block.table.title && <h3>{block.table.title}</h3>}
               <table>
-                <thead><tr>{section.table.columns.map((column) => <th key={column}>{column}</th>)}</tr></thead>
+                <thead>
+                  <tr>{(block.table.templateRows?.[0] ?? block.table.columns).map((column, index) => <th key={index}>{column}</th>)}</tr>
+                </thead>
                 <tbody>
-                  {section.table.rows.map((row, index) => (
-                    <tr key={index}>{row.map((cell, cellIndex) => <td key={cellIndex} className={typeof cell === "number" ? "num" : ""}>{typeof cell === "number" ? formatMoney(cell) : cell}</td>)}</tr>
+                  {(block.table.templateRows?.slice(1) ?? block.table.rows).map((row, index) => (
+                    <tr key={index}>{row.map((cell, cellIndex) => <td key={cellIndex} className={typeof cell === "number" ? "num" : cell === null ? "not-entered" : ""}>{typeof cell === "number" ? formatMoney(cell) : cell === null ? "Chưa nhập" : cell}</td>)}</tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          )}
+          ))}
         </article>
       ))}
     </div>
   );
+}
+
+function noteBlocksForPreview(section: NoteSection): NoteBlock[] {
+  if (section.blocks) return section.blocks;
+  return [
+    ...(section.paragraphs ?? []).map((text) => ({ type: "paragraph" as const, text })),
+    ...(section.table ? [{ type: "table" as const, table: section.table }] : []),
+    ...(section.tables ?? []).map((table) => ({ type: "table" as const, table })),
+  ];
 }

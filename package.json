@@ -9,7 +9,14 @@
     "server": "node server/index.cjs",
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0 --port 3020",
-    "test:reports": "tsx src/lib/reportEngine.test.ts"
+    "test:reports": "tsx src/lib/reportEngine.test.ts",
+    "test:templates": "tsx src/lib/templateCompliance.test.ts",
+    "test:snapshots": "node server/snapshots.test.cjs",
+    "test:aggregates": "node server/report-aggregates.test.cjs",
+    "test:dates": "node server/date-only.test.cjs && tsx src/lib/dateOnly.test.ts",
+    "test:trial-balance": "node server/trial-balance-raw.test.cjs",
+    "test:users": "node server/users.test.cjs",
+    "test:b02-history": "node server/b02-history.test.cjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.0.4",

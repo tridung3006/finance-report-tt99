@@ -99,13 +99,31 @@ export type GeneratedReports = {
   cashMovements: CashMovement[];
 };
 
+export type NoteValue = string | number | null;
+
+export type NoteTable = {
+  title?: string;
+  columns: string[];
+  rows: NoteValue[][];
+  /** 1-based position among the 53 statutory B09 content tables. */
+  templateIndex?: number;
+  /** Physical grid dimensions retained from the source DOCX. */
+  columnCount?: number;
+  sourceRowCount?: number;
+  /** All source rows, including the original multi-row table headings. */
+  templateRows?: NoteValue[][];
+};
+
+export type NoteBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "table"; table: NoteTable };
+
 export type NoteSection = {
   title: string;
+  blocks?: NoteBlock[];
   paragraphs?: string[];
-  table?: {
-    columns: string[];
-    rows: Array<Array<string | number>>;
-  };
+  table?: NoteTable;
+  tables?: NoteTable[];
 };
 
 export type CashFlowRule = {
@@ -134,6 +152,8 @@ export type LineRule = {
   requiresManualMapping?: boolean;
   /** Do not derive a statutory amount when the journal lacks the required maturity/nature detail. */
   manualOnly?: boolean;
+  /** Keep an unavailable manual value blank/null instead of presenting a misleading zero. */
+  nullWhenManual?: boolean;
   /** Present debit/credit balances gross by account and counterparty instead of offsetting them. */
   grossByCounterparty?: boolean;
 };

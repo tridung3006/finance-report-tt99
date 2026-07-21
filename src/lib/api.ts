@@ -1,6 +1,55 @@
 import type { GeneratedReports, ReportId, ValidationIssue } from "../types/finance";
 
-export type AuthUser = { username: string };
+export type AuthUser = { username: string; role: "admin" | "user"; isAdmin: boolean };
+
+export type ManagedUser = {
+  id: string;
+  username: string;
+  role: "admin" | "user";
+  isActive: boolean;
+  failedLoginAttempts: number;
+  lockedUntil: string | null;
+  passwordChangedAt: string;
+  lastLoginAt: string | null;
+  createdAt: string;
+};
+
+export type SnapshotMonthSummary = {
+  snapshotDate: string;
+  batchId: string;
+  rowCount: number;
+  cumulativeDebit: number;
+  cumulativeCredit: number;
+  createdAt: string;
+};
+
+export type SnapshotAdminStatus = {
+  ok: boolean;
+  migrationMonth: string;
+  timeZone: string;
+  lastClosedMonth: string;
+  missingFromMonth: string | null;
+  latestSnapshot: string | null;
+  scheduler: { enabled: boolean; timeZone: string; scheduleHour: number };
+  months: SnapshotMonthSummary[];
+};
+
+export type SnapshotBuildResult = {
+  ok: boolean;
+  batchId: string;
+  fromMonth: string;
+  toMonth: string;
+  createdAt: string;
+  months: Array<{
+    yearMonth: string;
+    snapshotDate: string;
+    rowCount: number;
+    cumulativeDebit: number;
+    cumulativeCredit: number;
+    sourceRows: number;
+  }>;
+  status?: SnapshotAdminStatus;
+};
 
 export type GenerateReportsResponse = {
   formulaVersion: string;
@@ -32,6 +81,13 @@ export type DrilldownRow = {
   sourceNum: string;
   matchedCode: string;
   reason: string;
+};
+
+export type DrilldownReconciliation = {
+  drilldownAmount: number;
+  reportedAmount: number | null;
+  difference: number | null;
+  reconciled: boolean;
 };
 
 export type TrialBalanceRow = {
@@ -147,6 +203,76 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
   return body.user;
 }
 
+export async function fetchManagedUsers(): Promise<ManagedUser[]> {
+  const response = await fetch("/api/admin/users", { credentials: "same-origin" });
+  const body = await readJson<{ users: ManagedUser[]; message?: string }>(response);
+  if (!response.ok) throw new Error(body.message || "Không tải được danh sách tài khoản");
+  return body.users;
+}
+
+export async function createManagedUser(params: { username: string; password: string; role: "admin" | "user" }): Promise<void> {
+  const response = await fetch("/api/admin/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
+    body: JSON.stringify(params),
+  });
+  const body = await readJson<{ message?: string }>(response);
+  if (!response.ok) throw new Error(body.message || "Không tạo được tài khoản");
+}
+
+export async function updateManagedUser(id: string, params: { role?: "admin" | "user"; isActive?: boolean }): Promise<void> {
+  const response = await fetch(`/api/admin/users/${encodeURIComponent(id)}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
+    body: JSON.stringify(params),
+  });
+  const body = await readJson<{ message?: string }>(response);
+  if (!response.ok) throw new Error(body.message || "Không cập nhật được tài khoản");
+}
+
+export async function resetManagedUserPassword(id: string, currentPassword: string, newPassword: string): Promise<{ logoutRequired: boolean }> {
+  const response = await fetch(`/api/admin/users/${encodeURIComponent(id)}/reset-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
+    body: JSON.stringify({ currentPassword, newPassword }),
+  });
+  const body = await readJson<{ logoutRequired: boolean; message?: string }>(response);
+  if (!response.ok) throw new Error(body.message || "Không đổi được mật khẩu");
+  return body;
+}
+
+export async function fetchSnapshotStatus(): Promise<SnapshotAdminStatus> {
+  const response = await fetch("/api/admin/snapshots", { credentials: "same-origin" });
+  const body = await readJson<SnapshotAdminStatus & { message?: string }>(response);
+  if (!response.ok) throw new Error(body.message || "Không tải được trạng thái snapshot");
+  return body;
+}
+
+export async function createMissingSnapshots(): Promise<{ ok: boolean; created: boolean; status: SnapshotAdminStatus; result?: SnapshotBuildResult }> {
+  const response = await fetch("/api/admin/snapshots/create-missing", {
+    method: "POST",
+    credentials: "same-origin",
+  });
+  const body = await readJson<{ ok: boolean; created: boolean; status: SnapshotAdminStatus; result?: SnapshotBuildResult; message?: string }>(response);
+  if (!response.ok) throw new Error(body.message || "Không tạo được snapshot tháng còn thiếu");
+  return body;
+}
+
+export async function rebuildSnapshots(fromMonth: string): Promise<SnapshotBuildResult> {
+  const response = await fetch("/api/admin/snapshots/rebuild", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
+    body: JSON.stringify({ fromMonth }),
+  });
+  const body = await readJson<SnapshotBuildResult & { message?: string }>(response);
+  if (!response.ok) throw new Error(body.message || "Không tính lại được snapshot");
+  return body;
+}
+
 export async function generateServerReports(startDate: string, endDate: string): Promise<GenerateReportsResponse> {
   const response = await fetch("/api/reports/generate", {
     method: "POST",
@@ -206,6 +332,7 @@ export async function fetchTrialBalanceRawSource(params: {
   endDate: string;
   accountCode: string;
   accountAnalytic?: string;
+  analyticFilter?: string;
   groupByAnalytic?: boolean;
   page: number;
   pageSize: number;
@@ -262,7 +389,7 @@ export async function fetchDrilldown(params: {
   endDate: string;
   page: number;
   pageSize: number;
-}): Promise<{ rows: DrilldownRow[]; total: number; page: number; pageSize: number }> {
+}): Promise<{ rows: DrilldownRow[]; total: number; page: number; pageSize: number; reconciliation: DrilldownReconciliation }> {
   const query = new URLSearchParams({
     report: params.report,
     code: params.code,
@@ -272,7 +399,7 @@ export async function fetchDrilldown(params: {
     pageSize: String(params.pageSize),
   });
   const response = await fetch(`/api/reports/drilldown?${query}`, { credentials: "same-origin" });
-  const body = await readJson<{ rows: DrilldownRow[]; total: number; page: number; pageSize: number; message?: string }>(
+  const body = await readJson<{ rows: DrilldownRow[]; total: number; page: number; pageSize: number; reconciliation: DrilldownReconciliation; message?: string }>(
     response,
   );
   if (!response.ok) throw new Error(body.message || "Không tải được drilldown");

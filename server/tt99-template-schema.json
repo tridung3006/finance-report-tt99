@@ -1,0 +1,5325 @@
+{
+  "source": "Thông tư 99/2025/TT-BTC - DOCX supplied by the user",
+  "B01": [
+    {
+      "code": "100",
+      "label": "A - TÀI SẢN NGẮN HẠN"
+    },
+    {
+      "code": "110",
+      "label": "I. Tiền và các khoản tương đương tiền"
+    },
+    {
+      "code": "111",
+      "label": "1. Tiền"
+    },
+    {
+      "code": "112",
+      "label": "2. Các khoản tương đương tiền"
+    },
+    {
+      "code": "120",
+      "label": "II. Đầu tư tài chính ngắn hạn"
+    },
+    {
+      "code": "121",
+      "label": "1. Chứng khoán kinh doanh"
+    },
+    {
+      "code": "122",
+      "label": "2. Dự phòng giảm giá chứng khoán kinh doanh (*)"
+    },
+    {
+      "code": "123",
+      "label": "3. Đầu tư nắm giữ đến ngày đáo hạn ngắn hạn"
+    },
+    {
+      "code": "124",
+      "label": "4. Dự phòng đầu tư nắm giữ đến ngày đáo hạn ngắn hạn (*)"
+    },
+    {
+      "code": "125",
+      "label": "5. Đầu tư ngắn hạn khác"
+    },
+    {
+      "code": "126",
+      "label": "6. Dự phòng tổn thất các khoản đầu tư ngắn hạn khác (*)"
+    },
+    {
+      "code": "130",
+      "label": "III. Các khoản phải thu ngắn hạn"
+    },
+    {
+      "code": "131",
+      "label": "1. Phải thu ngắn hạn của khách hàng"
+    },
+    {
+      "code": "132",
+      "label": "2. Trả trước cho người bán ngắn hạn"
+    },
+    {
+      "code": "133",
+      "label": "3. Phải thu nội bộ ngắn hạn"
+    },
+    {
+      "code": "134",
+      "label": "4. Phải thu theo tiến độ hợp đồng xây dựng"
+    },
+    {
+      "code": "135",
+      "label": "5. Phải thu ngắn hạn khác"
+    },
+    {
+      "code": "136",
+      "label": "6. Dự phòng phải thu ngắn hạn khó đòi (*)"
+    },
+    {
+      "code": "137",
+      "label": "7. Tài sản thiếu chờ xử lý"
+    },
+    {
+      "code": "140",
+      "label": "IV. Hàng tồn kho"
+    },
+    {
+      "code": "141",
+      "label": "1. Hàng tồn kho"
+    },
+    {
+      "code": "142",
+      "label": "2. Dự phòng giảm giá hàng tồn kho (*)"
+    },
+    {
+      "code": "150",
+      "label": "V. Tài sản sinh học ngắn hạn"
+    },
+    {
+      "code": "151",
+      "label": "1. Súc vật nuôi lấy sản phẩm một lần ngắn hạn"
+    },
+    {
+      "code": "152",
+      "label": "2. Cây trồng theo mùa vụ hoặc lấy sản phẩm một lần ngắn hạn"
+    },
+    {
+      "code": "153",
+      "label": "3. Dự phòng tổn thất tài sản sinh học ngắn hạn (*)"
+    },
+    {
+      "code": "160",
+      "label": "VI. Tài sản ngắn hạn khác"
+    },
+    {
+      "code": "161",
+      "label": "1. Chi phí chờ phân bổ ngắn hạn"
+    },
+    {
+      "code": "162",
+      "label": "2. Thuế GTGT được khấu trừ"
+    },
+    {
+      "code": "163",
+      "label": "3. Thuế và các khoản khác phải thu Nhà nước"
+    },
+    {
+      "code": "164",
+      "label": "4. Giao dịch mua bán lại trái phiếu Chính phủ"
+    },
+    {
+      "code": "165",
+      "label": "5. Tài sản ngắn hạn khác"
+    },
+    {
+      "code": "200",
+      "label": "B - TÀI SẢN DÀI HẠN"
+    },
+    {
+      "code": "210",
+      "label": "I. Các khoản phải thu dài hạn"
+    },
+    {
+      "code": "211",
+      "label": "1. Phải thu dài hạn của khách hàng"
+    },
+    {
+      "code": "212",
+      "label": "2. Trả trước cho người bán dài hạn"
+    },
+    {
+      "code": "213",
+      "label": "3. Vốn kinh doanh ở đơn vị trực thuộc"
+    },
+    {
+      "code": "214",
+      "label": "4. Phải thu nội bộ dài hạn"
+    },
+    {
+      "code": "215",
+      "label": "5. Phải thu dài hạn khác"
+    },
+    {
+      "code": "216",
+      "label": "6. Dự phòng phải thu dài hạn khó đòi (*)"
+    },
+    {
+      "code": "220",
+      "label": "II. Tài sản cố định"
+    },
+    {
+      "code": "221",
+      "label": "1. Tài sản cố định hữu hình"
+    },
+    {
+      "code": "222",
+      "label": "- Nguyên giá"
+    },
+    {
+      "code": "223",
+      "label": "- Giá trị hao mòn lũy kế (*)"
+    },
+    {
+      "code": "224",
+      "label": "2. Tài sản cố định thuê tài chính"
+    },
+    {
+      "code": "225",
+      "label": "- Nguyên giá"
+    },
+    {
+      "code": "226",
+      "label": "- Giá trị hao mòn lũy kế (*)"
+    },
+    {
+      "code": "227",
+      "label": "3. Tài sản cố định vô hình"
+    },
+    {
+      "code": "228",
+      "label": "- Nguyên giá"
+    },
+    {
+      "code": "229",
+      "label": "- Giá trị hao mòn lũy kế (*)"
+    },
+    {
+      "code": "230",
+      "label": "III. Tài sản sinh học dài hạn"
+    },
+    {
+      "code": "231",
+      "label": "1. Súc vật nuôi cho sản phẩm định kỳ"
+    },
+    {
+      "code": "232",
+      "label": "a) Súc vật nuôi cho sản phẩm định kỳ chưa đến giai đoạn trưởng thành"
+    },
+    {
+      "code": "233",
+      "label": "b) Súc vật nuôi cho sản phẩm định kỳ đến giai đoạn trưởng thành"
+    },
+    {
+      "code": "234",
+      "label": "- Nguyên giá"
+    },
+    {
+      "code": "235",
+      "label": "- Giá trị khấu hao lũy kế (*)"
+    },
+    {
+      "code": "236",
+      "label": "2. Súc vật nuôi lấy sản phẩm một lần dài hạn"
+    },
+    {
+      "code": "237",
+      "label": "3. Cây trồng theo mùa vụ hoặc lấy sản phẩm một lần dài hạn"
+    },
+    {
+      "code": "238",
+      "label": "4. Dự phòng tổn thất tài sản sinh học dài hạn (*)"
+    },
+    {
+      "code": "240",
+      "label": "IV. Bất động sản đầu tư"
+    },
+    {
+      "code": "241",
+      "label": "- Nguyên giá"
+    },
+    {
+      "code": "242",
+      "label": "- Giá trị hao mòn lũy kế (*)"
+    },
+    {
+      "code": "250",
+      "label": "V. Tài sản dở dang dài hạn"
+    },
+    {
+      "code": "251",
+      "label": "1. Chi phí sản xuất, kinh doanh dở dang dài hạn"
+    },
+    {
+      "code": "252",
+      "label": "2. Chi phí xây dựng cơ bản dở dang"
+    },
+    {
+      "code": "260",
+      "label": "VI. Đầu tư tài chính dài hạn"
+    },
+    {
+      "code": "261",
+      "label": "1. Đầu tư vào công ty con"
+    },
+    {
+      "code": "262",
+      "label": "2. Đầu tư vào công ty liên doanh, liên kết"
+    },
+    {
+      "code": "263",
+      "label": "3. Đầu tư góp vốn vào đơn vị khác"
+    },
+    {
+      "code": "264",
+      "label": "4. Dự phòng tổn thất đầu tư vào đơn vị khác dài hạn (*)"
+    },
+    {
+      "code": "265",
+      "label": "5. Đầu tư nắm giữ đến ngày đáo hạn dài hạn"
+    },
+    {
+      "code": "266",
+      "label": "6. Dự phòng đầu tư nắm giữ đến ngày đáo hạn dài hạn (*)"
+    },
+    {
+      "code": "270",
+      "label": "VII. Tài sản dài hạn khác"
+    },
+    {
+      "code": "271",
+      "label": "1. Chi phí chờ phân bổ dài hạn"
+    },
+    {
+      "code": "272",
+      "label": "2. Tài sản thuế thu nhập hoãn lại"
+    },
+    {
+      "code": "273",
+      "label": "3. Thiết bị, vật tư, phụ tùng thay thế dài hạn"
+    },
+    {
+      "code": "274",
+      "label": "4. Tài sản dài hạn khác"
+    },
+    {
+      "code": "280",
+      "label": "TỔNG CỘNG TÀI SẢN (280 = 100 + 200)"
+    },
+    {
+      "code": "300",
+      "label": "C - NỢ PHẢI TRẢ"
+    },
+    {
+      "code": "310",
+      "label": "I. Nợ ngắn hạn"
+    },
+    {
+      "code": "311",
+      "label": "1. Phải trả người bán ngắn hạn"
+    },
+    {
+      "code": "312",
+      "label": "2. Người mua trả tiền trước ngắn hạn"
+    },
+    {
+      "code": "313",
+      "label": "3. Phải trả cổ tức, lợi nhuận"
+    },
+    {
+      "code": "314",
+      "label": "4. Thuế và các khoản phải nộp Nhà nước ngắn hạn"
+    },
+    {
+      "code": "315",
+      "label": "5. Phải trả người lao động"
+    },
+    {
+      "code": "316",
+      "label": "6. Chi phí phải trả ngắn hạn"
+    },
+    {
+      "code": "317",
+      "label": "7. Phải trả nội bộ ngắn hạn"
+    },
+    {
+      "code": "318",
+      "label": "8. Phải trả theo tiến độ hợp đồng xây dựng ngắn hạn"
+    },
+    {
+      "code": "319",
+      "label": "9. Doanh thu chờ phân bổ ngắn hạn"
+    },
+    {
+      "code": "320",
+      "label": "10. Phải trả ngắn hạn khác"
+    },
+    {
+      "code": "321",
+      "label": "11. Vay và nợ thuê tài chính ngắn hạn"
+    },
+    {
+      "code": "322",
+      "label": "12. Dự phòng phải trả ngắn hạn"
+    },
+    {
+      "code": "323",
+      "label": "13. Quỹ khen thưởng, phúc lợi"
+    },
+    {
+      "code": "324",
+      "label": "14. Quỹ bình ổn giá"
+    },
+    {
+      "code": "325",
+      "label": "15. Giao dịch mua bán lại trái phiếu Chính phủ"
+    },
+    {
+      "code": "330",
+      "label": "II. Nợ dài hạn"
+    },
+    {
+      "code": "331",
+      "label": "1. Phải trả người bán dài hạn"
+    },
+    {
+      "code": "332",
+      "label": "2. Người mua trả tiền trước dài hạn"
+    },
+    {
+      "code": "333",
+      "label": "3. Thuế và các khoản phải nộp Nhà nước dài hạn"
+    },
+    {
+      "code": "334",
+      "label": "4. Chi phí phải trả dài hạn"
+    },
+    {
+      "code": "335",
+      "label": "5. Phải trả nội bộ về vốn kinh doanh"
+    },
+    {
+      "code": "336",
+      "label": "6. Phải trả nội bộ dài hạn"
+    },
+    {
+      "code": "337",
+      "label": "7. Doanh thu chờ phân bổ dài hạn"
+    },
+    {
+      "code": "338",
+      "label": "8. Phải trả dài hạn khác"
+    },
+    {
+      "code": "339",
+      "label": "9. Vay và nợ thuê tài chính dài hạn"
+    },
+    {
+      "code": "340",
+      "label": "10. Trái phiếu chuyển đổi"
+    },
+    {
+      "code": "341",
+      "label": "11. Cổ phiếu ưu đãi"
+    },
+    {
+      "code": "342",
+      "label": "12. Thuế thu nhập hoãn lại phải trả"
+    },
+    {
+      "code": "343",
+      "label": "13. Dự phòng phải trả dài hạn"
+    },
+    {
+      "code": "344",
+      "label": "14. Quỹ phát triển khoa học và công nghệ"
+    },
+    {
+      "code": "400",
+      "label": "D - VỐN CHỦ SỞ HỮU"
+    },
+    {
+      "code": "411",
+      "label": "1. Vốn góp của chủ sở hữu"
+    },
+    {
+      "code": "411a",
+      "label": "- Cổ phiếu phổ thông có quyền biểu quyết"
+    },
+    {
+      "code": "411b",
+      "label": "- Cổ phiếu ưu đãi"
+    },
+    {
+      "code": "412",
+      "label": "2. Thặng dư vốn"
+    },
+    {
+      "code": "413",
+      "label": "3. Quyền chọn chuyển đổi trái phiếu"
+    },
+    {
+      "code": "414",
+      "label": "4. Vốn khác của chủ sở hữu"
+    },
+    {
+      "code": "415",
+      "label": "5. Cổ phiếu mua lại của chính mình (*)"
+    },
+    {
+      "code": "416",
+      "label": "6. Chênh lệch đánh giá lại tài sản"
+    },
+    {
+      "code": "417",
+      "label": "7. Chênh lệch tỷ giá hối đoái"
+    },
+    {
+      "code": "418",
+      "label": "8. Quỹ đầu tư phát triển"
+    },
+    {
+      "code": "419",
+      "label": "9. Quỹ khác thuộc vốn chủ sở hữu"
+    },
+    {
+      "code": "420",
+      "label": "10. Lợi nhuận sau thuế chưa phân phối"
+    },
+    {
+      "code": "420a",
+      "label": "- LNST chưa phân phối lũy kế đến cuối kỳ trước"
+    },
+    {
+      "code": "420b",
+      "label": "- LNST chưa phân phối kỳ này"
+    },
+    {
+      "code": "440",
+      "label": "TỔNG CỘNG NGUỒN VỐN (440 = 300 + 400)"
+    }
+  ],
+  "B03": [
+    {
+      "code": "01",
+      "label": "1. Tiền thu từ bán hàng, cung cấp dịch vụ và doanh thu khác"
+    },
+    {
+      "code": "02",
+      "label": "2. Tiền chi trả cho người cung cấp hàng hóa và dịch vụ"
+    },
+    {
+      "code": "03",
+      "label": "3. Tiền chi trả cho người lao động"
+    },
+    {
+      "code": "04",
+      "label": "4. Chi phí đi vay đã trả"
+    },
+    {
+      "code": "05",
+      "label": "5. Thuế thu nhập doanh nghiệp đã nộp"
+    },
+    {
+      "code": "06",
+      "label": "6. Tiền thu khác từ hoạt động kinh doanh"
+    },
+    {
+      "code": "07",
+      "label": "7. Tiền chi khác cho hoạt động kinh doanh"
+    },
+    {
+      "code": "20",
+      "label": "Lưu chuyển tiền thuần từ hoạt động kinh doanh"
+    },
+    {
+      "code": "21",
+      "label": "1. Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác"
+    },
+    {
+      "code": "22",
+      "label": "2. Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác"
+    },
+    {
+      "code": "23",
+      "label": "3. Tiền chi cho vay, mua các công cụ nợ của đơn vị khác"
+    },
+    {
+      "code": "24",
+      "label": "4. Tiền thu hồi cho vay, bán lại các công cụ nợ của đơn vị khác"
+    },
+    {
+      "code": "25",
+      "label": "5. Tiền chi đầu tư góp vốn vào đơn vị khác"
+    },
+    {
+      "code": "26",
+      "label": "6. Tiền thu hồi đầu tư góp vốn vào đơn vị khác"
+    },
+    {
+      "code": "27",
+      "label": "7. Tiền thu lãi cho vay, cổ tức và lợi nhuận được chia"
+    },
+    {
+      "code": "30",
+      "label": "Lưu chuyển tiền thuần từ hoạt động đầu tư"
+    },
+    {
+      "code": "31",
+      "label": "1. Tiền thu từ phát hành cổ phiếu, nhận vốn góp của chủ sở hữu"
+    },
+    {
+      "code": "32",
+      "label": "2. Tiền trả lại vốn góp cho các chủ sở hữu, mua lại cổ phiếu đã phát hành"
+    },
+    {
+      "code": "33",
+      "label": "3. Tiền thu từ đi vay"
+    },
+    {
+      "code": "34",
+      "label": "4. Tiền trả nợ gốc vay"
+    },
+    {
+      "code": "35",
+      "label": "5. Tiền trả nợ gốc thuê tài chính"
+    },
+    {
+      "code": "36",
+      "label": "6. Cổ tức, lợi nhuận đã trả cho chủ sở hữu"
+    },
+    {
+      "code": "40",
+      "label": "Lưu chuyển tiền thuần từ hoạt động tài chính"
+    },
+    {
+      "code": "50",
+      "label": "Lưu chuyển tiền thuần trong kỳ (50 = 20+30+40)"
+    },
+    {
+      "code": "60",
+      "label": "Tiền và tương đương tiền đầu kỳ"
+    },
+    {
+      "code": "61",
+      "label": "Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ"
+    },
+    {
+      "code": "70",
+      "label": "Tiền và tương đương tiền cuối kỳ (70 = 50+60+61)"
+    }
+  ],
+  "B09": {
+    "wordTableCount": 55,
+    "contentTableCount": 53,
+    "sections": [
+      {
+        "title": "I. Đặc điểm hoạt động của doanh nghiệp",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "1. Hình thức sở hữu vốn."
+          },
+          {
+            "type": "paragraph",
+            "text": "2. Lĩnh vực kinh doanh."
+          },
+          {
+            "type": "paragraph",
+            "text": "3. Ngành nghề kinh doanh."
+          },
+          {
+            "type": "paragraph",
+            "text": "4. Chu kỳ sản xuất, kinh doanh thông thường."
+          },
+          {
+            "type": "paragraph",
+            "text": "5. Đặc điểm hoạt động của doanh nghiệp trong năm tài chính có ảnh hưởng đến Báo cáo tài chính."
+          },
+          {
+            "type": "paragraph",
+            "text": "6. Cấu trúc doanh nghiệp"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Danh sách các công ty con;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Danh sách các công ty liên doanh, liên kết;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Danh sách các đơn vị trực thuộc."
+          },
+          {
+            "type": "paragraph",
+            "text": "7. Số lượng người lao động tại thời điểm cuối niên độ hoặc số lượng người lao động bình quân trong niên độ."
+          },
+          {
+            "type": "paragraph",
+            "text": "8. Tuyên bố về khả năng so sánh thông tin trên Báo cáo tài chính: Trường hợp Báo cáo tài chính nếu không so sánh được phải thuyết minh rõ và giải trình lý do về sự không so sánh được giữa thông tin của kỳ báo cáo và thông tin kỳ so sánh trên Thuyết minh Báo cáo tài chính của doanh nghiệp."
+          },
+          {
+            "type": "paragraph",
+            "text": "9. Thuyết minh các thông tin khác trên Báo cáo tài chính theo quy định pháp luật có liên quan như pháp luật doanh nghiệp, pháp luật chứng khoán,..."
+          }
+        ]
+      },
+      {
+        "title": "II. Kỳ kế toán, đơn vị tiền tệ sử dụng trong kế toán",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "1. Kỳ kế toán năm (bắt đầu từ ngày..../..../.... kết thúc vào ngày ..../..../....)."
+          },
+          {
+            "type": "paragraph",
+            "text": "2. Đơn vị tiền tệ sử dụng trong kế toán. Trường hợp có sự thay đổi đơn vị tiền tệ trong kế toán so với năm trước, giải trình rõ lý do và ảnh hưởng của sự thay đổi."
+          }
+        ]
+      },
+      {
+        "title": "III. Chuẩn mực và Chế độ kế toán áp dụng",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "1. Chế độ kế toán áp dụng"
+          },
+          {
+            "type": "paragraph",
+            "text": "2. Tuyên bố về việc tuân thủ Chuẩn mực kế toán Việt Nam và Chế độ kế toán"
+          }
+        ]
+      },
+      {
+        "title": "IV. Các chính sách kế toán, ước tính kế toán và các quy định pháp luật có liên quan áp dụng",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "1. Nguyên tắc chuyển đổi Báo cáo tài chính lập bằng ngoại tệ sang Đồng Việt Nam (Trường hợp đồng tiền ghi sổ kế toán khác với Đồng Việt Nam); Ảnh hưởng (nếu có) do việc chuyển đổi Báo cáo tài chính từ ngoại tệ sang Đồng Việt Nam."
+          },
+          {
+            "type": "paragraph",
+            "text": "2. Các loại tỷ giá hối đoái áp dụng trong kế toán"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tỷ giá hối đoái lựa chọn áp dụng khi kế toán chênh lệch tỷ giá phát sinh trong kỳ và tỷ giá hối đoái khi đánh giá lại các khoản mục tiền tệ có gốc ngoại tệ;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tỷ giá giao dịch tính chéo đối với trường hợp ngân hàng không công bố tỷ giá giao dịch của đồng ngoại tệ;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá mua vàng của Ngân hàng Nhà nước công bố hay giá mua tham chiếu của đơn vị được phép kinh doanh vàng theo luật định để sử dụng khi đánh giá lại vàng tiền tệ tại thời điểm kết thúc kỳ kế toán."
+          },
+          {
+            "type": "paragraph",
+            "text": "3. Nguyên tắc xác định lãi suất thực tế (lãi suất hiệu lực) dùng để chiết khấu dòng tiền."
+          },
+          {
+            "type": "paragraph",
+            "text": "4. Nguyên tắc ghi nhận các khoản tiền và các khoản tương đương tiền."
+          },
+          {
+            "type": "paragraph",
+            "text": "5. Nguyên tắc kế toán các khoản đầu tư tài chính"
+          },
+          {
+            "type": "paragraph",
+            "text": "a) Chứng khoán kinh doanh;"
+          },
+          {
+            "type": "paragraph",
+            "text": "b) Các khoản đầu tư nắm giữ đến ngày đáo hạn;"
+          },
+          {
+            "type": "paragraph",
+            "text": "c) Đầu tư vào công ty con; công ty liên doanh, liên kết;"
+          },
+          {
+            "type": "paragraph",
+            "text": "d) Đầu tư vào đơn vị khác;"
+          },
+          {
+            "type": "paragraph",
+            "text": "đ) Các phương pháp kế toán đối với các giao dịch khác liên quan đến đầu tư tài chính."
+          },
+          {
+            "type": "paragraph",
+            "text": "6. Nguyên tắc kế toán nợ phải thu"
+          },
+          {
+            "type": "paragraph",
+            "text": "Doanh nghiệp phải thuyết minh các chính sách kế toán liên quan đến các khoản nợ phải thu và cơ sở ước tính quan trọng được sử dụng trong chính sách về dự phòng phải thu khó đòi."
+          },
+          {
+            "type": "paragraph",
+            "text": "7. Nguyên tắc kế toán hàng tồn kho"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Nguyên tắc ghi nhận hàng tồn kho;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Phương pháp tính giá trị hàng tồn kho;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Phương pháp hạch toán hàng tồn kho;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Phương pháp trích lập dự phòng giảm giá hàng tồn kho;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiêu thức phân bổ nguyên liệu, vật liệu."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Chính sách kế toán liên quan đến hàng tồn kho đối với những hợp đồng có rủi ro lớn."
+          },
+          {
+            "type": "paragraph",
+            "text": "8. Nguyên tắc kế toán và khấu hao TSCĐ hữu hình (bao gồm cả cây lâu năm cho sản phẩm định kỳ, súc vật làm việc), TSCĐ vô hình, TSCĐ thuê tài chính, bất động sản đầu tư."
+          },
+          {
+            "type": "paragraph",
+            "text": "9. Nguyên tắc kế toán tài sản sinh học."
+          },
+          {
+            "type": "paragraph",
+            "text": "10. Nguyên tắc kế toán các loại hợp đồng hợp tác kinh doanh."
+          },
+          {
+            "type": "paragraph",
+            "text": "11. Nguyên tắc kế toán chi phí chờ phân bổ."
+          },
+          {
+            "type": "paragraph",
+            "text": "12. Nguyên tắc kế toán phải trả người bán."
+          },
+          {
+            "type": "paragraph",
+            "text": "13. Nguyên tắc kế toán phải trả cổ tức, lợi nhuận."
+          },
+          {
+            "type": "paragraph",
+            "text": "14. Nguyên tắc ghi nhận chi phí phải trả."
+          },
+          {
+            "type": "paragraph",
+            "text": "15. Nguyên tắc ghi nhận doanh thu chờ phân bổ."
+          },
+          {
+            "type": "paragraph",
+            "text": "16. Nguyên tắc kế toán các khoản dự phòng phải trả."
+          },
+          {
+            "type": "paragraph",
+            "text": "17. Nguyên tắc kế toán thuế TNDN hoãn lại."
+          },
+          {
+            "type": "paragraph",
+            "text": "18. Nguyên tắc ghi nhận vay và nợ thuê tài chính."
+          },
+          {
+            "type": "paragraph",
+            "text": "19. Nguyên tắc ghi nhận và vốn hóa các khoản chi phí đi vay."
+          },
+          {
+            "type": "paragraph",
+            "text": "20. Nguyên tắc ghi nhận trái phiếu chuyển đổi."
+          },
+          {
+            "type": "paragraph",
+            "text": "21. Nguyên tắc ghi nhận vốn chủ sở hữu:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Nguyên tắc ghi nhận vốn góp của chủ sở hữu, thặng dư vốn, quyền chọn trái phiếu chuyển đổi, vốn khác của chủ sở hữu;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Nguyên tắc ghi nhận chênh lệch đánh giá lại tài sản;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Nguyên tắc ghi nhận chênh lệch tỷ giá;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Nguyên tắc ghi nhận lợi nhuận chưa phân phối."
+          },
+          {
+            "type": "paragraph",
+            "text": "22. Nguyên tắc và phương pháp ghi nhận doanh thu, thu nhập khác:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Doanh thu bán hàng và cung cấp dịch vụ"
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Doanh thu bán hàng."
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Doanh thu cung cấp dịch vụ."
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Doanh thu hợp đồng xây dựng."
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Doanh thu bán bất động sản là các căn hộ du lịch, văn phòng kết hợp lưu trú hoặc sản phẩm tương tự."
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Doanh thu bán BĐSĐT."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Doanh thu hoạt động tài chính;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thu nhập khác."
+          },
+          {
+            "type": "paragraph",
+            "text": "23. Nguyên tắc kế toán các khoản giảm trừ doanh thu."
+          },
+          {
+            "type": "paragraph",
+            "text": "24. Nguyên tắc kế toán giá vốn hàng bán."
+          },
+          {
+            "type": "paragraph",
+            "text": "25. Nguyên tắc kế toán chi phí tài chính."
+          },
+          {
+            "type": "paragraph",
+            "text": "26. Nguyên tắc kế toán chi phí bán hàng, chi phí quản lý doanh nghiệp."
+          },
+          {
+            "type": "paragraph",
+            "text": "27. Nguyên tắc kế toán bán, thanh lý TSCĐ, bất động sản đầu tư."
+          },
+          {
+            "type": "paragraph",
+            "text": "28. Nguyên tắc và phương pháp ghi nhận chi phí thuế thu nhập doanh nghiệp hiện hành (bao gồm cả chi phí thuế thu nhập doanh nghiệp bổ sung theo quy định về thuế tối thiểu toàn cầu), chi phí thuế thu nhập doanh nghiệp hoãn lại."
+          },
+          {
+            "type": "paragraph",
+            "text": "29. Các nguyên tắc và phương pháp kế toán khác."
+          }
+        ]
+      },
+      {
+        "title": "V. Thông tin bổ sung cho các khoản mục trình bày trong Báo cáo tình hình tài chính",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Đơn vị tính:………"
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 1,
+              "title": "1. Tiền và các khoản tương đương tiền",
+              "columnCount": 3,
+              "rowCount": 6,
+              "rows": [
+                [
+                  "Các khoản tiền và tương đương tiền doanh nghiệp đang nắm giữ nhưng không bị hạn chế sử dụng",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "- Tiền mặt",
+                  null,
+                  null
+                ],
+                [
+                  "- Tiền gửi không kỳ hạn",
+                  null,
+                  null
+                ],
+                [
+                  "- Tiền đang chuyển",
+                  null,
+                  null
+                ],
+                [
+                  "- Tương đương tiền",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh chi tiết số dư tiền gửi không kỳ hạn theo từng ngân hàng chiếm từ 10% trên tổng số dư của tiền gửi không kỳ hạn;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh chi tiết về nội dung, kỳ hạn, số dư của từng khoản được phân loại là tương đương tiền của doanh nghiệp (chi tiết từng loại chiếm từ 10% trên tổng giá trị tương đương tiền)."
+          },
+          {
+            "type": "paragraph",
+            "text": "2. Các khoản đầu tư tài chính"
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 2,
+              "title": "a) Chứng khoán kinh doanh",
+              "columnCount": 7,
+              "rowCount": 6,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Chỉ tiêu",
+                  "Giá gốc",
+                  "Giá trị hợp lý",
+                  "Giá trị dự phòng",
+                  "Giá gốc",
+                  "Giá trị hợp lý",
+                  "Giá trị dự phòng"
+                ],
+                [
+                  "- Tổng giá trị cổ phiếu; (chi tiết từng loại cổ phiếu chiếm từ 10% trên tổng giá trị cổ phiếu trở lên)",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Tổng giá trị trái phiếu (tương tự cổ phiếu)",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản đầu tư khác",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Lý do thay đổi với từng khoản đầu tư/loại cổ phiếu, trái phiếu:"
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Về số lượng"
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Về giá trị"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Cơ sở xác định giá trị hợp lý đối với chứng khoán kinh doanh."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 3,
+              "title": "b) Đầu tư nắm giữ đến ngày đáo hạn",
+              "columnCount": 7,
+              "rowCount": 13,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Chỉ tiêu",
+                  "Giá gốc",
+                  "Giá trị có thể thu hồi",
+                  "Giá trị dự phòng",
+                  "Giá gốc",
+                  "Giá trị có thể thu hồi",
+                  "Giá trị dự phòng"
+                ],
+                [
+                  "- Ngắn hạn",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "+ Tiền gửi có kỳ hạn (chi tiết từng khoản tiền gửi có kỳ hạn ngắn hạn chiếm từ 10% trên tổng giá trị tiền gửi có kỳ hạn ngắn hạn trở lên)",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "+ Trái phiếu (chi tiết từng khoản đầu tư trái phiếu ngắn hạn chiếm từ 10% trên tổng giá trị khoản đầu tư trái phiếu ngắn hạn trở lên)",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "+ Cho vay (chi tiết từng khoản cho vay ngắn hạn chiếm từ 10% trên tổng giá trị khoản cho vay ngắn hạn trở lên)",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "+ Các khoản đầu tư khác",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Dài hạn (tương tự ngắn hạn)",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "+ Tiền gửi có kỳ hạn",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "+ Trái phiếu",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "+ Cho vay",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "+ Các khoản đầu tư khác",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh về lãi của các khoản đầu tư nắm giữ đến ngày đáo hạn nhưng không có khả năng thu hồi nên doanh nghiệp không được ghi nhận doanh thu."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Lý do dẫn đến việc trích lập thêm hoặc hoàn nhập dự phòng tổn thất đầu tư nắm giữ đến ngày đáo hạn."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 4,
+              "title": "c) Đầu tư góp vốn vào đơn vị khác (chi tiết từng khoản đầu tư theo tỷ lệ vốn nắm giữ và tỷ lệ quyền biểu quyết)",
+              "columnCount": 7,
+              "rowCount": 6,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Chỉ tiêu",
+                  "Giá gốc",
+                  "Giá trị có thể thu hồi",
+                  "Giá trị dự phòng",
+                  "Giá gốc",
+                  "Giá trị có thể thu hồi",
+                  "Giá trị dự phòng"
+                ],
+                [
+                  "- Đầu tư vào công ty con",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  ""
+                ],
+                [
+                  "- Đầu tư vào công ty liên doanh, liên kết",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Đầu tư vào đơn vị khác + Trong đó: Đầu tư vào hợp đồng BCC mà doanh nghiệp không có quyền đồng kiểm soát nhưng được hưởng lợi ích phụ thuộc vào lợi nhuận sau thuế của hợp đồng BCC",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tóm tắt tình hình hoạt động của các công ty con, công ty liên doanh, liên kết, tình trạng của các hợp đồng BCC trong kỳ."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Các giao dịch trọng yếu giữa doanh nghiệp và công ty con, liên doanh, liên kết và BCC trong kỳ."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Trường hợp không xác định được giá trị hợp lý hoặc giá trị có thể thu hồi của khoản đầu tư thì giải trình rõ lý do."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Căn cứ xác định giá trị TSCĐ vô hình như quyền sở hữu trí tuệ,... khi đầu tư góp vốn vào công ty con, công ty liên doanh, công ty liên kết."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 5,
+              "title": "3. Phải thu của khách hàng",
+              "columnCount": 5,
+              "rowCount": 8,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "",
+                  "Giá trị ghi sổ",
+                  "Giá trị dự phòng",
+                  "Giá trị ghi sổ",
+                  "Giá trị dự phòng"
+                ],
+                [
+                  "a) Phải thu của khách hàng ngắn hạn",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Chi tiết các khoản phải thu ngắn hạn của khách hàng chiếm từ 10% trở lên trên tổng phải thu ngắn hạn của khách hàng",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản phải thu khách hàng khác",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "b) Phải thu của khách hàng dài hạn (tương tự ngắn hạn)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "c) Phải thu của khách hàng là các bên liên quan (chi tiết từng đối tượng)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Lý do dẫn đến việc trích lập thêm hoặc hoàn nhập dự phòng nợ phải thu khó đòi."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 6,
+              "title": "4. Phải thu khác",
+              "columnCount": 5,
+              "rowCount": 12,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Chỉ tiêu",
+                  "Giá trị ghi sổ",
+                  "Giá trị dự phòng",
+                  "Giá trị ghi sổ",
+                  "Giá trị dự phòng"
+                ],
+                [
+                  "a) Ngắn hạn",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Phải thu về cổ tức và lợi nhuận được chia",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Phải thu của người lao động",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Ký cược, ký quỹ",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Cho mượn tài sản phi tiền tệ",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản chi hộ",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Phải thu khác",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "b) Dài hạn (tương tự ngắn hạn)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "c) Phải thu từ hợp đồng BCC mà doanh nghiệp đồng kiểm soát",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Doanh nghiệp phải thuyết minh chi tiết về bản chất, nội dung, giá trị, thời gian tạm ứng, thời gian hoàn ứng, thời gian dự kiến thu hồi, thời gian thu hồi bị quá hạn (nếu có)... và các thông tin khác có liên quan đến các khoản tiền, tài sản mà doanh nghiệp giao cho các cá nhân, bộ phận trong doanh nghiệp mang đi đặt cọc, ký quỹ, ký cược dưới hình thức là khoản tạm ứng hoặc các khoản phải thu khác chiếm từ 10% trở lên trên tổng các khoản phải thu khác. Trường hợp giữa các bên có thỏa thuận là bên nhận tiền, tài sản phải trả lãi cho doanh nghiệp thì doanh nghiệp phải thuyết minh chi tiết về lãi suất, thời gian trả lãi, hình thức trả lãi,... và cần căn cứ vào bản chất thay vì tên gọi của giao dịch để ghi nhận và hạch toán cho phù hợp."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh thông tin về hợp đồng BCC chiếm từ 10% trở lên trên tổng giá trị các hợp đồng BCC của doanh nghiệp/có ảnh hưởng trọng yếu:"
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Số hiệu/Tên của hợp đồng BCC."
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Bản chất hoạt động của hợp đồng BCC (mô tả bản chất mối quan hệ của các bên tham gia, các điều khoản, điều kiện của hợp đồng BCC, quyền và nghĩa vụ của doanh nghiệp liên quan đến hợp đồng BCC,...)"
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Tình trạng và tiến độ thực hiện của hợp đồng BCC."
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Các thông tin cần thiết khác như căn cứ đánh giá lại giá trị tài sản đồng kiểm soát được chia từ hợp đồng BCC (nếu có),..."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 7,
+              "title": "5. Tài sản thiếu chờ xử lý (Chi tiết từng loại tài sản thiếu)",
+              "columnCount": 5,
+              "rowCount": 7,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Chỉ tiêu",
+                  "Số lượng",
+                  "Giá trị",
+                  "Số lượng",
+                  "Giá trị"
+                ],
+                [
+                  "a) Tiền;",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "b) Hàng tồn kho;",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "C) TSCĐ;",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "d) Tài sản khác.",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "Doanh nghiệp phải thuyết minh rõ thêm về thời hạn doanh nghiệp sẽ xác định rõ được nguyên nhân của từng loại tài sản thiếu chờ xử lý, kết quả xử lý tài sản thiếu chờ xử lý trên Báo cáo tình hình tài chính kỳ trước (đã được xử lý trong kỳ và chưa được xử lý trong kỳ này), lý do tài sản thiếu chờ xử lý đã được phản ánh trên Báo cáo tình hình tài chính kỳ trước nhưng chưa được xử lý trong kỳ này,..."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 8,
+              "title": "6. Nợ xấu",
+              "columnCount": 7,
+              "rowCount": 5,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Chỉ tiêu",
+                  "Giá trị gốc nợ",
+                  "Giá trị có thể thu hồi",
+                  "Đối tượng nợ",
+                  "Giá trị gốc nợ",
+                  "Giá trị có thể thu hồi",
+                  "Đối tượng nợ"
+                ],
+                [
+                  "- Tổng giá trị các khoản phải thu, cho vay quá hạn thanh toán hoặc chưa quá hạn nhưng khó có khả năng thu hồi (trong đó chi tiết thời gian quá hạn và giá trị các khoản nợ phải thu, cho vay quá hạn theo từng đối tượng nếu khoản nợ phải thu theo từng đối tượng đó chiếm từ 10% trở lên trên tổng số nợ quá hạn)",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Khả năng thu hồi nợ phải thu quá hạn",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh về các khoản tiền phạt, phải thu về lãi trả chậm... phát sinh từ các khoản nợ phải thu nhưng không có khả năng thu hồi nên doanh nghiệp không được ghi nhận doanh thu."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 9,
+              "title": "7. Hàng tồn kho:",
+              "columnCount": 5,
+              "rowCount": 10,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Chỉ tiêu",
+                  "Giá gốc",
+                  "Dự phòng",
+                  "Giá gốc",
+                  "Dự phòng"
+                ],
+                [
+                  "- Hàng mua đang đi đường",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Nguyên liệu, vật liệu",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Công cụ, dụng cụ",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí sản xuất kinh doanh dở dang",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Sản phẩm",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Hàng hóa",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Hàng gửi đi bán",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Nguyên liệu, vật tư tại kho bảo thuế",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiêu thức phân bổ nguyên liệu, vật liệu"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị hàng tồn kho ứ đọng, kém, mất phẩm chất, lạc hậu kỹ thuật,... không có khả năng tiêu thụ tại thời điểm cuối kỳ; Nguyên nhân và hướng xử lý đối với hàng tồn kho ứ đọng, kém, mất phẩm chất, lạc hậu kỹ thuật,...;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị hàng tồn kho dùng để thế chấp, cầm cố bảo đảm các khoản nợ phải trả tại thời điểm cuối kỳ;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Lý do dẫn đến việc trích lập thêm hoặc hoàn nhập dự phòng giảm giá hàng tồn kho."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 10,
+              "title": "8. Tài sản dở dang dài hạn",
+              "columnCount": 5,
+              "rowCount": 10,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Chỉ tiêu",
+                  "Giá gốc",
+                  "Giá trị có thể thu hồi",
+                  "Giá gốc",
+                  "Giá trị có thể thu hồi"
+                ],
+                [
+                  "a) Chi phí sản xuất, kinh doanh dở dang dài hạn (Chi tiết cho từng loại, nêu lí do vì sao quá trình sản xuất tài sản dở dang bị gián đoạn một cách bất thường)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "b) Xây dựng cơ bản dở dang (Chi tiết cho các công trình chiếm từ 10% trên tổng giá trị XDCB)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Mua sắm",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- XDCB",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Sửa chữa, bảo dưỡng định kỳ",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Nâng cấp cải tạo TSCĐ",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 11,
+              "title": "9. Tăng, giảm tài sản cố định hữu hình",
+              "columnCount": 7,
+              "rowCount": 21,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Nhà cửa, vật kiến trúc",
+                  "Máy móc, thiết bị",
+                  "Phương tiện vận tải, truyền dẫn",
+                  "Cây lâu năm cho sản phẩm định kỳ",
+                  null,
+                  "Tổng cộng"
+                ],
+                [
+                  "Nguyên giá",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Mua trong năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Đầu tư XDCB hoàn thành",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tăng khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Chuyển sang bất động sản đầu tư",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Thanh lý, nhượng bán",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Giảm khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị hao mòn lũy kế",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Khấu hao trong năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tăng khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Chuyển sang bất động sản đầu tư",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Thanh lý, nhượng bán",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Giảm khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị còn lại",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tại ngày đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tại ngày cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị còn lại cuối kỳ của TSCĐ hữu hình dùng để thể chấp, cầm cố đảm bảo khoản vay;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh về cây lâu năm cho sản phẩm định kỳ và súc vật làm việc (nếu có);"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh chi tiết danh mục các TSCĐ hữu hình đang hiện hữu và đã thanh lý/nhượng bán/chuyển nhượng trong kỳ có giá trị từ 10% tổng giá trị tài sản cố định hữu hình trở lên;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- TSCĐ cuối năm đã khấu hao hết nhưng vẫn còn sử dụng;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- TSCĐ cuối năm chờ thanh lý;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Các cam kết về việc mua, bán TSCĐ hữu hình có giá trị lớn trong tương lai;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Các thay đổi khác về TSCĐ hữu hình."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 12,
+              "title": "10. Tăng, giảm tài sản cố định vô hình:",
+              "columnCount": 7,
+              "rowCount": 20,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Quyền sử dụng đất",
+                  "Quyền tác giả",
+                  "Quyền sở hữu công nghiệp",
+                  "Phần mềm",
+                  null,
+                  "Tổng cộng"
+                ],
+                [
+                  "Nguyên giá",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Mua trong năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tạo ra từ nội bộ DN",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tăng do hợp nhất kinh doanh",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tăng khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Thanh lý, nhượng bán",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Giảm khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị hao mòn lũy kế",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Khấu hao trong năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tăng khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Thanh lý, nhượng bán",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Giảm khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị còn lại",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tại ngày đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tại ngày cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh chi tiết danh mục các TSCĐ vô hình đang hiện hữu và đã thanh lý/nhượng bán/chuyển nhượng trong kỳ có giá trị từ 10% tổng giá trị tài sản cố định vô hình trở lên;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị còn lại cuối kỳ của TSCĐ vô hình dùng để thế chấp, cầm cố đảm bảo khoản vay;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- TSCĐ vô hình đã khấu hao hết nhưng vẫn sử dụng;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thay đổi phương pháp khấu hao;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh số liệu và giải trình khác."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 13,
+              "title": "11. Tăng, giảm tài sản cố định thuê tài chính:",
+              "columnCount": 6,
+              "rowCount": 20,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Nhà cửa, vật kiến trúc",
+                  "Máy móc, thiết bị",
+                  "Phương tiện vận tải, truyền dẫn",
+                  null,
+                  "Tổng cộng"
+                ],
+                [
+                  "Nguyên giá",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Thuê tài chính trong năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Mua lại TSCĐ thuê tài chính",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tăng khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Trả lại TSCĐ thuê tài chính",
+                  "(...)",
+                  "(...)",
+                  "(...)",
+                  "(...)",
+                  "(...)"
+                ],
+                [
+                  "- Giảm khác",
+                  "(...)",
+                  "(...)",
+                  "(...)",
+                  "(...)",
+                  "(...)"
+                ],
+                [
+                  "Số dư cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị hao mòn lũy kế",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Khấu hao trong năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Mua lại TSCĐ thuê tài chính",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tăng khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Trả lại TSCĐ thuê tài chính",
+                  "(...)",
+                  "(...)",
+                  "(...)",
+                  "(...)",
+                  "(...)"
+                ],
+                [
+                  "- Giảm khác",
+                  "(...)",
+                  "(...)",
+                  "(...)",
+                  "(...)",
+                  "(...)"
+                ],
+                [
+                  "Số dư cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị còn lại",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tại ngày đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tại ngày cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền thuê phát sinh thêm được ghi nhận là chi phí trong năm;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Căn cứ để xác định tiền thuê phát sinh thêm;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Điều khoản gia hạn thuê hoặc quyền được mua tài sản;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh chi tiết danh mục các TSCĐ thuê tài chính đang hiện hữu có giá trị từ 10% tổng giá trị tài sản cố định thuê tài chính trở lên."
+          },
+          {
+            "type": "paragraph",
+            "text": "12. Tài sản sinh học"
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 14,
+              "title": "12.1. Tài sản sinh học khác, trừ súc vật cho sản phẩm định kỳ đạt đến giai đoạn trưởng thành",
+              "columnCount": 5,
+              "rowCount": 9,
+              "rows": [
+                [
+                  "Chỉ tiêu",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Chỉ tiêu",
+                  "Giá gốc",
+                  "Giá trị có thể thu hồi",
+                  "Giá gốc",
+                  "Giá trị có thể thu hồi"
+                ],
+                [
+                  "1. Súc vật nuôi lấy sản phẩm một lần",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "a) Súc vật nuôi lấy sản phẩm một lần ngắn hạn",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "b) Súc vật nuôi lấy sản phẩm một lần dài hạn",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "2. Cây trồng theo mùa vụ hoặc lấy sản phẩm một lần",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "a) Cây trồng theo mùa vụ hoặc lấy sản phẩm một lần ngắn hạn",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "b) Cây trồng theo mùa vụ hoặc lấy sản phẩm một lần dài hạn",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "3. Súc vật cho sản phẩm định kỳ chưa đạt đến giai đoạn trưởng thành",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Miêu tả về các loại tài sản sinh học có giá trị chiếm từ 10% tổng giá trị tài sản sinh học trở lên: tính chất, đặc điểm của từng loại tài sản sinh học, chính sách kế toán áp dụng cho từng loại tài sản sinh học đó,…;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Phương pháp phân bổ chi phí chăm sóc, nuôi trồng trong kỳ đối với các tài sản sinh học mẹ, tài sản sinh học mới tạo ra, sản phẩm nông nghiệp...;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Phương pháp khấu hao tài sản sinh học;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thời gian sử dụng hữu ích/ tỷ lệ khấu hao tài sản sinh học;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tổng giá trị ghi sổ và giá trị khấu hao lũy kế tại thời điểm đầu kỳ và cuối kỳ kế toán;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Các khoản dự phòng tổn thất tài sản sinh học (nếu có);"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị tài sản sinh học dùng để thế chấp, cầm cố bảo đảm các khoản nợ phải trả tại thời điểm cuối kỳ;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Khoản cam kết về đầu tư hoặc mua các tài sản sinh học;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Các thay đổi như thuyết minh về giá trị hợp lý trừ chi phí bán của tài sản sinh học mà doanh nghiệp có thể quan sát được và có thể đo đếm được (nếu có);"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh về các vấn đề khác liên quan đến tài sản sinh học."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 15,
+              "title": "12.2. Súc vật cho sản phẩm định kỳ đạt đến giai đoạn trưởng thành",
+              "columnCount": 6,
+              "rowCount": 17,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Nhóm 1",
+                  "Nhóm 2",
+                  null,
+                  null,
+                  "Tổng cộng"
+                ],
+                [
+                  "Nguyên giá",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Mua trong năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Thanh lý, nhượng bán",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Giảm khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị hao mòn lũy kế",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Khấu hao trong năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tăng khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Thanh lý, nhượng bán",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Giảm khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị còn lại",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tại ngày đầu năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tại ngày cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "Nhóm 1, 2,... theo nhóm súc vật cho sản phẩm định kỳ đạt đến giai đoạn trưởng thành theo phân loại của doanh nghiệp."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 16,
+              "title": "13. Tăng, giảm bất động sản đầu tư:",
+              "columnCount": 5,
+              "rowCount": 33,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Số đầu năm",
+                  "Tăng trong năm",
+                  "Giảm trong năm",
+                  "Số cuối năm"
+                ],
+                [
+                  "a) Bất động sản đầu tư cho thuê",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Nguyên giá",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà và quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Cơ sở hạ tầng",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị hao mòn lũy kế",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà và quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Cơ sở hạ tầng",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị còn lại",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà và quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Cơ sở hạ tầng",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "b) Bất động sản đầu tư nắm giữ chờ tăng giá",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Nguyên giá",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà và quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Cơ sở hạ tầng",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Tổn thất do suy giảm giá trị",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà và quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Cơ sở hạ tầng",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Giá trị còn lại",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Nhà và quyền sử dụng đất",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Cơ sở hạ tầng",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị còn lại cuối kỳ của BĐSĐT dùng để thế chấp, cầm có đảm bảo khoản vay;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Nguyên giá BĐSĐT đã khấu hao hết nhưng vẫn cho thuê hoặc nắm giữ chờ tăng giá;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh chi tiết danh mục các BĐSĐT đang hiện hữu và đã thanh lý/nhượng bán trong kỳ có giá trị chiếm từ 10% tổng giá trị BĐSĐT trở lên;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh số liệu và giải trình khác."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 17,
+              "title": "14. Chi phí chờ phân bổ",
+              "columnCount": 3,
+              "rowCount": 4,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "a) Ngắn hạn (chi tiết theo từng nội dung chi)",
+                  null,
+                  null
+                ],
+                [
+                  "b) Dài hạn (chi tiết theo từng nội dung chi)",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 18,
+              "title": "15. Tài sản khác",
+              "columnCount": 3,
+              "rowCount": 4,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "a) Ngắn hạn (chi tiết theo từng khoản mục)",
+                  null,
+                  null
+                ],
+                [
+                  "b) Dài hạn (chi tiết theo từng khoản mục)",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 19,
+              "title": "16. Vay và nợ thuê tài chính",
+              "columnCount": 5,
+              "rowCount": 6,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Trong năm",
+                  "Trong năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Tăng",
+                  "Giảm",
+                  "Đầu năm"
+                ],
+                [
+                  "a) Vay ngắn hạn (thuyết minh chi tiết theo đối tượng nếu có số dư chiếm từ 10% trở lên trên tổng số dư các khoản vay ngắn hạn)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "b) Vay dài hạn (tương tự ngắn hạn)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "c) Các khoản vay từ các bên liên quan",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 20,
+              "title": "đ) Các khoản nợ thuê tài chính (thuyết minh chi tiết theo đối tượng nếu có số dư chiếm từ 10% trở lên trên tổng số dư các khoản nợ thuê tài chính)",
+              "columnCount": 7,
+              "rowCount": 7,
+              "rows": [
+                [
+                  "Thời hạn",
+                  "Năm nay",
+                  "Năm nay",
+                  "Năm nay",
+                  "Năm trước",
+                  "Năm trước",
+                  "Năm trước"
+                ],
+                [
+                  "Thời hạn",
+                  "Tổng khoản thanh toán tiền thuê tài chính",
+                  "Trả tiền lãi thuê",
+                  "Trả nợ gốc",
+                  "Tổng khoản thanh toán tiền thuê tài chính",
+                  "Trả tiền lãi thuê",
+                  "Trả nợ gốc"
+                ],
+                [
+                  "Từ 1 năm trở xuống",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Trên 1 năm đến 5 năm",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Trên 5 năm",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Nợ thuê tài chính từ các bên liên quan",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 21,
+              "title": "đ) Số vay và nợ thuê tài chính quá hạn chưa thanh toán (thuyết minh chi tiết theo đối tượng nếu có số dư chiếm từ 10% trở lên trên tổng số dư các khoản vay và nợ thuê tài chính quá hạn chưa thanh toán)",
+              "columnCount": 5,
+              "rowCount": 6,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Khoản mục",
+                  "Gốc",
+                  "Lãi",
+                  "Gốc",
+                  "Lãi"
+                ],
+                [
+                  "- Vay",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Nợ thuê tài chính",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Lý do quá hạn chưa thanh toán",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 22,
+              "title": "e) Vay và nợ thuê tài chính từ các bên liên quan đã quá hạn nhưng chưa thanh toán",
+              "columnCount": 5,
+              "rowCount": 6,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Cuối năm",
+                  "Đầu năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Khoản mục",
+                  "Gốc",
+                  "Lãi",
+                  "Gốc",
+                  "Lãi"
+                ],
+                [
+                  "- Vay",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Nợ thuê tài chính",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Lý do quá hạn chưa thanh toán",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 23,
+              "title": "17. Phải trả người bán",
+              "columnCount": 3,
+              "rowCount": 11,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "a) Phải trả người bán ngắn hạn",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi tiết cho từng đối tượng chiếm từ 10% trở lên trên tổng số phải trả",
+                  null,
+                  null
+                ],
+                [
+                  "- Phải trả cho các đối tượng khác",
+                  null,
+                  null
+                ],
+                [
+                  "b) Phải trả người bán dài hạn (chi tiết tương tự ngắn hạn)",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ],
+                [
+                  "c) Số nợ quá hạn chưa thanh toán",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi tiết từng đối tượng chiếm 10% trở lên trên tổng số quá hạn",
+                  null,
+                  null
+                ],
+                [
+                  "- Các đối tượng khác",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ],
+                [
+                  "d) Phải trả người bán là các bên liên quan (chi tiết cho từng đối tượng)",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 24,
+              "title": "18. Phải trả về cổ tức, lợi nhuận",
+              "columnCount": 3,
+              "rowCount": 2,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "Phải trả về cổ tức, lợi nhuận",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh về thời hạn trả cổ tức hoặc lợi nhuận bằng tiền, tài sản phi tiền tệ cho các cổ tức, chủ sở hữu,.."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Các khoản cổ tức, lợi nhuận đã cam kết trả nhưng đã quá thời hạn mà doanh nghiệp chưa thanh toán cho cổ đông, chủ sở hữu..."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 25,
+              "title": "19. Thuế và các khoản phải nộp nhà nước",
+              "columnCount": 5,
+              "rowCount": 9,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Đầu năm",
+                  "Số phải nộp trong năm",
+                  "Số đã thực nộp trong năm",
+                  "Cuối năm"
+                ],
+                [
+                  "a) Phải nộp (chi tiết từng loại thuế)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Ngắn hạn",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Dài hạn",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "b) Phải thu (chi tiết từng loại thuế)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Ngắn hạn",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "- Dài hạn",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "Trường hợp doanh nghiệp thuộc đối tượng áp dụng nộp thuế thu nhập doanh nghiệp bổ sung theo quy định về thuế tối thiểu toàn cầu thì phải thuyết minh về tiêu thức hoặc căn cứ ghi nhận số thuế thu nhập doanh nghiệp phải nộp bổ sung trong năm báo cáo cũng như số điều chỉnh nghĩa vụ thuế do có sự chênh lệch giữa năm kê khai thuế và năm ghi nhận chi phí thuế thu nhập doanh nghiệp bổ sung theo quy định về thuế tối thiểu toàn cầu,...."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 26,
+              "title": "20. Chi phí phải trả",
+              "columnCount": 3,
+              "rowCount": 4,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "a) Ngắn hạn (chi tiết theo từng nội dung chi)",
+                  null,
+                  null
+                ],
+                [
+                  "b) Dài hạn (chi tiết theo từng nội dung chi)",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 27,
+              "title": "21. Phải trả khác",
+              "columnCount": 3,
+              "rowCount": 14,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "a) Ngắn hạn",
+                  null,
+                  null
+                ],
+                [
+                  "- Tài sản thừa chờ giải quyết",
+                  null,
+                  null
+                ],
+                [
+                  "- Kinh phí công đoàn",
+                  null,
+                  null
+                ],
+                [
+                  "- Bảo hiểm xã hội",
+                  null,
+                  null
+                ],
+                [
+                  "- Bảo hiểm y tế",
+                  null,
+                  null
+                ],
+                [
+                  "- Bảo hiểm thất nghiệp",
+                  null,
+                  null
+                ],
+                [
+                  "- Nhận ký quỹ, ký cược ngắn hạn",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản phải trả, phải nộp khác",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ],
+                [
+                  "b) Dài hạn (chi tiết từng khoản mục)",
+                  null,
+                  null
+                ],
+                [
+                  "- Nhận ký quỹ, ký cược dài hạn",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản phải trả, phải nộp khác",
+                  null,
+                  null
+                ],
+                [
+                  "c) Số nợ quá hạn chưa thanh toán (chi tiết từng khoản mục trong đó nêu rõ lý do chưa thanh toán nợ quá hạn)",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 28,
+              "title": "22. Doanh thu chờ phân bổ",
+              "columnCount": 3,
+              "rowCount": 5,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "a) Ngắn hạn (chi tiết từng nội dung)",
+                  null,
+                  null
+                ],
+                [
+                  "b) Dài hạn (chi tiết từng nội dung)",
+                  null,
+                  null
+                ],
+                [
+                  "c) Khả năng không thực hiện được hợp đồng với khách hàng (chi tiết từng nội dung, lý do không có khả năng thực hiện được hợp đồng với khách hàng)",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "23. Trái phiếu phát hành"
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 29,
+              "title": "23.1. Trái phiếu thường (chi tiết theo từng loại)",
+              "columnCount": 3,
+              "rowCount": 9,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "a) Trái phiếu phát hành",
+                  null,
+                  null
+                ],
+                [
+                  "- Loại phát hành theo mệnh giá",
+                  null,
+                  null
+                ],
+                [
+                  "- Loại phát hành có chiết khấu",
+                  null,
+                  null
+                ],
+                [
+                  "- Loại phát hành có phụ trội",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ],
+                [
+                  "b) Thuyết minh chi tiết về trái phiếu các bên liên quan nắm giữ (theo từng loại trái phiếu)",
+                  null,
+                  null
+                ],
+                [
+                  "c) Chi phí phát hành trái phiếu",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "Doanh nghiệp phải thuyết minh chi tiết về thời điểm phát hành; số lượng từng loại trái phiếu phát hành; lãi suất trái phiếu phát hành; kỳ hạn gốc của trái phiếu phát hành theo từng nhóm trái phiếu phát hành theo mệnh giá, có chiết khấu hoặc có phụ trội; phương pháp phân bổ khoản chiết khấu hoặc phụ trội, chi phí phát hành trái phiếu,..."
+          },
+          {
+            "type": "paragraph",
+            "text": "23.2. Trái phiếu chuyển đổi:"
+          },
+          {
+            "type": "paragraph",
+            "text": "Doanh nghiệp phải thuyết minh thông tin về:"
+          },
+          {
+            "type": "paragraph",
+            "text": "a) Trái phiếu chuyển đổi tại thời điểm đầu kỳ:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thời điểm phát hành, kỳ hạn gốc và kỳ hạn còn lại từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Số lượng, mệnh giá, lãi suất từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tỷ lệ chuyển đổi thành cổ phiếu từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Lãi suất chiết khấu dùng để xác định giá trị phần nợ gốc của từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị phần nợ gốc và phần quyền chọn cổ phiếu của từng loại trái phiếu chuyển đổi."
+          },
+          {
+            "type": "paragraph",
+            "text": "b) Trái phiếu chuyển đổi phát hành thêm trong kỳ:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thời điểm phát hành, kỳ hạn gốc từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Số lượng, mệnh giá, lãi suất từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tỷ lệ chuyển đổi thành cổ phiếu từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Lãi suất chiết khấu dùng để xác định giá trị phần nợ gốc của từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị phần nợ gốc và phần quyền chọn cổ phiếu của từng loại trái phiếu chuyển đổi."
+          },
+          {
+            "type": "paragraph",
+            "text": "c) Trái phiếu chuyển đổi được chuyển thành cổ phiếu trong kỳ:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Số lượng từng loại trái phiếu đã chuyển đổi thành cổ phiếu trong kỳ;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Số lượng cổ phiếu phát hành thêm trong kỳ để chuyển đổi trái phiếu;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị phần nợ gốc của trái phiếu chuyển đổi được ghi tăng vốn chủ sở hữu."
+          },
+          {
+            "type": "paragraph",
+            "text": "d) Trái phiếu chuyển đổi đã đáo hạn không được chuyển thành cổ phiếu trong kỳ:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Số lượng từng loại trái phiếu đã đáo hạn không chuyển đổi thành cổ phiếu trong kỳ;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị phần nợ gốc của trái phiếu chuyển đổi được hoàn trả cho nhà đầu tư."
+          },
+          {
+            "type": "paragraph",
+            "text": "đ) Trái phiếu chuyển đổi tại thời điểm cuối kỳ:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Kỳ hạn gốc và kỳ hạn còn lại từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Số lượng, mệnh giá, lãi suất từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tỷ lệ chuyển đổi thành cổ phiếu từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Lãi suất chiết khấu dùng để xác định giá trị phần nợ gốc của từng loại trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị phần nợ gốc và phần quyền chọn cổ phiếu của từng loại trái phiếu chuyển đổi."
+          },
+          {
+            "type": "paragraph",
+            "text": "e) Thuyết minh chi tiết về trái phiếu chuyển đổi các bên liên quan nắm giữ (nội dung thuyết minh tương tự các mục a, b, c, d, đ nêu trên)."
+          },
+          {
+            "type": "paragraph",
+            "text": "24. Cổ phiếu ưu đãi phân loại là nợ phải trả"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Mệnh giá;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Đối tượng được phát hành (ban lãnh đạo, cán bộ, nhân viên, đối tượng khác);"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Điều khoản bắt buộc mua lại hoặc bên phát hành phải trả cổ tức ở một mức cố định mà không phụ thuộc vào kết quả kinh doanh của bên phát hành (Thời gian, giá mua lại, các điều khoản cơ bản khác trong hợp đồng phát hành);"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Giá trị đã mua lại trong kỳ;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Các thuyết minh khác."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 30,
+              "title": "25. Dự phòng phải trả",
+              "columnCount": 5,
+              "rowCount": 5,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Đầu năm",
+                  "Số dự phòng tăng trong năm",
+                  "Số dự phòng giảm trong năm",
+                  "Cuối năm"
+                ],
+                [
+                  "a) Ngắn hạn (Chi tiết theo từng loại dự phòng phải trả)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "b) Dài hạn (tương tự ngắn hạn)",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Doanh nghiệp phải thuyết minh thông tin về nghĩa vụ pháp lý hoặc nghĩa vụ liên đới, căn cứ ước tính giá trị (nếu có),... của nghĩa vụ hoàn nguyên môi trường, thu dọn, khôi phục, hoàn trả mặt bằng."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh chi tiết về tổng chi phí ước tính mà doanh nghiệp phải chi ra để trợ cấp thôi việc cho người lao động theo quy định của pháp luật về lao động."
+          },
+          {
+            "type": "paragraph",
+            "text": "26. Tài sản thuế thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả"
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 31,
+              "title": "a) Tài sản thuế thu nhập hoãn lại",
+              "columnCount": 3,
+              "rowCount": 7,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "- Thuế suất thuế TNDN sử dụng để xác định giá trị tài sản thuế thu nhập hoãn lại",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tài sản thuế thu nhập hoãn lại liên quan đến khoản chênh lệch tạm thời được khấu trừ",
+                  null,
+                  null
+                ],
+                [
+                  "- Tài sản thuế thu nhập hoãn lại liên quan đến khoản lỗ tính thuế chưa sử dụng",
+                  null,
+                  null
+                ],
+                [
+                  "- Tài sản thuế thu nhập hoãn lại liên quan đến khoản ưu đãi tính thuế chưa sử dụng",
+                  null,
+                  null
+                ],
+                [
+                  "- Số bù trừ với thuế thu nhập hoãn lại phải trả",
+                  null,
+                  null
+                ],
+                [
+                  "Tài sản thuế thu nhập hoãn lại",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 32,
+              "title": "b) Thuế thu nhập hoãn lại phải trả",
+              "columnCount": 3,
+              "rowCount": 4,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "- Thuế suất thuế TNDN sử dụng để xác định giá trị thuế thu nhập hoãn lại phải trả",
+                  null,
+                  null
+                ],
+                [
+                  "- Thuế thu nhập hoàn lại phải trả phát sinh từ các khoản chênh lệch tạm thời chịu thuế",
+                  null,
+                  null
+                ],
+                [
+                  "- Số bù trừ với tài sản thuế thu nhập hoãn lại",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "27. Vốn chủ sở hữu"
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 33,
+              "title": "a) Bảng đối chiếu biến động của vốn chủ sở hữu",
+              "columnCount": 10,
+              "rowCount": 7,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Các khoản mục thuộc vốn chủ sở hữu",
+                  "Các khoản mục thuộc vốn chủ sở hữu",
+                  "Các khoản mục thuộc vốn chủ sở hữu",
+                  "Các khoản mục thuộc vốn chủ sở hữu",
+                  "Các khoản mục thuộc vốn chủ sở hữu",
+                  "Các khoản mục thuộc vốn chủ sở hữu",
+                  "Các khoản mục thuộc vốn chủ sở hữu",
+                  "Các khoản mục thuộc vốn chủ sở hữu",
+                  "Các khoản mục thuộc vốn chủ sở hữu"
+                ],
+                [
+                  "Khoản mục",
+                  "Vốn góp của chủ sở hữu",
+                  "Thặng dư vốn",
+                  "Quyền chọn chuyển đổi trái phiếu",
+                  "Vốn khác của chủ sở hữu",
+                  "Chênh lệch đánh giá lại tài sản",
+                  "Chênh lệch tỷ giá hối đoái",
+                  "LNST thuế chưa phân phối và các quỹ",
+                  "Các khoản mục khác ...",
+                  "Cộng"
+                ],
+                [
+                  "A",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm trước - Tăng vốn trong năm trước - Lãi trong năm trước - Tăng khác - Giảm vốn trong năm trước - Lỗ trong năm trước - Giảm khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư đầu năm nay",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tăng vốn trong năm nay - Lãi trong năm nay - Tăng khác - Giảm vốn trong năm nay - Lỗ trong năm nay - Giảm khác",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Số dư cuối năm",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 34,
+              "title": "b) Chi tiết vốn góp của chủ sở hữu",
+              "columnCount": 3,
+              "rowCount": 4,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "- Vốn góp của công ty mẹ (nếu là công ty con)",
+                  null,
+                  null
+                ],
+                [
+                  "- Vốn góp của các đối tượng khác",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 35,
+              "title": "c) Các giao dịch về vốn với các chủ sở hữu và phân phối cổ tức, chia lợi nhuận",
+              "columnCount": 3,
+              "rowCount": 7,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Vốn đầu tư của chủ sở hữu",
+                  null,
+                  null
+                ],
+                [
+                  "+ Vốn góp đầu năm",
+                  null,
+                  null
+                ],
+                [
+                  "+ Vốn góp tăng trong năm",
+                  null,
+                  null
+                ],
+                [
+                  "+ Vốn góp giảm trong năm",
+                  null,
+                  null
+                ],
+                [
+                  "+ Vốn góp cuối năm",
+                  null,
+                  null
+                ],
+                [
+                  "- Cổ tức, lợi nhuận đã chia",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 36,
+              "title": "d) Cổ phiếu",
+              "columnCount": 3,
+              "rowCount": 11,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "- Số lượng cổ phiếu đăng ký phát hành",
+                  null,
+                  null
+                ],
+                [
+                  "- Số lượng cổ phiếu đã bán ra công chúng",
+                  null,
+                  null
+                ],
+                [
+                  "+ Cổ phiếu phổ thông",
+                  null,
+                  null
+                ],
+                [
+                  "+ Cổ phiếu ưu đãi (loại được phân loại là vốn chủ sở hữu)",
+                  null,
+                  null
+                ],
+                [
+                  "- Số lượng cổ phiếu được mua lại (cổ phiếu quỹ, cổ phiếu mua lại của chính mình)",
+                  null,
+                  null
+                ],
+                [
+                  "+ Cổ phiếu phổ thông",
+                  null,
+                  null
+                ],
+                [
+                  "+ Cổ phiếu ưu đãi (loại được phân loại là vốn chủ sở hữu)",
+                  null,
+                  null
+                ],
+                [
+                  "- Số lượng cổ phiếu đang lưu hành",
+                  null,
+                  null
+                ],
+                [
+                  "+ Cổ phiếu phổ thông",
+                  null,
+                  null
+                ],
+                [
+                  "+ Cổ phiếu ưu đãi (loại được phân loại là vốn chủ sở hữu)",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "* Mệnh giá cổ phiếu đang lưu hành: …………………."
+          },
+          {
+            "type": "paragraph",
+            "text": "đ) Cổ tức, lợi nhuận"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Cổ tức, lợi nhuận đã công bố sau ngày kết thúc kỳ kế toán năm:"
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Cổ tức, lợi nhuận đã công bố trên cổ phiếu phổ thông hoặc phần vốn điều lệ: …………….."
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Cổ tức đã công bố trên cổ phiếu ưu đãi: ……………"
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Cổ tức bằng cổ phiếu ……………"
+          },
+          {
+            "type": "paragraph",
+            "text": "+ Phần lợi nhuận được chia để bổ sung vốn điều lệ của doanh nghiệp nhận đầu tư...."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Cổ tức của cổ phiếu ưu đãi lũy kế chưa được ghi nhận: …………"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh về việc doanh nghiệp không được sử dụng toàn bộ số tiền doanh nghiệp đã thu từ việc chào bán, phát hành cổ phiếu ra công chúng đang bị phong tỏa."
+          },
+          {
+            "type": "paragraph",
+            "text": "e) Lý do của tăng/giảm các khoản mục thuộc vốn chủ sở hữu của doanh nghiệp"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thặng dư vốn;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Quyền chọn chuyển đổi trái phiếu;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Quỹ đầu tư phát triển;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Cổ phiếu mua lại của chính mình;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Quỹ khác thuộc vốn chủ sở hữu;"
+          },
+          {
+            "type": "paragraph",
+            "text": "g) Thu nhập và chi phí, lãi hoặc lỗ được ghi nhận trực tiếp vào vốn chủ sở hữu theo quy định của các Chuẩn mực kế toán Việt Nam cụ thể."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 37,
+              "title": "28. Chênh lệch đánh giá lại tài sản",
+              "columnCount": 3,
+              "rowCount": 2,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "Lí do thay đổi giữa số đầu năm và cuối năm (đánh giá lại trong trường hợp nào, tài sản nào được đánh giá lại, theo quyết định nào?...).",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 38,
+              "title": "29. Chênh lệch tỷ giá",
+              "columnCount": 3,
+              "rowCount": 3,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Chênh lệch tỷ giá do chuyển đổi BCTC lập bằng ngoại tệ sang VND",
+                  null,
+                  null
+                ],
+                [
+                  "- Chênh lệch tỷ giá phát sinh vì các nguyên nhân khác (nêu rõ nguyên nhân)",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 39,
+              "title": "30. Các khoản mục ngoài Báo cáo tình hình tài chính",
+              "columnCount": 3,
+              "rowCount": 5,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Cuối năm",
+                  "Đầu năm"
+                ],
+                [
+                  "a) Tài sản thuê ngoài: Tổng số tiền thuê tối thiểu trong tương lai của hợp đồng thuê hoạt động tài sản không hủy ngang theo các thời hạn",
+                  null,
+                  null
+                ],
+                [
+                  "- Từ 1 năm trở xuống",
+                  null,
+                  null
+                ],
+                [
+                  "- Trên 1 năm đến 5 năm",
+                  null,
+                  null
+                ],
+                [
+                  "- Trên 5 năm",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "- Doanh nghiệp phải thuyết minh số lượng, chủng loại, đặc điểm, tính chất, thời hạn thuê,... của từng loại hoặc từng nhóm tài sản thuê ngoài tại thời điểm cuối kỳ kế toán."
+          },
+          {
+            "type": "paragraph",
+            "text": "b) Tài sản nhận giữ hộ, nhận ký gửi, nhận gia công, nhận ủy thác xuất nhập khẩu"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh về giá trị và lý do của các khoản tiền và tương đương tiền lớn do doanh nghiệp nắm giữ nhưng không được sử dụng do có sự hạn chế của pháp luật hoặc các ràng buộc khác mà doanh nghiệp phải thực hiện."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh chi tiết về bản chất, số lượng, chủng loại, thông số kỹ thuật, quy cách, phẩm chất,... của từng loại sản phẩm, vật tư, hàng hóa, tài sản nhận giữ hộ, nhận gia công, tại thời điểm cuối kỳ kế toán. Đối với các doanh nghiệp ngành logistic, quản lý kho bãi phải thuyết minh chi tiết các thông tin về nhóm mặt hàng đang nhận giữ hộ, quyền và nghĩa vụ của các bên trong việc bảo quản hàng hóa đó cũng như bất kỳ rủi ro đáng kể nào liên quan đến hàng hóa nhận giữ hộ,... Trường hợp không thể thuyết minh được cụ thể các thông tin về hàng hóa nhận giữ hộ thì phải nêu rõ và giải thích lý do không thể thực hiện được việc thuyết minh này."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Hàng hóa nhận bán hộ, nhận ký gửi, nhận bán đại lý, nhận ủy thác xuất nhập khẩu: Doanh nghiệp phải thuyết minh chi tiết về số lượng, chủng loại, quy cách, phẩm chất từng loại hàng hóa;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tài sản nhận cầm cố, thế chấp: Doanh nghiệp phải thuyết minh chi tiết từng loại tài sản nhận cầm cố, thế chấp; từng kỳ hạn và đối tượng cầm cố, thế chấp,..."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tài sản của đơn vị khác phát hiện thừa khi kiểm kê."
+          },
+          {
+            "type": "paragraph",
+            "text": "c) Tài sản kết cấu hạ tầng không tính thành phần vốn nhà nước tại doanh nghiệp: Doanh nghiệp phải thuyết minh về nguyên giá, giá trị hao mòn lũy kế theo quy định của pháp luật liên quan."
+          },
+          {
+            "type": "paragraph",
+            "text": "d) Tài sản của doanh nghiệp sử dụng để cầm cố, thế chấp: Doanh nghiệp phải thuyết minh chi tiết từng loại tài sản sử dụng để cầm cố, thế chấp; từng kỳ hạn và đối tượng nhận cầm cố, thế chấp,..."
+          },
+          {
+            "type": "paragraph",
+            "text": "đ) Ngoại tệ các loại: Doanh nghiệp phải thuyết minh chi tiết số lượng từng loại ngoại tệ tính theo nguyên tệ."
+          },
+          {
+            "type": "paragraph",
+            "text": "Vàng tiền tệ: Doanh nghiệp phải trình bày khối lượng theo đơn vị tính trong nước."
+          },
+          {
+            "type": "paragraph",
+            "text": "Kim khí quý, đá quý: Doanh nghiệp phải thuyết minh chi tiết giá gốc, số lượng và chủng loại các loại kim khí quý, đá quý."
+          },
+          {
+            "type": "paragraph",
+            "text": "e) Nợ khó đòi đã xử lý: Doanh nghiệp phải thuyết minh chi tiết giá trị (theo nguyên tệ và VND) các khoản nợ khó đòi đã xử lý trong vòng 10 năm kể từ ngày xử lý theo từng đối tượng, nguyên nhân đã xoá sổ kế toán nợ khó đòi."
+          },
+          {
+            "type": "paragraph",
+            "text": "g) Lãi trả chậm, trả góp khi mua tài sản: Doanh nghiệp phải thuyết minh số kỳ trả chậm, trả góp; tổng số lãi phải trả; số lãi đã trả; lãi còn phải trả khi mua trả chậm, trả góp tài sản."
+          },
+          {
+            "type": "paragraph",
+            "text": "h) Lãi trả chậm, trả góp khi bán tài sản: Doanh nghiệp phải thuyết minh số kỳ trả chậm, trả góp; tổng số lãi phải thu; số lãi đã thu; lãi còn phải thu khi bán trả chậm, trả góp tài sản."
+          },
+          {
+            "type": "paragraph",
+            "text": "i) Các thông tin khác về các khoản mục ngoài Báo cáo tài chính để cung cấp thông tin hữu ích cho người sử dụng báo cáo."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 40,
+              "title": "31. Phần giá trị các tài sản mà doanh nghiệp đang nắm giữ của các bên khác nhưng bị giới hạn sử dụng do có sự hạn chế của pháp luật hoặc các khoản nợ phải trả mà doanh nghiệp có nghĩa vụ phải thanh toán theo thỏa thuận hợp đồng hoặc theo quy định của pháp luật (ví dụ các tài sản theo hợp đồng BCC, các khoản tiền bị phong tỏa khi công ty đại chúng phát hành/chào bán cổ phiếu huy động vốn từ các cổ đông,…)",
+              "columnCount": 3,
+              "rowCount": 15,
+              "rows": [
+                [
+                  "Khoản mục (Tùy thuộc vào nội dung khoản mục để thuyết minh cho phù hợp với thực tế của doanh nghiệp)",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "Tài sản",
+                  "",
+                  ""
+                ],
+                [
+                  "- Tiền và tương đương tiền",
+                  null,
+                  null
+                ],
+                [
+                  "- Nợ phải thu",
+                  null,
+                  null
+                ],
+                [
+                  "- Hàng tồn kho",
+                  null,
+                  null
+                ],
+                [
+                  "- TSCĐ",
+                  null,
+                  null
+                ],
+                [
+                  "- BĐSĐT",
+                  null,
+                  null
+                ],
+                [
+                  "- Các tài sản khác",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ],
+                [
+                  "Nợ phải trả",
+                  "",
+                  ""
+                ],
+                [
+                  "- Phải trả cho người bán",
+                  null,
+                  null
+                ],
+                [
+                  "- Phải trả nợ vay",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí phải trả",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản phải trả khác",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "32. Các thông tin khác doanh nghiệp thấy cần thuyết minh, giải trình thêm để cung cấp thông tin hữu ích cho người sử dụng"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Thuyết minh thông tin về căn cứ xác định giá trị tài sản phi tiền tệ được tài trợ, biếu tặng;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Các thông tin khác."
+          }
+        ]
+      },
+      {
+        "title": "VII. Thông tin bổ sung cho các khoản mục trình bày trong Báo cáo kết quả hoạt động kinh doanh",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Đơn vị tính: ………"
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 41,
+              "title": "1. Tổng doanh thu bán hàng và cung cấp dịch vụ",
+              "columnCount": 3,
+              "rowCount": 11,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "a) Doanh thu",
+                  null,
+                  null
+                ],
+                [
+                  "- Doanh thu bán sản phẩm, hàng hóa (trừ doanh thu bán, thanh lý bất động sản đầu tư)",
+                  null,
+                  null
+                ],
+                [
+                  "- Doanh thu cung cấp dịch vụ (trừ dịch vụ xây dựng)",
+                  null,
+                  null
+                ],
+                [
+                  "- Doanh thu dịch vụ xây dựng",
+                  null,
+                  null
+                ],
+                [
+                  "+ Doanh thu dịch vụ xây dựng phát sinh trong kỳ",
+                  null,
+                  null
+                ],
+                [
+                  "+ Tổng doanh thu lũy kế của dịch vụ xây dựng được ghi nhận đến thời điểm kết thúc kỳ kế toán",
+                  null,
+                  null
+                ],
+                [
+                  "- Doanh thu trợ cấp, trợ giá",
+                  null,
+                  null
+                ],
+                [
+                  "- Doanh thu khác",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ],
+                [
+                  "b) Doanh thu từ các bên liên quan (chi tiết từng đối tượng)",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "c) Trường hợp doanh nghiệp có phát sinh doanh thu từ giao dịch bán căn hộ du lịch, căn hộ văn phòng kết hợp lưu trú hoặc sản phẩm tương tự thì phải thuyết minh trên Báo cáo tài chính về chính sách kế toán, bản chất của hợp đồng (quyền và nghĩa vụ của các bên) và cách thức ghi nhận kế toán mà doanh nghiệp đánh giá là phù hợp nhất."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 42,
+              "title": "2. Các khoản giảm trừ doanh thu",
+              "columnCount": 3,
+              "rowCount": 5,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Khoản chiết khấu thương mại",
+                  null,
+                  null
+                ],
+                [
+                  "- Khoản giảm giá hàng bán",
+                  null,
+                  null
+                ],
+                [
+                  "- Khoản doanh thu hàng bán bị trả lại",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 43,
+              "title": "3. Giá vốn hàng bán",
+              "columnCount": 3,
+              "rowCount": 9,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Giá vốn của sản phẩm, hàng hóa đã bán (trừ giá trị còn lại và chi phí bán, thanh lý bất động sản đầu tư)",
+                  null,
+                  null
+                ],
+                [
+                  "- Giá vốn của dịch vụ đã cung cấp (bao gồm cả dịch vụ xây dựng)",
+                  null,
+                  null
+                ],
+                [
+                  "- Giá trị hàng tồn kho mất mát trong kỳ",
+                  null,
+                  null
+                ],
+                [
+                  "- Giá trị từng loại hàng tồn kho hao hụt ngoài định mức trong kỳ",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản chi phí sản xuất vượt mức bình thường được tính trực tiếp vào giá vốn",
+                  null,
+                  null
+                ],
+                [
+                  "- Dự phòng giảm giá hàng tồn kho, dự phòng giảm giá tài sản sản sinh học",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản ghi giảm giá vốn hàng bán",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 44,
+              "title": "4. Lãi/lỗ của hoạt động bán, thanh lý BĐSĐT",
+              "columnCount": 3,
+              "rowCount": 5,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Doanh thu bán, thanh lý BĐSĐT",
+                  null,
+                  null
+                ],
+                [
+                  "- Giá trị còn lại của BĐSĐT",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí nhượng bán, thanh lý BĐSĐT",
+                  null,
+                  null
+                ],
+                [
+                  "Lãi/lỗ của hoạt động bán, thanh lý BĐSĐT",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 45,
+              "title": "5. Doanh thu hoạt động tài chính",
+              "columnCount": 3,
+              "rowCount": 9,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Lãi tiền gửi, tiền cho vay",
+                  null,
+                  null
+                ],
+                [
+                  "- Lãi do bán, thanh lý các khoản đầu tư tài chính",
+                  null,
+                  null
+                ],
+                [
+                  "- Cổ tức, lợi nhuận được chia bằng tiền hoặc tài sản phi tiền tệ",
+                  null,
+                  null
+                ],
+                [
+                  "- Lãi chênh lệch tỷ giá",
+                  null,
+                  null
+                ],
+                [
+                  "- Lãi bán hàng trả chậm, trả góp",
+                  null,
+                  null
+                ],
+                [
+                  "- Chiết khấu thanh toán được hưởng",
+                  null,
+                  null
+                ],
+                [
+                  "- Doanh thu hoạt động tài chính khác",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 46,
+              "title": "6. Chi phí tài chính",
+              "columnCount": 3,
+              "rowCount": 11,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Chi phí đi vay",
+                  null,
+                  null
+                ],
+                [
+                  "- Lỗ do bán, thanh lý các khoản đầu tư tài chính",
+                  null,
+                  null
+                ],
+                [
+                  "- Lỗ chênh lệch tỷ giá",
+                  null,
+                  null
+                ],
+                [
+                  "- Lãi mua hàng trả chậm, trả góp",
+                  null,
+                  null
+                ],
+                [
+                  "- Chiết khấu thanh toán phải trả",
+                  null,
+                  null
+                ],
+                [
+                  "- Dự phòng giảm giá chứng khoán kinh doanh và dự phòng tổn thất đầu tư vào đơn vị khác",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí phát hành trái phiếu, cổ phiếu không thành công",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí tài chính khác",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản ghi giảm chi phí tài chính",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 47,
+              "title": "7. Thu nhập khác",
+              "columnCount": 3,
+              "rowCount": 8,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Thanh lý, nhượng bán TSCĐ",
+                  null,
+                  null
+                ],
+                [
+                  "- Lãi do đánh giá lại tài sản khi đi góp vốn",
+                  null,
+                  null
+                ],
+                [
+                  "- Tiền phạt thu được",
+                  null,
+                  null
+                ],
+                [
+                  "- Thuế được giảm",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản được hỗ trợ, tài trợ, biếu, tặng được ghi nhận vào thu nhập khác",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản khác",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 48,
+              "title": "8. Chi phí khác",
+              "columnCount": 3,
+              "rowCount": 6,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Giá trị còn lại TSCĐ và chi phí thanh lý, nhượng bán TSCĐ",
+                  null,
+                  null
+                ],
+                [
+                  "- Lỗ do đánh giá lại tài sản khi đi góp vốn",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản bị phạt",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản chi phí khác",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 49,
+              "title": "9. Chi phí bán hàng và chi phí quản lý doanh nghiệp",
+              "columnCount": 3,
+              "rowCount": 11,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "a) Các khoản chi phí quản lý doanh nghiệp phát sinh trong kỳ",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi tiết các khoản mục chiếm từ 10% trở lên trên tổng chi phí QLDN",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản chi phí QLDN khác",
+                  null,
+                  null
+                ],
+                [
+                  "b) Các khoản chi phí bán hàng phát sinh trong kỳ",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi tiết các khoản mục chiếm từ 10% trở lên trên tổng chi phí bán hàng",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản chi phí bán hàng khác",
+                  null,
+                  null
+                ],
+                [
+                  "c) Các khoản ghi giảm chi phí bán hàng và chi phí quản lý doanh nghiệp",
+                  null,
+                  null
+                ],
+                [
+                  "- Hoàn nhập dự phòng bảo hành sản phẩm, hàng hóa, công trình xây dựng",
+                  null,
+                  null
+                ],
+                [
+                  "- Hoàn nhập dự phòng tái cơ cấu, dự phòng khác",
+                  null,
+                  null
+                ],
+                [
+                  "- Các khoản ghi giảm khác",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 50,
+              "title": "10. Chi phí sản xuất, kinh doanh theo yếu tố",
+              "columnCount": 3,
+              "rowCount": 7,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Chi phí nguyên liệu, vật liệu",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí nhân công",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí khấu hao tài sản cố định",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí dịch vụ mua ngoài",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí khác bằng tiền",
+                  null,
+                  null
+                ],
+                [
+                  "Cộng",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "Ghi chú:"
+          },
+          {
+            "type": "paragraph",
+            "text": "Đối với thuyết minh Chỉ tiêu “Chi phí sản xuất kinh doanh theo yếu tố”, tùy theo đặc điểm, ngành nghề sản xuất kinh doanh và căn cứ vào số dư đầu kỳ và số phát sinh trong kỳ của các tài khoản kế toán có liên quan để doanh nghiệp thuyết minh chi tiết về các khoản chi phí sản xuất kinh doanh theo yếu tố được phản ánh trong Báo cáo kết quả kinh doanh."
+          },
+          {
+            "type": "paragraph",
+            "text": "Trường hợp do tính chất ngành nghề kinh doanh mà doanh nghiệp không thể trình bày các yếu tố thông tin trên Báo cáo kết quả hoạt động kinh doanh theo chức năng của chi phí thì được trình bày theo tính chất của chi phí. Khi trình bày thuyết minh chi phí sản xuất kinh doanh theo yếu tố thì phải đảm bảo tổng của chi phí sản xuất kinh doanh theo yếu tố phải bằng tổng chi phí được ghi vào báo cáo kết quả hoạt động kinh doanh."
+          },
+          {
+            "type": "paragraph",
+            "text": "Doanh nghiệp có quyền lựa chọn căn cứ khác nhưng phải đảm bảo thuyết minh đầy đủ chi phí theo yếu tố."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 51,
+              "title": "11. Chi phí thuế thu nhập doanh nghiệp",
+              "columnCount": 3,
+              "rowCount": 12,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Lợi nhuận kế toán trước thuế",
+                  null,
+                  null
+                ],
+                [
+                  "- Thuế tính theo thuế suất thuế TNDN hiện hành",
+                  null,
+                  null
+                ],
+                [
+                  "Điều chỉnh (tùy theo độc điểm của doanh nghiệp để thuyết minh các mục điều chỉnh cho phù hợp):",
+                  null,
+                  null
+                ],
+                [
+                  "- Thu nhập không chịu thuế",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí không được khấu trừ",
+                  null,
+                  null
+                ],
+                [
+                  "- Dự phòng thiếu/(thừa) của các năm trước",
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "Chi phí thuế TNDN",
+                  null,
+                  null
+                ],
+                [
+                  "Chi phí thuế TNDN hiện hành",
+                  null,
+                  null
+                ],
+                [
+                  "Chi phí thuế TNDN hoãn lại (**)",
+                  null,
+                  null
+                ],
+                [
+                  "Chi phí thuế TNDN (*)",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 52,
+              "title": "(*) Chi phí thuế TNDN cho năm tài chính được ước tính dựa vào thu nhập chịu thuế và có thể có những điều chỉnh tùy thuộc vào sự kiểm tra của cơ quan thuế.",
+              "columnCount": 3,
+              "rowCount": 7,
+              "rows": [
+                [
+                  "(**) Chi phí thuế thu nhập doanh nghiệp hoãn lại",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Chi phí thuế thu nhập doanh nghiệp hoãn lại phát sinh từ các khoản chênh lệch tạm thời phải chịu thuế",
+                  null,
+                  null
+                ],
+                [
+                  "- Chi phí thuế thu nhập doanh nghiệp hoãn lại phát sinh từ việc hoàn nhập tài sản thuế thu nhập hoãn lại",
+                  null,
+                  null
+                ],
+                [
+                  "- Thu nhập thuế thu nhập doanh nghiệp hoãn lại phát sinh từ các khoản chênh lệch tạm thời được khấu trừ",
+                  "(...)",
+                  "(...)"
+                ],
+                [
+                  "- Thu nhập thuế thu nhập doanh nghiệp hoãn lại phát sinh từ các khoản lỗ tính thuế và ưu đãi thuế chưa sử dụng",
+                  "(...)",
+                  "(...)"
+                ],
+                [
+                  "- Thu nhập thuế thu nhập doanh nghiệp hoãn lại phát sinh từ việc hoàn nhập thuế thu nhập hoãn lại phải trả",
+                  "(...)",
+                  "(...)"
+                ],
+                [
+                  "- Tổng chi phí thuế thu nhập doanh nghiệp hoãn lại",
+                  null,
+                  null
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "title": "VIII. Thông tin bổ sung cho các khoản mục trình bày trong Báo cáo lưu chuyển tiền tệ",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "1. Các khoản tiền do doanh nghiệp nắm giữ nhưng không được sử dụng"
+          },
+          {
+            "type": "paragraph",
+            "text": "Thuyết minh chi tiết về giá trị và lý do của các khoản tiền và tương đương tiền do doanh nghiệp nắm giữ nhưng không được sử dụng do có sự hạn chế của pháp luật hoặc các ràng buộc khác mà doanh nghiệp phải thực hiện."
+          },
+          {
+            "type": "table",
+            "table": {
+              "templateIndex": 53,
+              "title": "2. Các giao dịch không bằng tiền ảnh hưởng đến Báo cáo lưu chuyển tiền tệ trong tương lai",
+              "columnCount": 3,
+              "rowCount": 5,
+              "rows": [
+                [
+                  "Khoản mục",
+                  "Năm nay",
+                  "Năm trước"
+                ],
+                [
+                  "- Mua tài sản bằng cách nhận các khoản nợ liên quan trực tiếp hoặc thông qua nghiệp vụ cho thuê tài chính",
+                  null,
+                  null
+                ],
+                [
+                  "- Mua doanh nghiệp thông qua phát hành cổ phiếu",
+                  null,
+                  null
+                ],
+                [
+                  "- Chuyển nợ thành vốn chủ sở hữu",
+                  null,
+                  null
+                ],
+                [
+                  "- Các giao dịch phi tiền tệ khác",
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "3. Số tiền đi vay thực thu trong kỳ:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền thu từ đi vay theo khế ước thông thường;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền thu từ phát hành trái phiếu thường;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền thu từ phát hành trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền thu từ phát hành cổ phiếu ưu đãi phân loại là nợ phải trả;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền thu từ giao dịch mua bán lại trái phiếu Chính phủ và REPO chứng khoán;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền thu từ đi vay dưới hình thức khác."
+          },
+          {
+            "type": "paragraph",
+            "text": "4. Số tiền đã thực trả gốc vay trong kỳ:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền trả nợ gốc vay theo khế ước thông thường;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền trả nợ gốc trái phiếu thường;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền trả nợ gốc trái phiếu chuyển đổi;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền trả nợ gốc cổ phiếu ưu đãi phân loại là nợ phải trả;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền chi trả cho giao dịch mua bán lại trái phiếu Chính phủ và REPO chứng khoán;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tiền trả nợ vay dưới hình thức khác."
+          },
+          {
+            "type": "paragraph",
+            "text": "5. Mua và thanh lý công ty con trong kỳ báo cáo"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Tổng giá trị mua hoặc thanh lý công ty con trong kỳ;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Phần giá trị mua hoặc thanh lý công ty con được thanh toán bằng tiền và các khoản tương đương tiền;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Số tiền và các khoản tương đương tiền thực có trong công ty con hoặc đơn vị kinh doanh khác được mua hoặc thanh lý;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Phần giá trị tài sản (tổng hợp theo từng loại tài sản) không phải là tiền và các khoản tương đương tiền và nợ phải trả trong công ty con được mua hoặc thanh lý trong kỳ."
+          }
+        ]
+      },
+      {
+        "title": "IX. Những thông tin khác",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "1. Những khoản nợ tiềm tàng, khoản cam kết và những thông tin tài chính khác:"
+          },
+          {
+            "type": "paragraph",
+            "text": "2. Những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: ……………………."
+          },
+          {
+            "type": "paragraph",
+            "text": "3. Thông tin về các bên liên quan (ngoài các thông tin đã được thuyết minh ở các phần trên)."
+          },
+          {
+            "type": "paragraph",
+            "text": "4. Trình bày tài sản, doanh thu, kết quả kinh doanh theo bộ phận (theo lĩnh vực kinh doanh hoặc khu vực địa lý) theo quy định của Chuẩn mực kế toán Việt Nam số 28 - Báo cáo bộ phận"
+          },
+          {
+            "type": "paragraph",
+            "text": "(1):..."
+          },
+          {
+            "type": "paragraph",
+            "text": "(2):..."
+          },
+          {
+            "type": "paragraph",
+            "text": "5. Thông tin so sánh (những thay đổi về thông tin trong Báo cáo tài chính của các niên độ kế toán trước): …………………………………………………………………………….."
+          },
+          {
+            "type": "paragraph",
+            "text": "6. Thông tin về việc đáp ứng giả định hoạt động liên tục áp dụng đối với trường hợp Ban giám đốc xác định có tồn tại các sự kiện hoặc điều kiện có thể gây nghi ngờ đáng kể về khả năng hoạt động liên tục của đơn vị. Khi đó, thuyết minh báo cáo tài chính của doanh nghiệp phải:"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Mô tả đầy đủ các sự kiện hoặc điều kiện chính làm phát sinh nghi ngờ đáng kể về khả năng tiếp tục hoạt động của doanh nghiệp và các kế hoạch của Ban Giám đốc để giải quyết các sự kiện hoặc điều kiện này;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Nêu rõ về những yếu tố không chắc chắn mà Ban Giám đốc doanh nghiệp biết được liên quan đến các sự kiện hoặc các điều kiện có thể gây ra sự nghi ngờ lớn về khả năng hoạt động liên tục của doanh nghiệp;"
+          },
+          {
+            "type": "paragraph",
+            "text": "- Kết luận của Ban Giám đốc về việc có hay không có các yếu tố không chắc chắn trọng yếu liên quan đến việc hoạt động liên tục của doanh nghiệp, từ đó xác định doanh nghiệp có thể hay không thể thu hồi tài sản và thanh toán các khoản nợ phải trả trong quá trình kinh doanh thông thường của doanh nghiệp."
+          },
+          {
+            "type": "paragraph",
+            "text": "7. Thuyết minh về các giả định và ước tính quan trọng, nội dung bao gồm:"
+          },
+          {
+            "type": "paragraph",
+            "text": "a) Bản chất của các giả định hoặc sự không chắc chắn của ước tính;"
+          },
+          {
+            "type": "paragraph",
+            "text": "b) Các lý do và số tiền có thể bị ảnh hưởng bởi các giả định hoặc sự không chắc chắn của ước tính;"
+          },
+          {
+            "type": "paragraph",
+            "text": "c) Đánh giá về khả năng xảy ra các trường hợp khác nhau;"
+          },
+          {
+            "type": "paragraph",
+            "text": "d) Các biện pháp/giải pháp dự kiến của Ban Giám đốc thực hiện để hạn chế sự ảnh hưởng đến các khoản mục trên Báo cáo tài chính nếu sự không chắc chắn có thể xảy ra trong năm tài chính tiếp theo."
+          },
+          {
+            "type": "paragraph",
+            "text": "8. Các biện pháp/giải pháp khác ………………………………………………………………."
+          }
+        ]
+      },
+      {
+        "title": "X. Những nội dung sửa đổi, bổ sung biểu mẫu, tên và nội dung các chỉ tiêu của Báo cáo tài chính so với biểu mẫu Báo cáo tài chính được Bộ Tài chính quy định (nếu có)",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "- Tên các chỉ tiêu có sửa đổi, bổ sung thay đổi theo quy định: ..."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Nội dung các chỉ tiêu có sửa đổi, bổ sung thay đổi theo quy định: ...."
+          },
+          {
+            "type": "paragraph",
+            "text": "- Lý do thay đổi:..."
+          },
+          {
+            "type": "paragraph",
+            "text": "Phê duyệt, ngày... tháng... năm ..."
+          }
+        ]
+      }
+    ]
+  }
+}

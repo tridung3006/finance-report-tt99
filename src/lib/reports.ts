@@ -1,5 +1,6 @@
 import { b01Lines, b02Lines, b03Lines, cashFlowRules } from "../config/templates";
 import type { CashMovement, GeneratedReports, JournalEntry, LedgerRow, LineRule, NoteSection, ReportRow, ValidationIssue } from "../types/finance";
+import { buildB09FromTemplate } from "./b09Template";
 
 const cashPrefixes = ["111", "112", "113"];
 const excludedVirtualAccountNames = new Set(["more account 111/112", "more account 131"]);
@@ -32,7 +33,7 @@ function valueByNormalSide(row: LedgerRow, normalSide?: "debit" | "credit") {
 
 function valueFor(rule: LineRule, rows: LedgerRow[]) {
   const relevant = rows.filter((row) => matches(row, rule.accountPrefixes) && !matches(row, rule.excludeAccountPrefixes));
-  if (rule.manualOnly) return { value: 0, sources: [] };
+  if (rule.manualOnly) return { value: rule.nullWhenManual ? null : 0, sources: [] };
   if (rule.side === "balance") {
     const rawBalance = rule.grossByCounterparty
       ? (() => {
@@ -76,8 +77,8 @@ function buildLineReport(lines: LineRule[], current: LedgerRow[], prior: LedgerR
       const currentResult = valueFor(line, current);
       const priorResult = valueFor(line, prior);
       if (line.code) {
-        currentValues.set(line.code, currentResult.value);
-        priorValues.set(line.code, priorResult.value);
+        if (currentResult.value !== null) currentValues.set(line.code, currentResult.value);
+        if (priorResult.value !== null) priorValues.set(line.code, priorResult.value);
         sourceMap.set(line.code, currentResult.sources);
       }
     }
@@ -138,12 +139,6 @@ function excludesClosingEntries(rows: LedgerRow[]) {
   return groupEntries(rows)
     .filter((entry) => !entry.rows.some((row) => matches(row, ["911"])))
     .flatMap((entry) => entry.rows);
-}
-
-function unclosedTemporaryResult(rows: LedgerRow[]) {
-  return rows
-    .filter((row) => /^[5-9]/.test(codeOf(row)))
-    .reduce((total, row) => total + row.credit - row.debit, 0);
 }
 
 function movementFromEntry(entry: JournalEntry): CashMovement[] {
@@ -297,24 +292,6 @@ function reportValue(rows: ReportRow[], code: string, side: "current" | "prior" 
   return rows.find((row) => row.code === code)?.[side] ?? 0;
 }
 
-function addReportValue(rows: ReportRow[], code: string, side: "current" | "prior", amount: number, formulaNote: string) {
-  const row = rows.find((item) => item.code === code);
-  if (!row || !Number.isFinite(amount) || Math.abs(amount) <= 1) return;
-  row[side] = Number(row[side] || 0) + amount;
-  row.formula = row.formula ? `${row.formula}; ${formulaNote}` : formulaNote;
-}
-
-function applyUnclosedProfitToB01(B01: ReportRow[], currentAdjustment: number, priorAdjustment: number) {
-  addReportValue(B01, "420b", "current", currentAdjustment, "Kết quả chưa kết chuyển = số dư Có trừ Nợ của các tài khoản tạm thời loại 5-9");
-  addReportValue(B01, "420", "current", currentAdjustment, "420b bao gồm kết quả chưa kết chuyển");
-  addReportValue(B01, "400", "current", currentAdjustment, "420 bao gồm lãi/lỗ chưa kết chuyển từ B02 lũy kế");
-  addReportValue(B01, "440", "current", currentAdjustment, "400 bao gồm lãi/lỗ chưa kết chuyển từ B02 lũy kế");
-  addReportValue(B01, "420b", "prior", priorAdjustment, "Kết quả chưa kết chuyển = số dư Có trừ Nợ của các tài khoản tạm thời loại 5-9");
-  addReportValue(B01, "420", "prior", priorAdjustment, "420b bao gồm kết quả chưa kết chuyển");
-  addReportValue(B01, "400", "prior", priorAdjustment, "420 bao gồm lãi/lỗ chưa kết chuyển từ B02 lũy kế");
-  addReportValue(B01, "440", "prior", priorAdjustment, "400 bao gồm lãi/lỗ chưa kết chuyển từ B02 lũy kế");
-}
-
 function validate(allRows: LedgerRow[], B01: ReportRow[], B03: ReportRow[], cash: ReturnType<typeof buildCashFlow>) {
   const issues: ValidationIssue[] = [];
   const missingAccount = allRows.filter((row) => !codeOf(row));
@@ -336,55 +313,96 @@ function validate(allRows: LedgerRow[], B01: ReportRow[], B03: ReportRow[], cash
   if (Math.abs(unallocatedProductionCosts) > 1) issues.push({ severity: "warning", title: "Chi phí sản xuất chưa phân bổ/kết chuyển", detail: `Các tài khoản 621/622/627 còn số dư ròng ${unallocatedProductionCosts.toLocaleString("vi-VN")}; B02 cần được rà soát sau khi hoàn tất phân bổ giá thành.` });
   const interestReceiptReviewCount = cash.movements.filter((movement) => movement.matchedCode === "27" && movement.oppositeAccounts.some((account) => matchesCode(account, ["515111"]))).length;
   if (interestReceiptReviewCount) issues.push({ severity: "warning", title: "Rà soát lãi tiền gửi B03", detail: `${interestReceiptReviewCount} khoản thu đối ứng 515111 đang vào mã 27; lãi tiền gửi không kỳ hạn phải chuyển sang mã 01.` });
-  issues.push({ severity: "info", title: "B09 cần hoàn thiện thủ công", detail: "B09 là bản thuyết minh hỗ trợ; người lập báo cáo phải bổ sung chính sách kế toán, cam kết, bên liên quan và các thuyết minh định tính trước khi phát hành." });
+  issues.push({ severity: "info", title: "B09-DN có nội dung chưa nhập", detail: "Ứng dụng giữ nguyên 53 bảng nội dung của mẫu B09-DN. Các ô không thể xác định đáng tin cậy từ journal được để trống/chưa nhập và phải được người lập bổ sung, phê duyệt trước khi phát hành." });
   issues.push({ severity: "info", title: "Nguồn công thức", detail: "Các dòng có sourceRef theo TT99; dòng cần split ngắn/dài hạn hoặc disclosure ngoài journal được đánh dấu manual mapping." });
   return issues;
 }
 
-function notes(B01: ReportRow[], B02: ReportRow[], B03: ReportRow[]): NoteSection[] {
-  return [
-    {
-      title: "I. Đặc điểm hoạt động của doanh nghiệp",
-      paragraphs: [
-        "Các thông tin về sở hữu vốn, lĩnh vực kinh doanh, ngành nghề, cấu trúc doanh nghiệp và chính sách kế toán là thông tin định tính, cần kế toán nhập và rà soát.",
-        "Ứng dụng chỉ tự điền các khoản mục có thể truy vết từ sổ nhật ký.",
-      ],
-    },
-    {
-      title: "V. Thông tin bổ sung cho các khoản mục trình bày trong Báo cáo tình hình tài chính",
-      table: {
-        columns: ["Chỉ tiêu", "Cuối năm", "Đầu năm", "Ghi chú"],
-        rows: [
-          ["Tiền và các khoản tương đương tiền", reportValue(B01, "110"), reportValue(B01, "110", "prior"), "Từ B01 mã 110"],
-          ["Phải thu ngắn hạn của khách hàng", reportValue(B01, "131"), reportValue(B01, "131", "prior"), "Từ B01 mã 131"],
-          ["Hàng tồn kho", reportValue(B01, "141"), reportValue(B01, "141", "prior"), "Từ B01 mã 141"],
-          ["Nợ phải trả", reportValue(B01, "300"), reportValue(B01, "300", "prior"), "Từ B01 mã 300"],
-        ],
-      },
-    },
-    {
-      title: "VI. Thông tin bổ sung cho Báo cáo kết quả hoạt động kinh doanh",
-      table: {
-        columns: ["Chỉ tiêu", "Năm nay", "Năm trước", "Ghi chú"],
-        rows: [
-          ["Doanh thu thuần", reportValue(B02, "10"), reportValue(B02, "10", "prior"), "Từ B02 mã 10"],
-          ["Giá vốn hàng bán", reportValue(B02, "11"), reportValue(B02, "11", "prior"), "Từ B02 mã 11"],
-          ["Lợi nhuận sau thuế", reportValue(B02, "60"), reportValue(B02, "60", "prior"), "Từ B02 mã 60"],
-        ],
-      },
-    },
-    {
-      title: "VII. Thông tin bổ sung cho Báo cáo lưu chuyển tiền tệ",
-      table: {
-        columns: ["Chỉ tiêu", "Năm nay", "Năm trước", "Ghi chú"],
-        rows: [
-          ["Lưu chuyển tiền thuần từ HĐKD", reportValue(B03, "20"), reportValue(B03, "20", "prior"), "Từ B03 mã 20"],
-          ["Lưu chuyển tiền thuần từ HĐĐT", reportValue(B03, "30"), reportValue(B03, "30", "prior"), "Từ B03 mã 30"],
-          ["Lưu chuyển tiền thuần từ HĐTC", reportValue(B03, "40"), reportValue(B03, "40", "prior"), "Từ B03 mã 40"],
-        ],
-      },
-    },
+function legacyNotes(B01: ReportRow[], B02: ReportRow[], B03: ReportRow[]): NoteSection[] {
+  const manual = "Cần người lập bổ sung chi tiết theo sổ phụ, hợp đồng và hồ sơ ngoài journal";
+  const sum = (report: ReportRow[], codes: string[], side: "current" | "prior") =>
+    codes.reduce((total, code) => total + reportValue(report, code, side), 0);
+  const row = (number: number, label: string, report?: ReportRow[], codes: string[] = []): Array<string | number | null> => [
+    `${number}. ${label}`,
+    report ? sum(report, codes, "current") : null,
+    report ? sum(report, codes, "prior") : null,
+    report ? `${report === B01 ? "B01" : report === B02 ? "B02" : "B03"}.${codes.join("+")}; ${manual}` : `Chưa nhập; ${manual}`,
   ];
+  const sections: NoteSection[] = [
+    { title: "I. Đặc điểm hoạt động của doanh nghiệp", paragraphs: [
+      "1. Hình thức sở hữu vốn; 2. Lĩnh vực kinh doanh; 3. Ngành nghề kinh doanh; 4. Chu kỳ sản xuất, kinh doanh thông thường - Cần bổ sung.",
+      "5. Đặc điểm hoạt động trong năm; 6. Cấu trúc doanh nghiệp; 7. Lao động cuối kỳ/bình quân - Cần bổ sung.",
+      "8. Khả năng so sánh thông tin; 9. Thông tin khác theo pháp luật liên quan - Cần bổ sung.",
+    ] },
+    { title: "II. Kỳ kế toán, đơn vị tiền tệ sử dụng trong kế toán", paragraphs: [
+      "1. Kỳ kế toán năm: cần xác nhận ngày bắt đầu và ngày kết thúc.",
+      "2. Đơn vị tiền tệ sử dụng và ảnh hưởng của việc thay đổi (nếu có) - Cần bổ sung.",
+    ] },
+    { title: "III. Chuẩn mực và Chế độ kế toán áp dụng", paragraphs: [
+      "1. Chế độ kế toán áp dụng: Thông tư 99/2025/TT-BTC - Người lập phải xác nhận.",
+      "2. Tuyên bố tuân thủ Chuẩn mực kế toán Việt Nam và Chế độ kế toán; giải trình ngoại lệ nếu có.",
+    ] },
+    { title: "IV. Các chính sách kế toán, ước tính kế toán và quy định pháp luật có liên quan", paragraphs: [
+      "Các mục 1-5: chuyển đổi BCTC ngoại tệ, tỷ giá, lãi suất thực tế, tiền/tương đương tiền và đầu tư tài chính - Cần bổ sung.",
+      "Các mục 6-10: nợ phải thu, hàng tồn kho, TSCĐ/BĐSĐT, tài sản sinh học và hợp đồng hợp tác kinh doanh - Cần bổ sung.",
+      "Các mục 11-17: chi phí chờ phân bổ, phải trả người bán/cổ tức, chi phí phải trả, doanh thu chờ phân bổ, dự phòng và thuế TNDN hoãn lại - Cần bổ sung.",
+      "Các mục 18-21: vay/nợ thuê tài chính, chi phí đi vay, trái phiếu chuyển đổi và vốn chủ sở hữu - Cần bổ sung.",
+      "Các mục 22-29: doanh thu, giảm trừ doanh thu, giá vốn, chi phí tài chính/bán hàng/QLDN, thanh lý tài sản, thuế TNDN và chính sách khác - Cần bổ sung.",
+    ] },
+    { title: "V. Thông tin bổ sung cho các khoản mục trình bày trong Báo cáo tình hình tài chính", table: {
+      columns: ["Khoản mục theo B09-DN", "Cuối năm", "Đầu năm", "Nguồn và mức hoàn thiện"],
+      rows: [
+        row(1, "Tiền và các khoản tương đương tiền", B01, ["110"]), row(2, "Các khoản đầu tư tài chính", B01, ["120", "260"]),
+        row(3, "Phải thu của khách hàng", B01, ["131", "211"]), row(4, "Phải thu khác", B01, ["135", "215"]),
+        row(5, "Tài sản thiếu chờ xử lý", B01, ["137"]), row(6, "Nợ xấu", B01, ["136", "216"]),
+        row(7, "Hàng tồn kho", B01, ["140"]), row(8, "Tài sản dở dang dài hạn", B01, ["250"]),
+        row(9, "Tăng, giảm TSCĐ hữu hình", B01, ["221"]), row(10, "Tăng, giảm TSCĐ vô hình", B01, ["227"]),
+        row(11, "Tăng, giảm TSCĐ thuê tài chính", B01, ["224"]), row(12, "Tài sản sinh học", B01, ["150", "230"]),
+        row(13, "Tăng, giảm bất động sản đầu tư", B01, ["240"]), row(14, "Chi phí chờ phân bổ", B01, ["161", "271"]),
+        row(15, "Tài sản khác", B01, ["165", "274"]), row(16, "Vay và nợ thuê tài chính", B01, ["321", "339"]),
+        row(17, "Phải trả người bán", B01, ["311", "331"]), row(18, "Phải trả về cổ tức, lợi nhuận", B01, ["313"]),
+        row(19, "Thuế và các khoản phải nộp Nhà nước", B01, ["314", "333"]), row(20, "Chi phí phải trả", B01, ["316", "334"]),
+        row(21, "Phải trả khác", B01, ["320", "338"]), row(22, "Doanh thu chờ phân bổ", B01, ["319", "337"]),
+        row(23, "Trái phiếu phát hành", B01, ["340"]), row(24, "Cổ phiếu ưu đãi phân loại là nợ phải trả", B01, ["341"]),
+        row(25, "Dự phòng phải trả", B01, ["322", "343"]), row(26, "Tài sản/thuế TNDN hoãn lại phải trả", B01, ["272", "342"]),
+        row(27, "Vốn chủ sở hữu", B01, ["400"]), row(28, "Chênh lệch đánh giá lại tài sản", B01, ["416"]),
+        row(29, "Chênh lệch tỷ giá", B01, ["417"]), row(30, "Các khoản mục ngoài Báo cáo tình hình tài chính"),
+        row(31, "Tài sản của bên khác bị giới hạn sử dụng và nghĩa vụ theo hợp đồng/pháp luật"), row(32, "Các thông tin khác cần thuyết minh"),
+      ],
+    }, paragraphs: ["Các tổng số từ B01 là điểm đối chiếu; bảng tăng/giảm, kỳ hạn, đối tượng, tài sản bảo đảm và chi tiết bắt buộc vẫn phải được hoàn thiện."] },
+    { title: "VII. Thông tin bổ sung cho các khoản mục trình bày trong Báo cáo kết quả hoạt động kinh doanh", table: {
+      columns: ["Khoản mục theo B09-DN", "Năm nay", "Năm trước", "Nguồn và mức hoàn thiện"],
+      rows: [row(1, "Tổng doanh thu bán hàng và cung cấp dịch vụ", B02, ["01"]), row(2, "Các khoản giảm trừ doanh thu", B02, ["02"]), row(3, "Giá vốn hàng bán", B02, ["11"]), row(4, "Lãi/lỗ bán, thanh lý BĐSĐT", B02, ["21"]), row(5, "Doanh thu hoạt động tài chính", B02, ["22"]), row(6, "Chi phí tài chính", B02, ["23"]), row(7, "Thu nhập khác", B02, ["31"]), row(8, "Chi phí khác", B02, ["32"]), row(9, "Chi phí bán hàng và QLDN", B02, ["25", "26"]), row(10, "Chi phí sản xuất, kinh doanh theo yếu tố"), row(11, "Chi phí thuế TNDN", B02, ["51", "52"])],
+    } },
+    { title: "VIII. Thông tin bổ sung cho các khoản mục trình bày trong Báo cáo lưu chuyển tiền tệ", table: {
+      columns: ["Khoản mục theo B09-DN", "Năm nay", "Năm trước", "Nguồn và mức hoàn thiện"],
+      rows: [row(1, "Tiền nắm giữ nhưng không được sử dụng"), row(2, "Giao dịch không bằng tiền"), row(3, "Số tiền đi vay thực thu", B03, ["33"]), row(4, "Số tiền đã thực trả gốc vay", B03, ["34", "35"]), row(5, "Mua và thanh lý công ty con")],
+    } },
+    { title: "IX. Những thông tin khác", paragraphs: [
+      "1. Nợ tiềm tàng và cam kết; 2. Sự kiện sau ngày kết thúc kỳ kế toán; 3. Bên liên quan; 4. Báo cáo bộ phận - Cần bổ sung.",
+      "5. Thông tin so sánh; 6. Giả định hoạt động liên tục; 7. Giả định và ước tính quan trọng; 8. Biện pháp/giải pháp khác - Cần bổ sung.",
+    ] },
+    { title: "X. Nội dung sửa đổi, bổ sung biểu mẫu và chỉ tiêu so với mẫu Bộ Tài chính", paragraphs: ["Tên chỉ tiêu, nội dung sửa đổi/bổ sung và lý do thay đổi - Cần bổ sung nếu có."] },
+  ];
+  for (const prefix of ["V", "VII", "VIII"]) {
+    const section = sections.find((item) => item.title.startsWith(`${prefix}.`));
+    if (!section?.table) continue;
+    const periodColumns = prefix === "V" ? ["Cuối năm", "Đầu năm"] : ["Năm nay", "Năm trước"];
+    section.tables = section.table.rows.map((summaryRow) => ({
+      title: String(summaryRow[0]),
+      columns: ["Chi tiết bắt buộc theo B09-DN", ...periodColumns, "Nguồn/Trạng thái"],
+      rows: [
+        ["Chi tiết theo đối tượng, tính chất, kỳ hạn và hồ sơ kế toán liên quan", null, null, "Chưa nhập"],
+        ["Tổng đối chiếu với báo cáo chính", summaryRow[1], summaryRow[2], summaryRow[3]],
+      ],
+    }));
+    delete section.table;
+  }
+  return sections;
+}
+
+function notes(B01: ReportRow[], B02: ReportRow[], B03: ReportRow[]): NoteSection[] {
+  return buildB09FromTemplate(B01, B02, B03);
 }
 
 export function generateReports(rows: LedgerRow[]): GeneratedReports {
@@ -404,10 +422,6 @@ export function generateReports(rows: LedgerRow[]): GeneratedReports {
   const currentOperating = excludesClosingEntries(current);
   const priorOperating = excludesClosingEntries(prior);
   const B02 = buildLineReport(b02Lines, currentOperating, priorOperating, "period");
-  const ytdB02 = buildLineReport(b02Lines, currentOperating, priorOperating, "period");
-  const currentBalanceRows = currentBalance.length ? currentBalance : [...opening, ...current];
-  const priorBalanceRows = priorBalance.length ? priorBalance : prior;
-  applyUnclosedProfitToB01(B01, unclosedTemporaryResult(currentBalanceRows), unclosedTemporaryResult(priorBalanceRows));
   const cash = buildCashFlow(current, prior, reportValue(B01, "110", "prior"), 0);
   const B03 = cash.rows;
 

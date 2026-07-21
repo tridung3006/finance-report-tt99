@@ -111,12 +111,14 @@ export const b01Lines: LineRule[] = [
   { code: "338", label: "8. Phải trả dài hạn khác", level: 2, accountPrefixes: ["3442"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
   { code: "339", label: "9. Vay và nợ thuê tài chính dài hạn", level: 2, accountPrefixes: ["3412", "3431"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
   { code: "340", label: "10. Trái phiếu chuyển đổi", level: 2, accountPrefixes: ["3432"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
-  { code: "341", label: "11. Cổ phiếu ưu đãi", level: 2, accountPrefixes: ["41112"], side: "balance", normalSide: "credit", sourceRef: TT99_B01, requiresManualMapping: true },
+  { code: "341", label: "11. Cổ phiếu ưu đãi", level: 2, accountPrefixes: [], side: "balance", normalSide: "credit", sourceRef: TT99_B01, requiresManualMapping: true, manualOnly: true, nullWhenManual: true },
   { code: "342", label: "12. Thuế thu nhập hoãn lại phải trả", level: 2, accountPrefixes: ["347"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
   { code: "343", label: "13. Dự phòng phải trả dài hạn", level: 2, accountPrefixes: [], side: "balance", normalSide: "credit", sourceRef: TT99_B01, requiresManualMapping: true, manualOnly: true },
   { code: "344", label: "14. Quỹ phát triển khoa học và công nghệ", level: 2, accountPrefixes: ["356"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
   { code: "400", label: "D - VỐN CHỦ SỞ HỮU", level: 0, bold: true, expression: "411+412+413+414+415+416+417+418+419+420", sourceRef: TT99_B01 },
-  { code: "411", label: "1. Vốn góp của chủ sở hữu", level: 1, accountPrefixes: ["411"], excludeAccountPrefixes: ["41112", "4112", "4113", "4118"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
+  { code: "411", label: "1. Vốn góp của chủ sở hữu", level: 1, bold: true, expression: "411a+411b", sourceRef: TT99_B01 },
+  { code: "411a", label: "- Cổ phiếu phổ thông có quyền biểu quyết", level: 2, accountPrefixes: ["41111"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
+  { code: "411b", label: "- Cổ phiếu ưu đãi", level: 2, accountPrefixes: ["41112"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
   { code: "412", label: "2. Thặng dư vốn", level: 1, accountPrefixes: ["4112"], side: "balance", normalSide: "credit", sourceRef: TT99_B01, requiresManualMapping: true },
   { code: "413", label: "3. Quyền chọn chuyển đổi trái phiếu", level: 1, accountPrefixes: ["4113"], side: "balance", normalSide: "credit", sourceRef: TT99_B01, requiresManualMapping: true },
   { code: "414", label: "4. Vốn khác của chủ sở hữu", level: 1, accountPrefixes: ["4118"], side: "balance", normalSide: "credit", sourceRef: TT99_B01, requiresManualMapping: true },
@@ -126,8 +128,8 @@ export const b01Lines: LineRule[] = [
   { code: "418", label: "8. Quỹ đầu tư phát triển", level: 1, accountPrefixes: ["414"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
   { code: "419", label: "9. Quỹ khác thuộc vốn chủ sở hữu", level: 1, accountPrefixes: ["418"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
   { code: "420", label: "10. Lợi nhuận sau thuế chưa phân phối", level: 1, bold: true, expression: "420a+420b", sourceRef: TT99_B01 },
-  { code: "420a", label: "- Lũy kế đến cuối kỳ trước", level: 2, accountPrefixes: ["4211"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
-  { code: "420b", label: "- Kỳ này", level: 2, accountPrefixes: ["4212"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
+  { code: "420a", label: "- LNST chưa phân phối lũy kế đến cuối kỳ trước", level: 2, accountPrefixes: ["4211"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
+  { code: "420b", label: "- LNST chưa phân phối kỳ này", level: 2, accountPrefixes: ["4212"], side: "balance", normalSide: "credit", sourceRef: TT99_B01 },
   { code: "440", label: "TỔNG CỘNG NGUỒN VỐN (440 = 300 + 400)", level: 0, bold: true, expression: "300+400", sourceRef: TT99_B01 },
 ];
 
@@ -140,7 +142,7 @@ export const b02Lines: LineRule[] = [
   { code: "21", label: "6. Lãi/lỗ của hoạt động bán, thanh lý bất động sản đầu tư", level: 0, accountPrefixes: ["5117", "6327"], side: "credit", sourceRef: TT99_B02, requiresManualMapping: true },
   { code: "22", label: "7. Doanh thu hoạt động tài chính", level: 0, accountPrefixes: ["515"], side: "credit", sourceRef: TT99_B02 },
   { code: "23", label: "8. Chi phí tài chính", level: 0, accountPrefixes: ["635"], side: "debit", sourceRef: TT99_B02 },
-  { code: "24", label: "Trong đó: Chi phí lãi vay", level: 1, accountPrefixes: ["635411", "635412", "635413"], side: "debit", sourceRef: TT99_B02, requiresManualMapping: true },
+  { code: "24", label: "Trong đó: Chi phí đi vay", level: 1, accountPrefixes: ["635411", "635412", "635413"], side: "debit", sourceRef: TT99_B02, requiresManualMapping: true },
   { code: "25", label: "9. Chi phí bán hàng", level: 0, accountPrefixes: ["641"], side: "debit", sourceRef: TT99_B02 },
   { code: "26", label: "10. Chi phí quản lý doanh nghiệp", level: 0, accountPrefixes: ["642"], side: "debit", sourceRef: TT99_B02 },
   { code: "30", label: "11. Lợi nhuận thuần từ hoạt động kinh doanh (30 = 20 + 21 + 22 - 23 - 25 - 26)", level: 0, bold: true, expression: "20+21+22-23-25-26", sourceRef: TT99_B02 },
@@ -151,6 +153,8 @@ export const b02Lines: LineRule[] = [
   { code: "51", label: "16. Chi phí thuế TNDN hiện hành", level: 0, accountPrefixes: ["8211"], side: "debit", sourceRef: TT99_B02 },
   { code: "52", label: "17. Chi phí thuế TNDN hoãn lại", level: 0, accountPrefixes: ["8212"], side: "debit", sourceRef: TT99_B02 },
   { code: "60", label: "18. Lợi nhuận sau thuế thu nhập doanh nghiệp (60 = 50 - 51 - 52)", level: 0, bold: true, expression: "50-51-52", sourceRef: TT99_B02 },
+  { code: "70", label: "19. Lãi cơ bản trên cổ phiếu (*)", level: 0, accountPrefixes: [], sourceRef: TT99_B02, requiresManualMapping: true, manualOnly: true, nullWhenManual: true },
+  { code: "71", label: "20. Lãi suy giảm trên cổ phiếu (*)", level: 0, accountPrefixes: [], sourceRef: TT99_B02, requiresManualMapping: true, manualOnly: true, nullWhenManual: true },
 ];
 
 export const b03Lines: LineRule[] = [
@@ -174,16 +178,16 @@ export const b03Lines: LineRule[] = [
   { code: "30", label: "Lưu chuyển tiền thuần từ hoạt động đầu tư", level: 0, bold: true, expression: "21+22+23+24+25+26+27", sourceRef: TT99_B03 },
   { code: "", label: "III. Lưu chuyển tiền từ hoạt động tài chính", level: 0, bold: true, sourceRef: TT99_B03 },
   { code: "31", label: "1. Tiền thu từ phát hành cổ phiếu, nhận vốn góp của chủ sở hữu", level: 1, sourceRef: TT99_B03 },
-  { code: "32", label: "2. Tiền trả lại vốn góp cho các chủ sở hữu, mua lại cổ phiếu", level: 1, negative: true, sourceRef: TT99_B03 },
+  { code: "32", label: "2. Tiền trả lại vốn góp cho các chủ sở hữu, mua lại cổ phiếu đã phát hành", level: 1, negative: true, sourceRef: TT99_B03 },
   { code: "33", label: "3. Tiền thu từ đi vay", level: 1, sourceRef: TT99_B03 },
   { code: "34", label: "4. Tiền trả nợ gốc vay", level: 1, negative: true, sourceRef: TT99_B03 },
   { code: "35", label: "5. Tiền trả nợ gốc thuê tài chính", level: 1, negative: true, sourceRef: TT99_B03 },
   { code: "36", label: "6. Cổ tức, lợi nhuận đã trả cho chủ sở hữu", level: 1, negative: true, sourceRef: TT99_B03 },
   { code: "40", label: "Lưu chuyển tiền thuần từ hoạt động tài chính", level: 0, bold: true, expression: "31+32+33+34+35+36", sourceRef: TT99_B03 },
-  { code: "50", label: "Lưu chuyển tiền thuần trong kỳ (50 = 20 + 30 + 40)", level: 0, bold: true, expression: "20+30+40", sourceRef: TT99_B03 },
+  { code: "50", label: "Lưu chuyển tiền thuần trong kỳ (50 = 20+30+40)", level: 0, bold: true, expression: "20+30+40", sourceRef: TT99_B03 },
   { code: "60", label: "Tiền và tương đương tiền đầu kỳ", level: 0, bold: true, sourceRef: TT99_B03 },
   { code: "61", label: "Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ", level: 0, sourceRef: TT99_B03, requiresManualMapping: true },
-  { code: "70", label: "Tiền và tương đương tiền cuối kỳ (70 = 50 + 60 + 61)", level: 0, bold: true, expression: "50+60+61", sourceRef: TT99_B03 },
+  { code: "70", label: "Tiền và tương đương tiền cuối kỳ (70 = 50+60+61)", level: 0, bold: true, expression: "50+60+61", sourceRef: TT99_B03 },
 ];
 
 const legacyCashFlowRules: CashFlowRule[] = [

@@ -1,13 +1,15 @@
-import { saveAs } from "file-saver";
+import FileSaver from "file-saver";
 import { Document, Packer, Paragraph, Table, TableCell, TableRow, TextRun, WidthType } from "docx";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import * as XLSX from "xlsx";
 import type { PayableAgingResponse, RawSourceRow, TrialBalanceResponse } from "./api";
-import type { GeneratedReports, LedgerRow, NoteSection, PeriodMeta, ReportId, ReportRow } from "../types/finance";
+import type { GeneratedReports, LedgerRow, NoteBlock, NoteSection, NoteTable, PeriodMeta, ReportId, ReportRow } from "../types/finance";
 import { formatMoney, toPlainNumber } from "./format";
+import { normalizeDateOnly } from "./dateOnly";
 
 const FONT = "Arial";
+const { saveAs } = FileSaver;
 
 type ProblemCashRow = {
   journalId: number | string;
@@ -28,7 +30,20 @@ const reportNames: Record<Exclude<ReportId, "B09">, string> = {
   B03: "BÁO CÁO LƯU CHUYỂN TIỀN TỆ",
 };
 
-function aoaForReport(rows: ReportRow[], firstColumn: string, currentLabel: string, priorLabel: string) {
+export function officialAoaForReport(rows: ReportRow[], firstColumn: string, currentLabel: string, priorLabel: string) {
+  return [
+    [firstColumn, "Mã số", "Thuyết minh", currentLabel, priorLabel],
+    ...rows.map((row) => [
+      row.label,
+      row.code,
+      row.note ?? "",
+      toPlainNumber(row.current),
+      toPlainNumber(row.prior),
+    ]),
+  ];
+}
+
+export function qaAoaForReport(rows: ReportRow[], firstColumn: string, currentLabel: string, priorLabel: string) {
   return [
     [firstColumn, "Mã số", "Thuyết minh", currentLabel, priorLabel, "Công thức", "Cần mapping thủ công"],
     ...rows.map((row) => [
@@ -43,7 +58,36 @@ function aoaForReport(rows: ReportRow[], firstColumn: string, currentLabel: stri
   ];
 }
 
-export function exportExcel(reports: GeneratedReports, ledger: LedgerRow[], meta: PeriodMeta) {
+function appendReportSheets(wb: XLSX.WorkBook, reports: GeneratedReports, mode: "official" | "qa") {
+  const reportAoa = mode === "official" ? officialAoaForReport : qaAoaForReport;
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(reportAoa(reports.B01, "TÀI SẢN / NGUỒN VỐN", "Số cuối năm", "Số đầu năm")), "B01");
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(reportAoa(reports.B02, "CHỈ TIÊU", "Năm nay", "Năm trước")), "B02");
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(reportAoa(reports.B03, "Chỉ tiêu", "Năm nay", "Năm trước")), "B03");
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(notesToAoa(reports.B09)), "B09");
+}
+
+export function createOfficialWorkbook(reports: GeneratedReports, meta: PeriodMeta) {
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(
+    wb,
+    XLSX.utils.aoa_to_sheet([
+      ["Đơn vị báo cáo", meta.companyName],
+      ["Địa chỉ", meta.address],
+      ["MST", meta.taxCode],
+      ["Kỳ", `${meta.startDate} - ${meta.endDate}`],
+      ["Thông tư", "99/2025/TT-BTC"],
+    ]),
+    "Thông tin",
+  );
+  appendReportSheets(wb, reports, "official");
+  return wb;
+}
+
+export function exportOfficialExcel(reports: GeneratedReports, meta: PeriodMeta) {
+  XLSX.writeFile(createOfficialWorkbook(reports, meta), `BCTC-TT99-chinh-thuc-${meta.year || "report"}.xlsx`);
+}
+
+export function createQaWorkbook(reports: GeneratedReports, ledger: LedgerRow[], meta: PeriodMeta) {
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(
     wb,
@@ -57,14 +101,15 @@ export function exportExcel(reports: GeneratedReports, ledger: LedgerRow[], meta
     "Input Summary",
   );
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(reports.validations.map(({ severity, title, detail }) => ({ severity, title, detail }))), "Validation");
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoaForReport(reports.B01, "TÀI SẢN / NGUỒN VỐN", "Số cuối năm", "Số đầu năm")), "B01");
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoaForReport(reports.B02, "CHỈ TIÊU", "Năm nay", "Năm trước")), "B02");
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoaForReport(reports.B03, "Chỉ tiêu", "Năm nay", "Năm trước")), "B03");
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(notesToAoa(reports.B09)), "B09");
+  appendReportSheets(wb, reports, "qa");
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(reports.unclassifiedCashRows.map(rowToObject)), "Unclassified");
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(reports.cashMovements.map(movementToObject)), "Cash QA");
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(ledger.slice(0, 5000).map(rowToObject)), "Source Rows");
-  XLSX.writeFile(wb, `BCTC-TT99-${meta.year || "report"}.xlsx`);
+  return wb;
+}
+
+export function exportQaExcel(reports: GeneratedReports, ledger: LedgerRow[], meta: PeriodMeta) {
+  XLSX.writeFile(createQaWorkbook(reports, ledger, meta), `BCTC-TT99-QA-${meta.year || "report"}.xlsx`);
 }
 
 export function exportProblemWorkbook(params: {
@@ -102,7 +147,7 @@ export function exportProblemWorkbook(params: {
       params.unclassifiedCashRows.map((row) => ({
         issue_type: "B03_UNCLASSIFIED_CASH_FLOW",
         reason: row.reason || "No B03 rule matched",
-        posting_date: String(row.postingDate || "").slice(0, 10),
+        posting_date: normalizeDateOnly(row.postingDate),
         journal_id: row.journalId,
         journal_num: row.journalNum,
         cash_account: row.accountCode,
@@ -226,7 +271,7 @@ export function exportRawSourceWorkbook(params: {
         id: row.id ?? "",
         journal_id: row.journalId ?? "",
         journal_num: row.journalNum ?? "",
-        posting_date: String(row.postingDate || "").slice(0, 10),
+        posting_date: normalizeDateOnly(row.postingDate),
         status: row.status ?? "",
         account_code: row.accountCode ?? "",
         account_name: row.accountName ?? "",
@@ -257,7 +302,7 @@ function rowToObject(row: LedgerRow) {
     row: row.rowNumber,
     journal_id: row.journalId,
     group: row.entryGroupKey,
-    posting_date: row.postingDate,
+    posting_date: normalizeDateOnly(row.postingDate),
     account_code: row.accountCode,
     account_name: row.accountName,
     debit: row.debit,
@@ -282,15 +327,32 @@ function movementToObject(movement: GeneratedReports["cashMovements"][number]) {
   };
 }
 
-function notesToAoa(notes: NoteSection[]) {
+function noteBlocks(section: NoteSection): NoteBlock[] {
+  if (section.blocks) return section.blocks;
+  return [
+    ...(section.paragraphs ?? []).map((text) => ({ type: "paragraph" as const, text })),
+    ...(section.table ? [{ type: "table" as const, table: section.table }] : []),
+    ...(section.tables ?? []).map((table) => ({ type: "table" as const, table })),
+  ];
+}
+
+function noteTableRows(table: NoteTable) {
+  return table.templateRows ?? [table.columns, ...table.rows];
+}
+
+export function notesToAoa(notes: NoteSection[]) {
   const output: Array<Array<string | number>> = [];
   notes.forEach((section) => {
     output.push([section.title]);
-    section.paragraphs?.forEach((paragraph) => output.push([paragraph]));
-    if (section.table) {
-      output.push(section.table.columns);
-      section.table.rows.forEach((row) => output.push(row));
-    }
+    noteBlocks(section).forEach((block) => {
+      if (block.type === "paragraph") {
+        output.push([block.text]);
+        return;
+      }
+      if (block.table.title) output.push([block.table.title]);
+      noteTableRows(block.table).forEach((row) => output.push(row.map((value) => value === null ? "Chưa nhập" : value)));
+      output.push([]);
+    });
     output.push([]);
   });
   return output;
@@ -316,7 +378,7 @@ function reportTable(rows: ReportRow[], firstColumn: string, currentLabel: strin
           children: [
             cell(`${"  ".repeat(row.level)}${row.label}`, row.bold),
             cell(row.code, row.bold),
-            cell(row.requiresManualMapping ? "Cần mapping" : row.note ?? "", row.bold),
+            cell(row.note ?? "", row.bold),
             cell(formatMoney(row.current), row.bold),
             cell(formatMoney(row.prior), row.bold),
           ],
@@ -326,9 +388,9 @@ function reportTable(rows: ReportRow[], firstColumn: string, currentLabel: strin
   });
 }
 
-function cell(text: string, bold = false) {
+function cell(text: string, bold = false, width = 20) {
   return new TableCell({
-    width: { size: 20, type: WidthType.PERCENTAGE },
+    width: { size: width, type: WidthType.PERCENTAGE },
     children: [new Paragraph({ children: [new TextRun({ text, bold, size: 18, font: FONT })] })],
   });
 }
@@ -381,18 +443,28 @@ export async function exportDocx(reports: GeneratedReports, meta: PeriodMeta) {
 
 function noteSectionToDocx(section: NoteSection) {
   const children: Array<Paragraph | Table> = [p(section.title, true, 24)];
-  section.paragraphs?.forEach((paragraph) => children.push(p(paragraph)));
-  if (section.table) {
+  noteBlocks(section).forEach((block) => {
+    if (block.type === "paragraph") {
+      children.push(p(block.text));
+      return;
+    }
+    const table = block.table;
+    if (table.title) children.push(p(table.title, true, 20));
+    const tableRows = noteTableRows(table);
+    const columnCount = table.columnCount || Math.max(1, ...tableRows.map((row) => row.length));
     children.push(
       new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
-        rows: [
-          new TableRow({ children: section.table.columns.map((col) => cell(col, true)) }),
-          ...section.table.rows.map((row) => new TableRow({ children: row.map((value) => cell(typeof value === "number" ? formatMoney(value) : String(value))) })),
-        ],
+        rows: tableRows.map((row, rowIndex) => new TableRow({
+          children: row.map((value) => cell(
+            typeof value === "number" ? formatMoney(value) : value === null ? "Chưa nhập" : String(value),
+            rowIndex === 0,
+            100 / columnCount,
+          )),
+        })),
       }),
     );
-  }
+  });
   return children;
 }
 
@@ -423,7 +495,7 @@ export async function exportPdf(reports: GeneratedReports, meta: PeriodMeta) {
     autoTable(doc, {
       startY: 70,
       head: [[first, "Mã số", "Thuyết minh", current, prior]],
-      body: rows.map((row) => [`${"  ".repeat(row.level)}${row.label}`, row.code, row.requiresManualMapping ? "Cần mapping" : row.note ?? "", formatMoney(row.current), formatMoney(row.prior)]),
+      body: rows.map((row) => [`${"  ".repeat(row.level)}${row.label}`, row.code, row.note ?? "", formatMoney(row.current), formatMoney(row.prior)]),
       styles: { font: "Arial", fontSize: 7, cellPadding: 3, fontStyle: "normal" },
       headStyles: { fillColor: [16, 97, 99], font: "Arial", fontStyle: "normal" },
       columnStyles: { 0: { cellWidth: 300 }, 3: { halign: "right" }, 4: { halign: "right" } },
@@ -436,5 +508,41 @@ export async function exportPdf(reports: GeneratedReports, meta: PeriodMeta) {
   addReport(reportNames.B01, reports.B01, "TÀI SẢN / NGUỒN VỐN", "Số cuối năm", "Số đầu năm");
   addReport(reportNames.B02, reports.B02, "CHỈ TIÊU", "Năm nay", "Năm trước");
   addReport(reportNames.B03, reports.B03, "Chỉ tiêu", "Năm nay", "Năm trước");
+  reports.B09.forEach((section) => {
+    doc.addPage();
+    doc.setFont("Arial", "normal");
+    doc.setFontSize(13);
+    doc.text(section.title, 40, 38);
+    let cursorY = 58;
+    doc.setFontSize(8);
+    noteBlocks(section).forEach((block) => {
+      if (block.type === "paragraph") {
+        const lines = doc.splitTextToSize(block.text, 750);
+        if (cursorY + lines.length * 11 > 550) {
+          doc.addPage();
+          cursorY = 40;
+        }
+        doc.text(lines, 40, cursorY);
+        cursorY += lines.length * 11 + 5;
+        return;
+      }
+      const table = block.table;
+      if (table.title) {
+        const titleLines = doc.splitTextToSize(table.title, 760);
+        doc.text(titleLines, 40, cursorY + 4);
+        cursorY += titleLines.length * 11 + 5;
+      }
+      const tableRows = noteTableRows(table);
+      autoTable(doc, {
+        startY: cursorY + 4,
+        head: [tableRows[0].map((value) => value === null ? "" : String(value))],
+        body: tableRows.slice(1).map((row) => row.map((value) => typeof value === "number" ? formatMoney(value) : value === null ? "Chưa nhập" : String(value))),
+        styles: { font: "Arial", fontSize: 6.5, cellPadding: 2.5, fontStyle: "normal", overflow: "linebreak" },
+        headStyles: { fillColor: [16, 97, 99], font: "Arial", fontStyle: "normal" },
+        margin: { left: 40, right: 40 },
+      });
+      cursorY = ((doc as unknown as { lastAutoTable?: { finalY?: number } }).lastAutoTable?.finalY ?? cursorY) + 8;
+    });
+  });
   doc.save(`BCTC-TT99-${meta.year || "report"}.pdf`);
 }
